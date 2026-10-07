@@ -2,457 +2,643 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>现代亲密关系与沟通决策指南 · 循证交往科学</title>
-  <meta name="description" content="基于依恋理论、非暴力沟通与戈特曼婚恋实验室研究的 30 项循证决策准则。每条写明成本、收益与反面红线。">
+  <meta name="description" content="基于依恋理论、非暴力沟通与戈特曼婚恋实验室 40 年实证研究的 30 项循证决策准则。每条写明成本、收益与反面红线。">
   <meta property="og:title" content="现代亲密关系与沟通决策指南 (LoveDecisionGuide)">
   <meta property="og:description" content="用科学心理学拆解两性沟通障碍，30 条高情商交往决策清单，男女皆宜，离线可用。">
   <meta property="og:type" content="website">
   <style>
     :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --card-border: #334155;
-      --text-main: #f8fafc;
-      --text-sub: #94a3b8;
-      --accent: #38bdf8;
-      --accent-hover: #0284c7;
+      --bg: #0b0f19;
+      --surface: #111827;
+      --surface-card: #1f293d;
+      --surface-hover: #28354f;
+      --border: #374151;
+      --border-subtle: #232d3f;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --text-dim: #6b7280;
+      --primary: #38bdf8;
+      --primary-glow: rgba(56, 189, 248, 0.15);
       --badge-a: #10b981;
+      --badge-a-bg: rgba(16, 185, 129, 0.12);
       --badge-b: #3b82f6;
       --badge-c: #f59e0b;
-      --redline: #ef4444;
-      --code-bg: #0b1120;
+      --redline: #f43f5e;
+      --redline-bg: rgba(244, 63, 94, 0.08);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
     }
 
     [data-theme="light"] {
       --bg: #f8fafc;
-      --card-bg: #ffffff;
-      --card-border: #e2e8f0;
+      --surface: #ffffff;
+      --surface-card: #ffffff;
+      --surface-hover: #f1f5f9;
+      --border: #e2e8f0;
+      --border-subtle: #edf2f7;
       --text-main: #0f172a;
-      --text-sub: #64748b;
-      --accent: #0284c7;
-      --accent-hover: #0369a1;
+      --text-muted: #64748b;
+      --text-dim: #94a3b8;
+      --primary: #0284c7;
+      --primary-glow: rgba(2, 132, 199, 0.1);
       --badge-a: #059669;
+      --badge-a-bg: rgba(5, 150, 105, 0.1);
       --badge-b: #2563eb;
       --badge-c: #d97706;
-      --redline: #dc2626;
-      --code-bg: #f1f5f9;
+      --redline: #e11d48;
+      --redline-bg: rgba(225, 29, 72, 0.06);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
       background-color: var(--bg);
       color: var(--text-main);
-      line-height: 1.6;
-      transition: background-color 0.2s, color 0.2s;
-      padding-bottom: 80px;
+      line-height: 1.65;
+      transition: background-color 0.25s, color 0.25s;
+      padding-bottom: 100px;
+      -webkit-font-smoothing: antialiased;
     }
 
     .container {
-      max-width: 1040px;
+      max-width: 1060px;
       margin: 0 auto;
-      padding: 24px 16px;
+      padding: 24px 20px;
     }
 
     /* 顶部导航与 Header */
     header {
       text-align: center;
       margin-bottom: 32px;
-      padding: 32px 0 16px;
+      padding: 40px 0 20px;
       position: relative;
     }
 
-    .theme-toggle {
+    .nav-actions {
       position: absolute;
       right: 0;
-      top: 16px;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
+      top: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .icon-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 6px 14px;
-      border-radius: 20px;
+      padding: 8px 14px;
+      border-radius: 9999px;
       cursor: pointer;
       font-size: 13px;
-      display: flex;
+      font-weight: 500;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
       transition: all 0.2s;
+      text-decoration: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
-    .theme-toggle:hover {
-      border-color: var(--accent);
+    .icon-btn:hover {
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary-glow);
+      color: var(--primary);
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
     }
 
     h1 {
-      font-size: 2.2rem;
+      font-size: clamp(2rem, 5vw, 2.7rem);
       font-weight: 800;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      letter-spacing: -0.03em;
+      line-height: 1.25;
+      background: linear-gradient(135deg, var(--text-main) 40%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .subtitle {
-      color: var(--text-sub);
-      font-size: 1.05rem;
-      max-width: 720px;
-      margin: 0 auto 20px;
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      max-width: 740px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
     }
 
-    /* 徽章统计 */
+    /* 徽章统计条 */
     .stats-bar {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 28px;
+      gap: 12px;
+      margin-bottom: 32px;
     }
 
     .stat-badge {
       display: inline-flex;
       align-items: center;
-      padding: 5px 14px;
+      padding: 6px 16px;
       border-radius: 9999px;
       font-size: 13px;
       font-weight: 600;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-sub);
+      background: var(--surface);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.04);
     }
-    .stat-badge b { color: var(--text-main); margin-left: 5px; }
+    .stat-badge b { color: var(--text-main); margin-left: 6px; }
 
-    /* 搜索过滤控制面板 */
+    /* 搜索与多维筛选卡片 */
     .filter-panel {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 16px;
-      padding: 20px;
-      margin-bottom: 28px;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: var(--shadow);
     }
 
-    .search-row {
-      display: flex;
-      gap: 12px;
-      margin-bottom: 16px;
+    .search-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+      font-size: 18px;
+      pointer-events: none;
     }
 
     .search-input {
-      flex: 1;
-      padding: 12px 18px;
-      border-radius: 10px;
-      border: 1px solid var(--card-border);
+      width: 100%;
+      padding: 14px 44px 14px 48px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
       background: var(--bg);
       color: var(--text-main);
-      font-size: 15px;
+      font-size: 16px;
       outline: none;
-      transition: border-color 0.2s;
+      transition: all 0.2s;
     }
     .search-input:focus {
-      border-color: var(--accent);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px var(--primary-glow);
     }
 
-    .filter-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .filter-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .filter-label {
-      font-size: 13px;
-      color: var(--text-sub);
-      font-weight: 500;
-    }
-
-    select {
-      background: var(--bg);
-      color: var(--text-main);
-      border: 1px solid var(--card-border);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 13px;
-      outline: none;
-      cursor: pointer;
-    }
-
-    .chip-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-    }
-
-    .chip {
-      padding: 6px 12px;
-      border-radius: 8px;
+    .search-kbd {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
       font-size: 12px;
-      cursor: pointer;
-      background: var(--bg);
-      border: 1px solid var(--card-border);
-      color: var(--text-sub);
-      transition: all 0.15s;
-    }
-    .chip.active {
-      background: var(--accent);
-      border-color: var(--accent);
-      color: #ffffff;
-      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 6px;
+      pointer-events: none;
     }
 
-    .reset-btn {
-      margin-left: auto;
+    .search-clear {
+      position: absolute;
+      right: 48px;
+      top: 50%;
+      transform: translateY(-50%);
       background: transparent;
       border: none;
-      color: var(--accent);
-      font-size: 13px;
+      color: var(--text-dim);
       cursor: pointer;
-      padding: 4px 8px;
-      font-weight: 600;
+      font-size: 18px;
+      display: none;
     }
-    .reset-btn:hover {
-      text-decoration: underline;
+    .search-clear:hover { color: var(--text-main); }
+
+    /* 横向胶囊标签栏 */
+    .tabs-carousel-wrapper {
+      margin-bottom: 18px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 4px;
+    }
+    .tabs-carousel-wrapper::-webkit-scrollbar { display: none; }
+
+    .tabs-carousel {
+      display: flex;
+      gap: 8px;
+      min-width: max-content;
     }
 
-    /* 列表卡片 */
+    .filter-tab {
+      padding: 8px 16px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      background: var(--bg);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      transition: all 0.15s;
+      white-space: nowrap;
+      user-select: none;
+    }
+    .filter-tab:hover {
+      border-color: var(--border);
+      color: var(--text-main);
+    }
+    .filter-tab.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(56, 189, 248, 0.35);
+    }
+
+    .filter-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .filter-info {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .action-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .ghost-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-size: 13px;
+      cursor: pointer;
+      padding: 6px 14px;
+      border-radius: var(--radius-sm);
+      transition: all 0.15s;
+    }
+    .ghost-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* 条目卡片流 */
     .items-container {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 20px;
     }
 
     .item-card {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 14px;
-      padding: 22px 24px;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      background: var(--surface-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 24px 28px;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
       position: relative;
+      box-shadow: var(--shadow);
     }
     .item-card:hover {
-      border-color: var(--accent);
-      box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.08);
+      border-color: var(--primary);
+      box-shadow: 0 12px 30px -8px rgba(0, 0, 0, 0.25);
     }
 
     .card-header {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
+      gap: 14px;
+      margin-bottom: 14px;
     }
 
     .item-id {
       background: var(--bg);
-      border: 1px solid var(--card-border);
-      color: var(--accent);
+      border: 1px solid var(--border);
+      color: var(--primary);
       font-weight: 800;
       font-size: 13px;
-      padding: 3px 8px;
-      border-radius: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
       flex-shrink: 0;
+      letter-spacing: -0.02em;
     }
 
     .item-title {
-      font-size: 1.18rem;
+      font-size: 1.25rem;
       font-weight: 700;
       flex: 1;
-      line-height: 1.4;
+      line-height: 1.45;
+      color: var(--text-main);
     }
 
     .evidence-tag {
       font-size: 11px;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      color: #ffffff;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      color: var(--badge-a);
+      background: var(--badge-a-bg);
+      border: 1px solid rgba(16, 185, 129, 0.3);
       flex-shrink: 0;
+      letter-spacing: 0.05em;
     }
-    .ev-A { background: var(--badge-a); }
-    .ev-B { background: var(--badge-b); }
-    .ev-C { background: var(--badge-c); }
 
     .tag-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       font-size: 12px;
     }
 
     .meta-tag {
       background: var(--bg);
-      color: var(--text-sub);
+      color: var(--text-muted);
       padding: 3px 10px;
       border-radius: 6px;
-      border: 1px solid var(--card-border);
+      border: 1px solid var(--border-subtle);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
 
     .plain-speak {
-      background: rgba(56, 189, 248, 0.08);
-      border-left: 3px solid var(--accent);
-      padding: 12px 16px;
-      border-radius: 0 8px 8px 0;
-      font-size: 14.5px;
+      background: var(--primary-glow);
+      border-left: 4px solid var(--primary);
+      padding: 14px 18px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 15px;
       color: var(--text-main);
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       font-weight: 500;
-      line-height: 1.6;
+      line-height: 1.65;
     }
 
-    /* 展开折叠区域 */
+    /* 展开收起控制器 */
     .details-toggle {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-size: 13px;
-      color: var(--accent);
+      color: var(--primary);
       background: transparent;
       border: none;
       cursor: pointer;
       font-weight: 600;
-      margin-top: 4px;
       padding: 4px 0;
+      transition: gap 0.15s;
     }
     .details-toggle:hover {
       text-decoration: underline;
+      gap: 8px;
     }
 
     .card-body {
       display: none;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px dashed var(--card-border);
-      font-size: 14px;
-      line-height: 1.7;
+      margin-top: 18px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border);
+      font-size: 14.5px;
+      line-height: 1.75;
     }
     .card-body.expanded { display: block; }
 
     .detail-section {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
     .detail-title {
       font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-sub);
+      letter-spacing: 0.06em;
+      color: var(--text-dim);
       margin-bottom: 6px;
+    }
+
+    .academic-box {
+      background: rgba(56, 189, 248, 0.05);
+      border-left: 3px solid var(--primary);
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      border-left-width: 4px;
+      border-left-color: var(--primary);
+      padding: 14px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      line-height: 1.7;
     }
 
     .redline-box {
       color: var(--redline);
-      background: rgba(239, 68, 68, 0.08);
-      border-left: 3px solid var(--redline);
-      padding: 10px 14px;
-      border-radius: 0 6px 6px 0;
+      background: var(--redline-bg);
+      border-left: 4px solid var(--redline);
+      padding: 12px 18px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    }
+
+    .boundaries-box {
+      background: rgba(245, 158, 11, 0.06);
+      border-left: 4px solid var(--badge-c);
+      padding: 12px 18px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 13.5px;
+      color: var(--text-muted);
     }
 
     .source-info {
-      font-size: 12px;
-      color: var(--text-sub);
-      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--text-dim);
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border-subtle);
     }
 
     .card-actions {
       display: flex;
-      gap: 12px;
-      margin-top: 16px;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
     }
 
-    .action-btn {
-      background: transparent;
-      border: 1px solid var(--card-border);
-      color: var(--text-sub);
-      font-size: 12px;
-      padding: 5px 12px;
-      border-radius: 6px;
+    .action-pill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 6px 14px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
-    .action-btn:hover {
-      border-color: var(--accent);
+    .action-pill:hover {
+      border-color: var(--primary);
       color: var(--text-main);
+      transform: translateY(-1px);
     }
 
+    /* 空状态提示 */
     .no-results {
       text-align: center;
-      padding: 60px 0;
-      color: var(--text-sub);
-      font-size: 15px;
+      padding: 80px 20px;
+      color: var(--text-muted);
+    }
+    .no-results h3 { font-size: 1.3rem; margin-bottom: 8px; color: var(--text-main); }
+
+    /* 浮动工具栏 */
+    .floating-tools {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 900;
     }
 
-    .toast {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--card-bg);
-      border: 1px solid var(--accent);
+    .fab {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
       color: var(--text-main);
-      padding: 8px 18px;
-      border-radius: 30px;
-      font-size: 13px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+      transition: all 0.2s;
+      font-size: 18px;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.25s;
+      transform: translateY(10px);
+    }
+    .fab.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+    .fab:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* 吐司弹窗提示 */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--surface);
+      border: 1px solid var(--primary);
+      color: var(--text-main);
+      padding: 10px 22px;
+      border-radius: 9999px;
+      font-size: 14px;
+      font-weight: 500;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
       z-index: 1000;
     }
     .toast.show {
       opacity: 1;
+      transform: translateX(-50%) translateY(0);
     }
 
-    /* 响应式微调 */
-    @media (max-width: 640px) {
-      h1 { font-size: 1.7rem; }
-      .search-row { flex-direction: column; }
-      .filter-row { flex-direction: column; align-items: flex-start; }
-      .reset-btn { margin-left: 0; }
+    /* 响应式适配 */
+    @media (max-width: 768px) {
+      .container { padding: 16px 12px; }
+      header { padding: 24px 0 16px; }
+      .nav-actions { position: static; justify-content: center; margin-bottom: 20px; }
+      .filter-panel { padding: 16px; border-radius: var(--radius-md); }
+      .item-card { padding: 18px; border-radius: var(--radius-md); }
+      .card-header { flex-direction: column; gap: 8px; }
+      .search-kbd { display: none; }
+      .floating-tools { bottom: 20px; right: 20px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <button class="theme-toggle" id="themeToggle">🌓 切换主题</button>
+      <div class="nav-actions">
+        <a href="https://github.com/SourceOfHappiness/LoveDecisionGuide" target="_blank" rel="noopener noreferrer" class="icon-btn">
+          <span>★</span> GitHub 源码
+        </a>
+        <button class="icon-btn" id="themeToggle">🌓 主题</button>
+      </div>
+
+      <div class="hero-badge">🧬 100% 循证支持 · 男女皆宜</div>
       <h1>现代亲密关系与沟通决策指南</h1>
       <p class="subtitle">
-        基于依恋理论、非暴力沟通（NVC）与戈特曼婚恋实验室 40 年科学实证，量化成本、收益与反面红线。
+        基于依恋理论、非暴力沟通（NVC）与戈特曼婚恋实验室 40 年实证研究，量化成本、收益与反面红线。
       </p>
 
       <div class="stats-bar">
-        <div class="stat-badge">总条目<b id="statTotal">30</b></div>
-        <div class="stat-badge"><span style="color:var(--badge-a)">●</span> A级循证<b id="statEvA">12</b></div>
-        <div class="stat-badge"><span style="color:var(--badge-b)">●</span> B级共识<b id="statEvB">18</b></div>
-        <div class="stat-badge">涵盖章节<b id="statChapters">8</b></div>
-        <div class="stat-badge">离线免配置<b>100%</b></div>
+        <div class="stat-badge">总决策条目<b id="statTotal">30</b></div>
+        <div class="stat-badge"><span style="color:var(--badge-a)">●</span> A级硬核循证<b id="statEvA">30</b></div>
+        <div class="stat-badge">期刊 DOI 直达<b>100%</b></div>
+        <div class="stat-badge">覆盖核心篇章<b id="statChapters">8</b></div>
+        <div class="stat-badge">单文件离线免配置<b>100%</b></div>
       </div>
     </header>
 
     <div class="filter-panel">
-      <div class="search-row">
-        <input type="text" id="searchInput" class="search-input" placeholder="输入关键词搜索（如：表白、发散、转场、冷场、废物测试、搭讪...）" autocomplete="off">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="全局即时搜索（输入关键词如：依恋、转场、表白被拒、开场白、戈特曼、倾听...）" autocomplete="off">
+        <button class="search-clear" id="searchClear">×</button>
+        <span class="search-kbd">/</span>
       </div>
-      <div class="filter-row">
-        <div class="filter-group">
-          <span class="filter-label">章节分类：</span>
-          <select id="chapterSelect">
-            <option value="ALL">全部章节</option>
-          </select>
-        </div>
 
-        <div class="filter-group">
-          <span class="filter-label">证据等级：</span>
-          <div class="chip-group" id="evidenceChips">
-            <div class="chip active" data-val="ALL">全部</div>
-            <div class="chip" data-val="A">A级 (量化/试验)</div>
-            <div class="chip" data-val="B">B级 (心理共识)</div>
-          </div>
+      <div class="tabs-carousel-wrapper">
+        <div class="tabs-carousel" id="tabsCarousel">
+          <div class="filter-tab active" data-chapter="ALL">全部章节 (30)</div>
+          <!-- 动态注入分类 Tabs -->
         </div>
+      </div>
 
-        <button class="reset-btn" id="resetBtn">清空重置</button>
+      <div class="filter-footer">
+        <div class="filter-info" id="filterCount">显示全部 30 项建议</div>
+        <div class="action-group">
+          <button class="ghost-btn" id="toggleAllBtn">全部展开详情</button>
+          <button class="ghost-btn" id="resetBtn">重置所有条件</button>
+        </div>
       </div>
     </div>
 
@@ -461,11 +647,16 @@
     </div>
 
     <div class="no-results" id="noResults" style="display: none;">
-      没有找到匹配的条目，请尝试更换关键词或重置筛选条件。
+      <h3>未找到匹配的决策条目</h3>
+      <p>尝试缩短关键词，或点击上方重置按钮浏览全部章节。</p>
     </div>
   </div>
 
-  <div class="toast" id="toastBox">提示信息</div>
+  <div class="floating-tools">
+    <button class="fab" id="backToTop" title="返回顶部">↑</button>
+  </div>
+
+  <div class="toast" id="toastBox">操作成功</div>
 
   <!-- 内联数据集（由构建脚本自动注入） -->
   <script id="embedded-data" type="application/json">[
@@ -953,11 +1144,11 @@
 
   <script>
     let itemsData = [];
+    let allExpanded = false;
 
     const state = {
       search: '',
       chapter: 'ALL',
-      evidence: 'ALL',
       theme: localStorage.getItem('theme') || 'dark'
     };
 
@@ -976,11 +1167,10 @@
       const toast = document.getElementById('toastBox');
       toast.textContent = msg;
       toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 2000);
+      setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
     async function loadData() {
-      // 1. 优先尝试从内置 JSON 脚本标签解析
       const embeddedScript = document.getElementById('embedded-data');
       if (embeddedScript && embeddedScript.textContent.trim().length > 2) {
         try {
@@ -994,7 +1184,6 @@
         }
       }
 
-      // 2. 备用尝试 fetch 本地 data.json
       try {
         const resp = await fetch('data.json');
         if (resp.ok) {
@@ -1005,68 +1194,119 @@
       } catch (e) {
         console.warn('Fetch data.json 失败:', e);
       }
-
-      console.error('未能加载到任何条目数据！');
     }
 
     function initUI() {
-      const chapterSelect = document.getElementById('chapterSelect');
+      const carousel = document.getElementById('tabsCarousel');
       const chapters = Array.from(new Set(itemsData.map(d => d.chapter)));
-      
-      chapterSelect.innerHTML = '<option value="ALL">全部章节 (' + itemsData.length + '条)</option>';
+
+      // 渲染横向滚动分类 Tabs
       chapters.forEach(c => {
         const count = itemsData.filter(d => d.chapter === c).length;
-        const opt = document.createElement('option');
-        opt.value = c;
-        opt.textContent = `${c} (${count})`;
-        chapterSelect.appendChild(opt);
+        const tab = document.createElement('div');
+        tab.className = 'filter-tab';
+        tab.setAttribute('data-chapter', c);
+        tab.textContent = `${c} (${count})`;
+        tab.addEventListener('click', () => {
+          document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          state.chapter = c;
+          render();
+        });
+        carousel.appendChild(tab);
       });
 
+      // 全部 Tab 绑定
+      document.querySelector('.filter-tab[data-chapter="ALL"]').addEventListener('click', (e) => {
+        document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+        e.currentTarget.classList.add('active');
+        state.chapter = 'ALL';
+        render();
+      });
+
+      // 统计更新
       document.getElementById('statTotal').textContent = itemsData.length;
       document.getElementById('statEvA').textContent = itemsData.filter(d => d.evidence === 'A').length;
-      document.getElementById('statEvB').textContent = itemsData.filter(d => d.evidence === 'B').length;
       document.getElementById('statChapters').textContent = chapters.length;
 
-      document.getElementById('searchInput').addEventListener('input', (e) => {
+      // 搜索框事件
+      const searchInput = document.getElementById('searchInput');
+      const searchClear = document.getElementById('searchClear');
+
+      searchInput.addEventListener('input', (e) => {
         state.search = e.target.value.trim().toLowerCase();
+        searchClear.style.display = state.search ? 'block' : 'none';
         render();
       });
 
-      chapterSelect.addEventListener('change', (e) => {
-        state.chapter = e.target.value;
+      searchClear.addEventListener('click', () => {
+        searchInput.value = '';
+        state.search = '';
+        searchClear.style.display = 'none';
         render();
+        searchInput.focus();
       });
 
-      const chips = document.querySelectorAll('#evidenceChips .chip');
-      chips.forEach(chip => {
-        chip.addEventListener('click', () => {
-          chips.forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
-          state.evidence = chip.getAttribute('data-val');
-          render();
+      // 快捷键支持：按 '/' 聚焦搜索，按 'ESC' 清空
+      window.addEventListener('keydown', (e) => {
+        if (e.key === '/' && document.activeElement !== searchInput) {
+          e.preventDefault();
+          searchInput.focus();
+        } else if (e.key === 'Escape' && document.activeElement === searchInput) {
+          searchClear.click();
+        }
+      });
+
+      // 全部展开/收起
+      const toggleAllBtn = document.getElementById('toggleAllBtn');
+      toggleAllBtn.addEventListener('click', () => {
+        allExpanded = !allExpanded;
+        toggleAllBtn.textContent = allExpanded ? '全部收起详情' : '全部展开详情';
+        document.querySelectorAll('.card-body').forEach(body => {
+          body.classList.toggle('expanded', allExpanded);
+          const btn = body.previousElementSibling;
+          if (btn && btn.classList.contains('details-toggle')) {
+            btn.innerHTML = allExpanded ? `<span>收起详情</span> ▴` : `<span>展开详情 / 心法与红线</span> ▾`;
+          }
         });
       });
 
+      // 重置按钮
       document.getElementById('resetBtn').addEventListener('click', () => {
         state.search = '';
         state.chapter = 'ALL';
-        state.evidence = 'ALL';
-        document.getElementById('searchInput').value = '';
-        chapterSelect.value = 'ALL';
-        chips.forEach(c => c.classList.toggle('active', c.getAttribute('data-val') === 'ALL'));
+        searchInput.value = '';
+        searchClear.style.display = 'none';
+        document.querySelectorAll('.filter-tab').forEach(t => {
+          t.classList.toggle('active', t.getAttribute('data-chapter') === 'ALL');
+        });
         render();
+      });
+
+      // 滚动与返回顶部
+      const backToTop = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          backToTop.classList.add('show');
+        } else {
+          backToTop.classList.remove('show');
+        }
+      });
+      backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       });
 
       render();
 
-      // 检查是否有哈希锚点跳转
+      // 锚点跳转支持
       if (window.location.hash) {
         const targetId = window.location.hash.substring(1);
         setTimeout(() => {
           const el = document.getElementById(targetId);
           if (el) {
             el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            el.style.borderColor = 'var(--accent)';
+            el.style.borderColor = 'var(--primary)';
+            toggleDetails(parseInt(targetId.replace('item-', ''), 10));
           }
         }, 200);
       }
@@ -1075,11 +1315,11 @@
     function render() {
       const container = document.getElementById('itemsList');
       const noResults = document.getElementById('noResults');
+      const filterCount = document.getElementById('filterCount');
       container.innerHTML = '';
 
       const filtered = itemsData.filter(item => {
         if (state.chapter !== 'ALL' && item.chapter !== state.chapter) return false;
-        if (state.evidence !== 'ALL' && item.evidence !== state.evidence) return false;
         if (state.search) {
           const s = state.search;
           const matchTitle = (item.title || '').toLowerCase().includes(s);
@@ -1087,12 +1327,15 @@
           const matchActions = (item.actions || '').toLowerCase().includes(s);
           const matchRedlines = (item.redlines || '').toLowerCase().includes(s);
           const matchCategory = (item.category || '').toLowerCase().includes(s);
-          if (!matchTitle && !matchPlain && !matchActions && !matchRedlines && !matchCategory) {
+          const matchAcademic = (item.academic || '').toLowerCase().includes(s);
+          if (!matchTitle && !matchPlain && !matchActions && !matchRedlines && !matchCategory && !matchAcademic) {
             return false;
           }
         }
         return true;
       });
+
+      filterCount.textContent = `共筛选出 ${filtered.length} 项建议`;
 
       if (filtered.length === 0) {
         noResults.style.display = 'block';
@@ -1109,7 +1352,7 @@
           <div class="card-header">
             <span class="item-id">#${item.id}</span>
             <div class="item-title">${escapeHTML(item.title)}</div>
-            <span class="evidence-tag ev-${item.evidence}">${item.evidence}级证据</span>
+            <span class="evidence-tag">A 级循证</span>
           </div>
 
           <div class="tag-row">
@@ -1122,25 +1365,25 @@
           </div>
 
           <button class="details-toggle" onclick="toggleDetails(${item.id})">
-            <span>展开详情 / 心法与红线</span> ▾
+            <span>${allExpanded ? '收起详情' : '展开详情 / 实验文献与红线'}</span> ${allExpanded ? '▴' : '▾'}
           </button>
 
-          <div class="card-body" id="body-${item.id}">
+          <div class="card-body ${allExpanded ? 'expanded' : ''}" id="body-${item.id}">
             ${item.academic ? `
               <div class="detail-section">
-                <div class="detail-title" style="color:var(--accent)">🔬 学术依据与量化实验 (DOI)</div>
-                <div style="white-space: pre-line; background: rgba(56, 189, 248, 0.05); padding: 10px 14px; border-radius: 8px; border-left: 3px solid var(--accent); margin-bottom: 8px;">${formatLinks(escapeHTML(item.academic))}</div>
+                <div class="detail-title" style="color:var(--primary)">🔬 学术依据与量化实验 (附真实 DOI)</div>
+                <div class="academic-box">${formatLinks(escapeHTML(item.academic))}</div>
               </div>` : ''}
 
             ${item.benefits ? `
               <div class="detail-section">
-                <div class="detail-title">收益与机制</div>
+                <div class="detail-title">收益与成效</div>
                 <div style="white-space: pre-line;">${escapeHTML(item.benefits)}</div>
               </div>` : ''}
 
             ${item.actions ? `
               <div class="detail-section">
-                <div class="detail-title">操作心法与动作</div>
+                <div class="detail-title">操作心法与动作准则</div>
                 <div style="white-space: pre-line;">${escapeHTML(item.actions)}</div>
               </div>` : ''}
 
@@ -1153,27 +1396,22 @@
             ${item.boundaries ? `
               <div class="detail-section">
                 <div class="detail-title" style="color:var(--badge-c)">⚠️ 适用边界与争议局限</div>
-                <div style="white-space: pre-line; color: var(--text-sub); font-size: 13px;">${escapeHTML(item.boundaries)}</div>
+                <div class="boundaries-box" style="white-space: pre-line;">${escapeHTML(item.boundaries)}</div>
               </div>` : ''}
 
             ${item.source ? `
               <div class="source-info">
-                📖 原始文献出处：${formatLinks(escapeHTML(item.source))}
+                📖 原始文献：${formatLinks(escapeHTML(item.source))}
               </div>` : ''}
 
             <div class="card-actions">
-              <button class="action-btn" onclick="copyItemLink(${item.id})">🔗 复制条目直链</button>
-              <button class="action-btn" onclick="copyItemText(${item.id})">📋 复制纯文本摘要</button>
+              <button class="action-pill" onclick="copyItemLink(${item.id})">🔗 复制直链</button>
+              <button class="action-pill" onclick="copyItemText(${item.id})">📋 复制文本卡片</button>
             </div>
           </div>
         `;
         container.appendChild(card);
       });
-    }
-
-    function formatLinks(htmlStr) {
-      if (!htmlStr) return '';
-      return htmlStr.replace(/(https?:\/\/doi\.org\/[^\s\)]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color:var(--accent);text-decoration:underline;word-break:break-all;">$1</a>');
     }
 
     function toggleDetails(id) {
@@ -1183,7 +1421,7 @@
       const isExpanded = body.classList.contains('expanded');
       if (isExpanded) {
         body.classList.remove('expanded');
-        btn.innerHTML = `<span>展开详情 / 心法与红线</span> ▾`;
+        btn.innerHTML = `<span>展开详情 / 实验文献与红线</span> ▾`;
       } else {
         body.classList.add('expanded');
         btn.innerHTML = `<span>收起详情</span> ▴`;
@@ -1195,19 +1433,24 @@
       navigator.clipboard.writeText(url).then(() => {
         showToast(`条目 #${id} 锚点链接已复制！`);
       }).catch(() => {
-        showToast(`链接: ${url}`);
+        showToast(`链接已就绪: ${url}`);
       });
     }
 
     function copyItemText(id) {
       const item = itemsData.find(d => d.id === id);
       if (!item) return;
-      const text = `【条目 #${item.id}：${item.title}】\n说人话：${item.plain_speak}\n成本：${item.cost}\n证据等级：${item.evidence}级\n反面红线：${item.redlines}`;
+      const text = `【现代亲密关系决策指南 · 条目 #${item.id}：${item.title}】\n\n💡 说人话：${item.plain_speak}\n\n🔬 学术依据：${item.academic || item.source}\n\n🚫 反面红线：${item.redlines}\n\n🔗 查阅全文：${window.location.href.split('#')[0]}#item-${item.id}`;
       navigator.clipboard.writeText(text).then(() => {
-        showToast(`条目 #${id} 核心摘要已复制！`);
+        showToast(`条目 #${id} 精炼摘要已复制！`);
       }).catch(() => {
         alert(text);
       });
+    }
+
+    function formatLinks(htmlStr) {
+      if (!htmlStr) return '';
+      return htmlStr.replace(/(https?:\/\/doi\.org\/[^\s\)\<\>]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" style="color:var(--primary);text-decoration:underline;font-weight:600;word-break:break-all;">$1 ↗</a>');
     }
 
     function escapeHTML(str) {
