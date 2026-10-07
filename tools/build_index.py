@@ -34,9 +34,11 @@ def parse_markdown_files():
                 'cost': '',
                 'plain_speak': '',
                 'benefits': '',
-                'evidence': 'B',
+                'evidence': 'A',
+                'academic': '',
                 'actions': '',
                 'redlines': '',
+                'boundaries': '',
                 'source': ''
             }
             
@@ -54,12 +56,18 @@ def parse_markdown_files():
             
             ev_m = re.search(r'-\s+\*\*证据等级\*\*：([ABC])', body)
             if ev_m: item['evidence'] = ev_m.group(1).strip()
+
+            acad_m = re.search(r'-\s+\*\*学术依据与实验\*\*：(.*?)(?=\n-\s+\*\*|\Z)', body, re.DOTALL)
+            if acad_m: item['academic'] = acad_m.group(1).strip()
             
             act_m = re.search(r'-\s+\*\*操作心法\*\*：(.*?)(?=\n-\s+\*\*|\Z)', body, re.DOTALL)
             if act_m: item['actions'] = act_m.group(1).strip()
             
             red_m = re.search(r'-\s+\*\*反面红线\*\*：(.*?)(?=\n-\s+\*\*|\Z)', body, re.DOTALL)
             if red_m: item['redlines'] = red_m.group(1).strip()
+
+            bound_m = re.search(r'-\s+\*\*适用边界与争议\*\*：(.*?)(?=\n-\s+\*\*|\Z)', body, re.DOTALL)
+            if bound_m: item['boundaries'] = bound_m.group(1).strip()
             
             src_m = re.search(r'-\s+\*\*来源\*\*：(.*?)(?=\n-|\n\n|\Z)', body, re.DOTALL)
             if src_m: item['source'] = src_m.group(1).strip()
@@ -73,6 +81,13 @@ def main():
     items = parse_markdown_files()
     print(f'成功解析 {len(items)} 条规范建议。')
     
+    # 统计数据
+    ev_counts = {'A': 0, 'B': 0, 'C': 0}
+    for it in items:
+        ev_counts[it['evidence']] = ev_counts.get(it['evidence'], 0) + 1
+        
+    print(f"证据分级分布: A={ev_counts['A']}, B={ev_counts['B']}, C={ev_counts['C']}")
+
     # 保存 data.json
     json_str = json.dumps(items, ensure_ascii=False, indent=2)
     with open(OUTPUT_JSON, 'w', encoding='utf-8') as f:
