@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>情感宝典 · 循证高情商交往决策指南</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --accent: #38bdf8;
+      --accent-hover: #0284c7;
+      --badge-a: #10b981;
+      --badge-b: #3b82f6;
+      --badge-c: #f59e0b;
+      --redline: #ef4444;
+      --code-bg: #0b1120;
+    }
+
+    [data-theme="light"] {
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --text-main: #0f172a;
+      --text-sub: #64748b;
+      --accent: #0284c7;
+      --accent-hover: #0369a1;
+      --badge-a: #059669;
+      --badge-b: #2563eb;
+      --badge-c: #d97706;
+      --redline: #dc2626;
+      --code-bg: #f1f5f9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background-color: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      transition: background-color 0.2s, color 0.2s;
+      padding-bottom: 80px;
+    }
+
+    .container {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 24px 16px;
+    }
+
+    /* 顶部导航与 Header */
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 32px 0 16px;
+      position: relative;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      right: 0;
+      top: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .theme-toggle:hover {
+      border-color: var(--accent);
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      color: var(--text-sub);
+      font-size: 1.05rem;
+      max-width: 720px;
+      margin: 0 auto 20px;
+    }
+
+    /* 徽章统计 */
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+
+    .stat-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-sub);
+    }
+    .stat-badge b { color: var(--text-main); margin-left: 5px; }
+
+    /* 搜索过滤控制面板 */
+    .filter-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 12px 18px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: var(--bg);
+      color: var(--text-main);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input:focus {
+      border-color: var(--accent);
+    }
+
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .filter-label {
+      font-size: 13px;
+      color: var(--text-sub);
+      font-weight: 500;
+    }
+
+    select {
+      background: var(--bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      background: var(--bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-sub);
+      transition: all 0.15s;
+    }
+    .chip.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .reset-btn {
+      margin-left: auto;
+      background: transparent;
+      border: none;
+      color: var(--accent);
+      font-size: 13px;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-weight: 600;
+    }
+    .reset-btn:hover {
+      text-decoration: underline;
+    }
+
+    /* 列表卡片 */
+    .items-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 22px 24px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+    .item-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.08);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .item-id {
+      background: var(--bg);
+      border: 1px solid var(--card-border);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 13px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      flex-shrink: 0;
+    }
+
+    .item-title {
+      font-size: 1.18rem;
+      font-weight: 700;
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .evidence-tag {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+    .ev-A { background: var(--badge-a); }
+    .ev-B { background: var(--badge-b); }
+    .ev-C { background: var(--badge-c); }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 12px;
+    }
+
+    .meta-tag {
+      background: var(--bg);
+      color: var(--text-sub);
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--card-border);
+    }
+
+    .plain-speak {
+      background: rgba(56, 189, 248, 0.08);
+      border-left: 3px solid var(--accent);
+      padding: 12px 16px;
+      border-radius: 0 8px 8px 0;
+      font-size: 14.5px;
+      color: var(--text-main);
+      margin-bottom: 14px;
+      font-weight: 500;
+      line-height: 1.6;
+    }
+
+    /* 展开折叠区域 */
+    .details-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--accent);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 4px;
+      padding: 4px 0;
+    }
+    .details-toggle:hover {
+      text-decoration: underline;
+    }
+
+    .card-body {
+      display: none;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px dashed var(--card-border);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .card-body.expanded { display: block; }
+
+    .detail-section {
+      margin-bottom: 14px;
+    }
+    .detail-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+
+    .redline-box {
+      color: var(--redline);
+      background: rgba(239, 68, 68, 0.08);
+      border-left: 3px solid var(--redline);
+      padding: 10px 14px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .source-info {
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-top: 12px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .action-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-sub);
+      font-size: 12px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .action-btn:hover {
+      border-color: var(--accent);
+      color: var(--text-main);
+    }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 0;
+      color: var(--text-sub);
+      font-size: 15px;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--card-bg);
+      border: 1px solid var(--accent);
+      color: var(--text-main);
+      padding: 8px 18px;
+      border-radius: 30px;
+      font-size: 13px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s;
+      z-index: 1000;
+    }
+    .toast.show {
+      opacity: 1;
+    }
+
+    /* 响应式微调 */
+    @media (max-width: 640px) {
+      h1 { font-size: 1.7rem; }
+      .search-row { flex-direction: column; }
+      .filter-row { flex-direction: column; align-items: flex-start; }
+      .reset-btn { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <button class="theme-toggle" id="themeToggle">🌓 切换主题</button>
+      <h1>情感宝典 · 循证高情商指南</h1>
+      <p class="subtitle">
+        以两性心理学、社会交换模型与 110 页实战经验为基石，每条量化成本、收益与反面红线。
+      </p>
+
+      <div class="stats-bar">
+        <div class="stat-badge">总条目<b id="statTotal">30</b></div>
+        <div class="stat-badge"><span style="color:var(--badge-a)">●</span> A级循证<b id="statEvA">12</b></div>
+        <div class="stat-badge"><span style="color:var(--badge-b)">●</span> B级共识<b id="statEvB">18</b></div>
+        <div class="stat-badge">涵盖章节<b id="statChapters">8</b></div>
+        <div class="stat-badge">离线免配置<b>100%</b></div>
+      </div>
+    </header>
+
+    <div class="filter-panel">
+      <div class="search-row">
+        <input type="text" id="searchInput" class="search-input" placeholder="输入关键词搜索（如：表白、发散、转场、冷场、废物测试、搭讪...）" autocomplete="off">
+      </div>
+      <div class="filter-row">
+        <div class="filter-group">
+          <span class="filter-label">章节分类：</span>
+          <select id="chapterSelect">
+            <option value="ALL">全部章节</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-label">证据等级：</span>
+          <div class="chip-group" id="evidenceChips">
+            <div class="chip active" data-val="ALL">全部</div>
+            <div class="chip" data-val="A">A级 (量化/试验)</div>
+            <div class="chip" data-val="B">B级 (心理共识)</div>
+          </div>
+        </div>
+
+        <button class="reset-btn" id="resetBtn">清空重置</button>
+      </div>
+    </div>
+
+    <div class="items-container" id="itemsList">
+      <!-- 动态卡片列表渲染 -->
+    </div>
+
+    <div class="no-results" id="noResults" style="display: none;">
+      没有找到匹配的条目，请尝试更换关键词或重置筛选条件。
+    </div>
+  </div>
+
+  <div class="toast" id="toastBox">提示信息</div>
+
+  <!-- 内联数据集（由构建脚本自动注入） -->
+  <script id="embedded-data" type="application/json">[
+  {
+    "id": 1,
+    "title": "严格遵守「恋爱六阶段模型」，禁止跳级与跨阶段操作",
+    "chapter": "01-底层逻辑与心态",
+    "file": "01-底层逻辑与心态.md",
+    "category": "底层逻辑 · 进程控制",
+    "cost": "几乎零金钱；需抑制急躁冲动；需要 1-2 周的耐心观察与节奏把控。",
+    "plain_speak": "认识、熟悉、吸引、追求、诱惑、长期相处，这六步必须按顺序走。没建立吸引前去表白必死无疑；没建立熟悉前去约会容易被当骗子。",
+    "benefits": "- 彻底规避 90% 以上男生的典型死因「表白死」（未吸引先示好）；\n  - 避免过早暴露需求感导致的贬值与被动；\n  - 明确知道当前处于什么状态，该做什么动作，不瞎打乱撞。",
+    "evidence": "B",
+    "actions": "1. **认识阶段**：仅完成信息互换与好友添加，建立最初步的安全感；\n  2. **熟悉阶段**：双方放下手机能记住彼此 2-3 个核心特质，彼此感觉是一个正常人；\n  3. **吸引阶段（重中之重，占60%精力）**：展示生存与繁衍价值（形象、情绪、品位、生活），让她对你产生好奇与好感；\n  4. **追求阶段**：展示「靠谱」与「专一」，进行适度走心沟通，让她知道你不仅优秀而且值得托付；\n  5. **诱惑阶段**：语言调侃升级与线下约会肢体接触（牵手、拥抱、接吻）；\n  6. **长期相处**：规则建立、共同投资、生活渗透与价值观磨合。",
+    "redlines": "- 严禁在「吸引阶段」之前表白（表白是胜利的凯歌，不是冲锋的号角）；\n  - 严禁「约吗」式直奔诱惑（直接跳过熟悉与吸引，极度轻浮）；\n  - 严禁缺失吸引直接进入老好人式照顾（必入友谊区/备胎）。",
+    "source": "第一篇 第四节、第五节"
+  },
+  {
+    "id": 2,
+    "title": "建立「成长型心智」，放弃宿命论成败心态",
+    "chapter": "01-底层逻辑与心态",
+    "file": "01-底层逻辑与心态.md",
+    "category": "心智建设 · 自我认知",
+    "cost": "零金钱；需要打破过去自我否定的认知惯性。",
+    "plain_speak": "追女生不是考试打分，而是一门社交技能。被拒绝不等于你一无是处，只是这个阶段的策略或匹配度不对，总结经验升级认知即可。",
+    "benefits": "- 消除对女生冷淡和拒绝的灾难化心理恐惧；\n  - 大幅缩短被拒后的情绪恢复期（从数周缩短至几分钟）；\n  - 具备持续迭代外形、沟通和社交能力的动力。",
+    "evidence": "A",
+    "actions": "1. **障碍区认知**：在刚开始学习形象打理、线上聊天、线下约会时，必然存在挫败期和笨拙期，这属于正常的学习曲线；\n  2. **拐点意识**：当你独立完成一次完整的「吸引-邀约-牵手」全流程后，即达到认知拐点，无需他人指导也能自行复盘；\n  3. **复盘而非自责**：每次聊天冷场或约会失败，记录具体卡壳的环节（是展示面差？连续发问？还是升级过急？），针对性调优。",
+    "redlines": "把失败归咎于「我不帅 / 我没钱」的单一宿命论借口，陷入怨天尤人的习得性无助。",
+    "source": "第一篇 第六节"
+  },
+  {
+    "id": 3,
+    "title": "理解女性择偶双核驱动：生存价值（猎人）与情绪保障（靠谱）",
+    "chapter": "01-底层逻辑与心态",
+    "file": "01-底层逻辑与心态.md",
+    "category": "底层逻辑 · 需求洞察",
+    "cost": "需要长期的个人能力建设与情商沉淀。",
+    "plain_speak": "女生骨子里要的是两样东西：第一，你本身是个有能力、生活精彩、优秀的「猎人」；第二，在优秀的同时间，你靠谱、有责任心、能提供情绪价值。",
+    "benefits": "- 告别盲目跪舔：明白光对她好没有用，自己优秀才是前提；\n  - 告别装逼油腻：明白光展示硬实力不够，缺乏真诚与情绪连接无法走入内心。",
+    "evidence": "A",
+    "actions": "1. **先做猎人**：搞好工作/学业、收拾干净外形、经营好自己的朋友圈和爱好，打造出「不缺异性关注」的从容感；\n  2. **再给靠谱**：在确立相互吸引后，适度分享脆弱、家庭责任、专注与专一，给予排他性偏爱。",
+    "redlines": "- 只有靠谱没有猎人（暖男备胎/老实人）；\n  - 只有猎人没有靠谱（短期玩伴/海王防备心理，无法建立亲密信任）。",
+    "source": "第一篇 第三节、第七节"
+  },
+  {
+    "id": 4,
+    "title": "树立不可妥协的个人框架（Boundary & Principles）",
+    "chapter": "01-底层逻辑与心态",
+    "file": "01-底层逻辑与心态.md",
+    "category": "心智建设 · 个人原则",
+    "cost": "面临失去个别低匹配度对象的短期心理损失。",
+    "plain_speak": "谈恋爱必须有自己的底线和规矩。对方故意踩你底线或爱理不理时，敢于抽身离开；太好说话的人没人珍惜，有原则的男人才性感。",
+    "benefits": "- 彻底摆脱被当「提款机」或「情绪垃圾桶」的被动局面；\n  - 维持高价值男性的人格魅力（可得性过高会导致吸引力骤降）；\n  - 快速筛选出懂得互相尊重的高质量伴侣。",
+    "evidence": "B",
+    "actions": "1. **核心框架清单**：\n     - 永远把个人成长、事业与身体健康置于讨好别人之上；\n     - 崇尚平等、真诚的沟通，厌恶无端猜忌、冷暴力与双标强迫；\n     - 遇到美丽懂事的女孩必加倍珍惜；遇到傲慢无礼、肆意消耗你的立刻放手，绝不纠缠；\n  2. **动态平衡（强弱有度）**：在大事和原则上框架要硬（不可触碰），在日常相处与生活细节上温柔包容。",
+    "redlines": "为了迎合对方一味退让、无底线道歉、违背自己做人原则的讨好行为。",
+    "source": "第一篇 第八节"
+  },
+  {
+    "id": 5,
+    "title": "聊天秉持「提供价值心态」，拒绝「索取价值」",
+    "chapter": "01-底层逻辑与心态",
+    "file": "01-底层逻辑与心态.md",
+    "category": "心智建设 · 沟通姿态",
+    "cost": "零金钱；需抑制急迫求证的好奇心与占有欲。",
+    "plain_speak": "聊天不要总是去问「在干嘛/吃了吗/下班没」（这是在索取关注），多分享有趣的事情、调动情绪、发好看的照片（这是在提供价值）。",
+    "benefits": "- 对方和你聊天没有压力，回复意愿大幅提高；\n  - 自然塑造出生活丰富、心态积极的个人形象；\n  - 摆脱查户口式对话的沉闷与尴尬。",
+    "evidence": "B",
+    "actions": "1. **情绪价值提供**：推拉（赞美配合适度调侃）、曲解（幽默化误读）、角色扮演；\n  2. **实际价值展示**：自然分享美食打卡、运动健身、工作成就或宠物动态；\n  3. **索取价值抑制**：把「你今天去哪了？」改成「今天路过一家超棒的咖啡馆，拍给你看」。",
+    "redlines": "- 连续发问大于 2 句；\n  - 对方回复冷淡或未回时，连环追问「怎么不理我了？」。",
+    "source": "第一篇 第十八节"
+  },
+  {
+    "id": 6,
+    "title": "拥抱「游戏者与丰富心智（Abundance Mindset）」，避免真命天女综合征",
+    "chapter": "01-底层逻辑与心态",
+    "file": "01-底层逻辑与心态.md",
+    "category": "心智建设 · 情绪脱敏",
+    "cost": "零金钱；需要扩大社交圈并放下执念。",
+    "plain_speak": "别把某一个刚认识的女生当成命中注定的唯一救赎（真命天女症）。像玩游戏一样保持轻松好奇，多接触优秀的人，你才不会患得患失。",
+    "benefits": "- 消除因单点执念产生的过度紧张与手足无措；\n  - 散发无所谓的从容气场（女孩天生能嗅到男生的饥渴感和匮乏感）；\n  - 大幅提升自我选择权与沟通自然度。",
+    "evidence": "B",
+    "actions": "1. **轻松如游戏**：把聊天看作是两个人下棋或掷骰子，输赢一两步无所谓，享受互动过程；\n  2. **扩大基数**：在未确立排他性追求/恋爱前，保持与多位异性正常、健康的社交往来，分散过度集中的注意力；\n  3. **果断止损**：如果一个女生从一开始就极度冷淡、高傲装酷，直接删除或打冷宫，把时间留给尊重你的人。",
+    "redlines": "在微信上刚加一个女孩，脑子里就已经脑补完两个人结婚生孩子的一生，导致字斟句酌、诚惶诚恐。",
+    "source": "第一篇 第五节、第十八节"
+  },
+  {
+    "id": 7,
+    "title": "发型与面部毛发重塑：打造干净清爽的初始面貌",
+    "chapter": "02-形象建设与展示面",
+    "file": "02-形象建设与展示面.md",
+    "category": "形象建设 · 面部管理",
+    "cost": "金钱约 100-200 元（找总监级理发师一次）；时间约 1 小时；此后每月维护一次。",
+    "plain_speak": "找一个口碑好的高级发型师剪一个适合自己脸型的利落发型，并用手机把前后左右角度拍下来作为以后剪发的模板；修掉杂乱眉毛，刮干净胡子，洗一次牙。",
+    "benefits": "- 视觉颜值直观提升 2-3 分（满分 10 分制）；\n  - 彻底消除邋遢、油腻、缺乏生活自理能力的负面印象；\n  - 获得长期的自我形象自信。",
+    "evidence": "B",
+    "actions": "1. **发型固定法**：找资深发型师沟通脸型特点，剪完后让其教你如何吹风造型，用手机拍下 360 度定妆照，往后理发直接出示照片；\n  2. **眉毛打理**：杂乱无章的眉毛会让眼神显得萎靡，修出清晰眉峰与轮廓（可请理发师或专业修眉顺手打理）；\n  3. **胡须与面部清洁**：日常彻底剃净胡茬，避免络腮或稀疏杂须；定期洗牙去除烟渍茶渍；油脂旺盛者使用控油洁面乳与温和遮瑕。",
+    "redlines": "长时间不剪头发导致两鬓炸毛、后颈碎发散乱；留稀疏不齐的胡渣装沧桑；口臭与牙垢明显。",
+    "source": "第一篇 第十四节、第四十二节"
+  },
+  {
+    "id": 8,
+    "title": "服装穿搭极简法则：基础款、黑白灰与合身体态",
+    "chapter": "02-形象建设与展示面",
+    "file": "02-形象建设与展示面.md",
+    "category": "形象建设 · 穿搭审美",
+    "cost": "金钱 300-800 元购置几套基础款；几乎无额外学习门槛。",
+    "plain_speak": "不会搭配就坚决穿黑白灰基础款，衣服必须干净合身、没有褶皱、不带奇怪大 Logo。配一双干净的小白鞋，体态站直。",
+    "benefits": "- 降低犯错概率（基础款永远比乱搭潮牌稳妥）；\n  - 给人大方、成熟、稳重且高级的视觉感受；\n  - 避免因奇装异服在初次见面被直接 Pass。",
+    "evidence": "B",
+    "actions": "1. **颜色法则**：全身颜色不超过 3 种，以黑、白、灰、藏青、卡其等中性色为主基调；\n  2. **夏季公式**：合身纯色短袖 T 恤/透气亚麻衬衫 + 直筒修身牛仔裤/休闲长裤 + 白球鞋/德训鞋；\n  3. **秋冬公式**：纯色针织衫/衬衫叠穿 + 剪裁得体的大衣/飞行夹克/简约夹克 + 干净皮靴/板鞋；\n  4. **细节武器**：适度搭配 3-5cm 隐形内增高鞋垫，修饰身材比例与腿长。",
+    "redlines": "- 穿紧身豆豆鞋、大金链子、带有巨大夸张印花和山寨大牌的土味单品；\n  - 衣服领口泛黄变形、领带歪斜、裤腿拖地堆积；\n  - 衣服充满汗臭或油烟味（建议常备温和衣物香氛或清淡男香）。",
+    "source": "第一篇 第十四节"
+  },
+  {
+    "id": 9,
+    "title": "微信朋友圈五要素重塑：打造高吸引力个人广告牌",
+    "chapter": "02-形象建设与展示面",
+    "file": "02-形象建设与展示面.md",
+    "category": "展示面 · 线上名片",
+    "cost": "零金钱；花费 1-2 天整理个人主页资料；平时顺手拍摄生活素材。",
+    "plain_speak": "朋友圈就是你的个人广告牌。昵称简单好记，头像用高质感生活照，背景墙放格调风景/爱好，签名克制高级，让女生点开就觉得你是个生活有趣的正常人。",
+    "benefits": "- 加好友后通过率提升 80% 以上；\n  - 为后续聊天提供天然的话题源泉与谈资；\n  - 抵消线上沟通初期的陌生感与防备心。",
+    "evidence": "B",
+    "actions": "1. **昵称**：真实姓名、简单英文名或「英文+名字」，禁止火星文、各种符号表情或「A_销售小张」；\n  2. **头像（引流器）**：由他人抓拍的高清半身或全身照、与萌宠合影、或环境背景有格调的侧颜照（体现真实生活气息与帅气角度）；\n  3. **背景墙（广告牌）**：展现审美与生活方式的宽幅照片（如露营日落、艺术展、自驾公路、质感建筑）；\n  4. **个性签名**：保持留白或简短克制的一句话，体现通透从容的三观；\n  5. **发圈频率与配方**：每 2-3 天一条，图文比例以 3-6 张高清图为主，配文简短风趣（宜少不宜多）。",
+    "redlines": "- 头像使用网图、二次元动漫男主、风景大头自拍、过度美颜搞怪图；\n  - 朋友圈充斥转发的鸡汤文章、愤世嫉俗的抱怨、低俗段子或纯工作广告；\n  - 开启三天可见且里面空空如也，给对方留下极强的防备感与无趣感。",
+    "source": "第一篇 第十五节、第六十一节"
+  },
+  {
+    "id": 10,
+    "title": "朋友圈核心主题布局：构建多元生活的「高价值投影」",
+    "chapter": "02-形象建设与展示面",
+    "file": "02-形象建设与展示面.md",
+    "category": "展示面 · 价值展示",
+    "cost": "需要将平时的个人生活丰富化（健身、厨艺、出行、学习）。",
+    "plain_speak": "朋友圈不能只发自拍，要穿插发运动、美食、宠物、工作专注、社交圈子。这证明你平时过得很充实，而不是一整天无所事事盯着手机等她回复。",
+    "benefits": "- 潜意识向对方传达「高预选（Preselection）」与优秀生活方式；\n  - 建立热爱生活、阳光健康的正面人设；\n  - 让对方看到若与你在一起，未来生活会有多精彩。",
+    "evidence": "B",
+    "actions": "1. **运动与阳光**：健身房专注打卡、户外跑、羽毛球、网球、游泳（展示健康自律）；\n  2. **审美与品味**：自己下厨精心摆盘的美食、别致的咖啡馆、画展、话剧、黑胶唱片；\n  3. **温度与爱心**：猫狗宠物互动、与小朋友玩耍、自然抓拍的开朗笑容；\n  4. **专注与事业**：工作场景的高效片段、出差路上的风景思考、专业领域的精进（展示猎人潜质）；\n  5. **健康社交**：与优秀朋友聚会欢笑的抓拍合影（证明你具备健全的社交圈子与社交认证）。",
+    "redlines": "- 连续数条全部是健身房对着镜子撩衣服露腹肌的油腻自拍；\n  - 刻意在方向盘上露车标、拍奢侈品购物袋的暴发户摆拍（引来拜金女，劝退正常女生）；\n  - 发大量烂醉如泥、深夜蹦迪的混乱社交场面。",
+    "source": "第一篇 第十五节、第六十一节"
+  },
+  {
+    "id": 11,
+    "title": "社交软件资料流搭建：六张照片黄金配比与导流微信",
+    "chapter": "03-认识破冰与社交渠道",
+    "file": "03-认识破冰与社交渠道.md",
+    "category": "社交渠道 · 线上匹配",
+    "cost": "金钱 0-50 元；时间约半天筛选与修图。",
+    "plain_speak": "社交软件（积目、Soul、青藤之恋、探探等）的资料页必须用好 6 张照片：2 张不同角度露脸照 + 1 张全身照 + 1 张个人特质照（运动/宠物）+ 1 张美食 + 1 张高格调场景照。聊顺 3-5 句就用语音把对方引流到微信。",
+    "benefits": "- 软件右滑/匹配率提升 3-5 倍；\n  - 避免在第三方平台上沉没大量时间却无法沉淀真实联系方式；\n  - 语音导流让对方直观感知你的真实声音与稳重自信。",
+    "evidence": "B",
+    "actions": "1. **照片六张流排布**：\n     - 图 1：清晰露脸的高清质感半身或正面照（阳光自然，忌浓妆或大头自拍）；\n     - 图 2：侧脸或不同光影角度的氛围照；\n     - 图 3：合身体态的全身站姿照（展现身材比例与穿搭）；\n     - 图 4：特质照（健身、抱猫狗、打球、户外露营）；\n     - 图 5：精致美食或特色探店（展现生活情调）；\n     - 图 6：艺术展、演出现场或格调建筑场景（展现精神追求）；\n  2. **导流话术与时机**：\n     - 匹配后不要在软件里打字聊几天几夜；\n     - 打完招呼正常接住两三个话题后，发一条温和自然的语音：“平时这个软件不常挂着，要不加个微信聊吧，回头方便联系”。",
+    "redlines": "- 全是千篇一律的网图或过度瘦脸美白滤镜；\n  - 在软件里长篇大论聊了几个星期都不开口要微信，最终变成被算法遗忘的僵尸会话。",
+    "source": "第一篇 第九节"
+  },
+  {
+    "id": 12,
+    "title": "现实场景搭讪法则：3 秒启动、安全距离与温和坚持",
+    "chapter": "03-认识破冰与社交渠道",
+    "file": "03-认识破冰与社交渠道.md",
+    "category": "社交渠道 · 现实破冰",
+    "cost": "零金钱；需要克服短暂的社交评价焦虑（心跳加速）。",
+    "plain_speak": "在商圈、咖啡馆、校园看到心仪女孩，脑子里不要想超过 3 秒，直接走上去。保持一米安全距离，真诚夸赞气质并索要微信。要不到就礼貌撤退，核心目的是锻炼社交自信与打破胆怯。",
+    "benefits": "- 彻底打破对异性的恐惧心理（社交脱敏训练）；\n  - 真实世界认识的女孩质量与真实度远高于线上滤镜；\n  - 展现出极其稀缺的果断、勇气与男性气概。",
+    "evidence": "B",
+    "actions": "1. **三秒法则（3-Second Rule）**：看到目标在 3 秒内启动身体走过去，一旦犹豫超过 3 秒，大脑就会自动制造无数借口并产生强烈的搭讪焦虑；\n  2. **站位与距离**：绝对不要从背后拍肩膀吓唬对方；绕至侧前方 45 度角，保持一米左右的礼貌安全距离，手自然放松；\n  3. **真诚开场白公式**：\n     > “嗨你好，刚才路过看到你，觉得你气质蛮特别的，犹豫了下还是决定过来打个招呼，加个微信交个朋友吧。”\n  4. **温和坚持一次**：\n     - 若女生犹豫：“平时不加陌生人”；\n     - 你微笑回应：“理解的，我看起来也不像坏人吧，怪不好意思的，其实过来挺需要勇气的，加一个回头聊聊看，不合适随时删我就好”；\n     - 若对方依然拒绝，立刻大方微笑：“没关系，祝你今天开心！”，从容转身离场。",
+    "redlines": "- 像跟踪狂一样一路尾随多米才敢上前；\n  - 被拒绝后死缠烂打、索要电话、质问“为什么不行”；\n  - 猥琐打量、动作畏畏缩缩、声音细若蚊蝇。",
+    "source": "第一篇 第十节"
+  },
+  {
+    "id": 13,
+    "title": "相亲见面定海神针：做个「真诚踏实的正常人」，拒绝油腻表现欲",
+    "chapter": "03-认识破冰与社交渠道",
+    "file": "03-认识破冰与社交渠道.md",
+    "category": "社交渠道 · 相亲介绍",
+    "cost": "餐饮人均 50-150 元；时间约 1.5 小时。",
+    "plain_speak": "相亲第一面千万别装逼、别炫富、别急着秀幽默或撩妹。把对方当普通朋友，找个安静有格调能散步的地方喝杯饮品，穿着干净，态度真诚踏实，让对方确信你是个靠谱可信的正常人即可。",
+    "benefits": "- 相亲初见好感度与通过率保持在 80% 以上；\n  - 避免因用力过猛导致对方产生戒备心和油腻感；\n  - 筛选机制明确：相亲本质是快速完成「熟悉阶段」，省去无谓的拉扯。",
+    "evidence": "A",
+    "actions": "1. **形象占 70%**：发型整齐、指甲剃须干净、穿剪裁利落的衬衫或质感卫衣，绝不穿褶皱老气西装或拖鞋短裤；\n  2. **场地挑选**：环境清幽、桌距宽松的独立咖啡厅、茶饮馆，周边最好有适合漫步的林荫道或商场空中花园；\n  3. **聊天边界**：\n     - 多聊对方感兴趣的安全话题：宠物、生活美食、周末休闲、旅行趣闻；\n     - 严禁打听前任、财产细节、催婚家庭矛盾等高压话题；\n     - 允许适度的反差调侃，但主基调永远是稳重、倾听与尊重；\n  4. **快速决断反馈**：相亲结束后 2 小时发一条到家礼貌确认；若对方热情互动则保持推进，若冷淡敷衍则果断放弃，绝不内耗纠结。",
+    "redlines": "- 一坐下来就查户口式盘问对方工作、家庭财产和择偶要求；\n  - 疯狂吹嘘自己年薪多少、认识哪些大佬、开什么车（极度下头）；\n  - 抢着抢白、反驳对方喜好、喋喋不休发表宏大政治或大道理演讲。",
+    "source": "第一篇 第十一节、第四十二节"
+  },
+  {
+    "id": 14,
+    "title": "戒除聊天三大致命错误：连续发问、疯狂斗图与长篇大论",
+    "chapter": "04-聊天思维与话题延伸",
+    "file": "04-聊天思维与话题延伸.md",
+    "category": "聊天思维 · 避坑守则",
+    "cost": "零金钱；需要克制回复冲动与倾诉欲。",
+    "plain_speak": "单条消息严禁超过两行字；别像查户口一样一连串提问；别发一堆无聊表情包让对话降温。",
+    "benefits": "- 聊天氛围压迫感归零，女生回复频率提升 50% 以上；\n  - 彻底规避因需求感过载造成的迅速下头；\n  - 保持平等的双向互动交流节奏。",
+    "evidence": "B",
+    "actions": "1. **两行字法则**：单条回复在微信移动端控制在 1-2 行以内（30 字内），保留信息留白，方便对方接话；\n  2. **提问配比（1:1 原则）**：问一个问题后，下一个回合必须是“分享感受/个人状态”，禁止连续发问超过 2 次；\n  3. **表情包克制**：表情包仅用于缓和气氛或幽默调侃，对方发表情包若明显是敷衍冷场，主动潇洒离场（“先忙了，回头聊”），绝不发图斗图。",
+    "redlines": "- 典型查户口：“在吗？吃饭了吗？吃的什么？和谁吃的？在哪家店？”；\n  - 满屏大段小作文倾诉自己的心路历程，对方只回一个“哈哈/好”。",
+    "source": "第一篇 第十九节、第二篇 第一节"
+  },
+  {
+    "id": 15,
+    "title": "「三维发散思维模型」：彻底终结脑内空白与无话可说",
+    "chapter": "04-聊天思维与话题延伸",
+    "file": "04-聊天思维与话题延伸.md",
+    "category": "聊天思维 · 话题拓展",
+    "cost": "需刻意练习 1-2 天建立思维条件反射。",
+    "plain_speak": "不知道回什么时，别硬找话题。用三招拆解她的话：①抓她话里的关键词拆开回；②从一个词联想到具体有趣的事物；③不聊事情本身，直接评价整句话带给你的感觉。",
+    "benefits": "- 永远不再出现“不知道怎么回”的脑内卡壳；\n  - 话题延展自然流畅，告别生硬尬聊；\n  - 轻松把枯燥的事实对话转化为趣味的情绪互动。",
+    "evidence": "A",
+    "actions": "1. **关键词法**：\n     - 女生：“我正和闺蜜在南京路逛街呢”；\n     - 拆解词：【闺蜜】、【南京路】、【逛街】；\n     - 回应选项（选其一）：\n       - 挑【闺蜜】：“看你平时挺斯文，你闺蜜是不是性格跟你反差挺大？”；\n       - 挑【逛街】：“这么喜欢逛街，看来我也得加强体能训练了，不然以后陪你走两步就喘”；\n  2. **联想法**：\n     - 女生：“周末一直睡到下午一点”；\n     - 联想：冬眠、小考拉、精力充沛；\n     - 回应：“好家伙，看来你这是把下半个月的睡眠预算都一次性支取了”；\n  3. **感受评价法**：\n     - 不针对事情本身展开，针对整体语境给出一句带有调侃意味的形容词评价；\n     - 女生分享工作烦心事，回应：“听起来你今天脑力消耗超标了，现在急需一杯高糖奶茶抢救一下”。",
+    "redlines": "死板纠结字面逻辑，把女生的话当成学术论文去反驳或辩论对错。",
+    "source": "第一篇 第二十节、第二篇 第十节"
+  },
+  {
+    "id": 16,
+    "title": "高情商开场白设计：细节观察法与好奇心切入",
+    "chapter": "04-聊天思维与话题延伸",
+    "file": "04-聊天思维与话题延伸.md",
+    "category": "聊天思维 · 破冰开局",
+    "cost": "每次聊天前花费 30 秒观察对方动态。",
+    "plain_speak": "开场白千万别发“在吗”、“早安”或打招呼表情。翻一眼她的朋友圈或签名，从她的宠物、摆件、小表情或背景细节切入，一句话勾起回复欲。",
+    "benefits": "- 首次开场回复率从 20% 跃升至 80% 以上；\n  - 摆脱群发机器人式的廉价感；\n  - 自然展开第一轮对话切入点。",
+    "evidence": "B",
+    "actions": "1. **细节抓取法**：\n     - 看到对方朋友圈发了带猫的自拍；\n     - 开场：“你家这只英短看起来比你还有镜头感”；\n  2. **好奇心共鸣开场**：\n     - “突然发现你一个特别有意思的特点”；\n     - 女生必问：“什么特点？”，顺势根据日常观察自然展开；\n  3. **幽默自嘲/场景化开场**：\n     - “刚刚在街角闻到刚出炉的可颂，第一反应居然是想起你上次说的那家店”。",
+    "redlines": "- “在吗？”、“嗨小姐姐”、“早安美女”（极低价值开场白）；\n  - 一上来就索要照片、视频通话。",
+    "source": "第二篇 第二节、第五篇 第四节"
+  },
+  {
+    "id": 17,
+    "title": "熟悉阶段「走心三故事模型」：隐蔽植入优质男性标签",
+    "chapter": "04-聊天思维与话题延伸",
+    "file": "04-聊天思维与话题延伸.md",
+    "category": "聊天思维 · 人设立体化",
+    "cost": "花费 1 小时梳理自己人生中真实的 3 个高光/转折故事。",
+    "plain_speak": "不要直接吹嘘“我很上进、我很专一、我很靠谱”。在聊天聊到相关话题时，顺理成章讲一个自己真实的小经历，让对方自己意会出你的品质。",
+    "benefits": "- 润物细无声地建立高价值人设，不招人反感；\n  - 展现深层次的情感脆弱与真实感，建立情感共鸣（Rapport）；\n  - 帮助女生在脑海中完成从“路人”到“具体立体的人”的转变。",
+    "evidence": "A",
+    "actions": "1. **故事一：原则与专一故事**：\n     - 核心内核：分享一段过去对感情认真、或者与异性朋友保持清晰边界的经历；\n     - 传递潜台词：“我是一个有底线、尊重感情的专一男人”；\n  2. **故事二：奋斗与上进故事**：\n     - 核心内核：分享一段在学业、职业转型或攻克技术难关时的拼搏与成长；\n     - 传递潜台词：“我对待事业有追求、有野心，具备持续成长力”；\n  3. **故事三：温暖与生活情调故事**：\n     - 核心内核：分享自己对下厨、旅行探险、或是对家人/宠物的细致照顾；\n     - 传递潜台词：“未来的另一半跟我生活在一起会很幸福、很踏实”；\n  4. **讲述原则**：\n     - 人物不超过 3 个，篇幅简短，分段发送；\n     - 必须有细节与反转，适度自嘲，切忌把自己塑造成完美无瑕的圣人。",
+    "redlines": "- 一上来没聊熟就滔滔不绝讲自己过去的辉煌事迹（好汉当年勇）；\n  - 痛诉前任过错，扮演苦大仇深的受害者。",
+    "source": "第一篇 第十三节、第七篇 走心小作文"
+  },
+  {
+    "id": 18,
+    "title": "情绪推拉（Push-Pull）：打破平淡对话的过山车机制",
+    "chapter": "05-关系升级与情绪调动",
+    "file": "05-关系升级与情绪调动.md",
+    "category": "情绪调动 · 核心技巧",
+    "cost": "需掌握分寸感，防止变成无礼人身攻击。",
+    "plain_speak": "夸一句（拉近），再顺口皮一下调侃一句（推开）；或者先挑个刺（推开），再温柔圆回来（拉近）。让对话有起伏，女生情绪才会有波动。",
+    "benefits": "- 彻底摆脱好人式的无聊对话；\n  - 制造心跳加速的情绪张力与暧昧火花；\n  - 展现敢于调侃的强大自信与框架感。",
+    "evidence": "A",
+    "actions": "1. **先拉后推公式**：\n     - “今天这件风衣选得挺有气质的（拉）……就是看起来不太像正经人，倒像个私家侦探（推）”；\n  2. **先推后拉公式**：\n     - “你平时走路是不是特别慢，跟小树懒似的（推）……不过挺好，这样我刚好不用迈大步等你（拉）”；\n  3. **尺度把控原则**：\n     - 调侃点只能是对方的非实质缺陷（如：爱吃零食、走路慢、爱赖床、发呆）；\n     - 严禁拿身材生理缺陷、家庭出身、学业工作挫折开恶意玩笑。",
+    "redlines": "- 只推不拉（变成刻薄毒舌与人身打压）；\n  - 只拉不推（变成卑微舔狗式的无底线奉承）。",
+    "source": "第一篇 第十八节、第二篇 第八节"
+  },
+  {
+    "id": 19,
+    "title": "幽默曲解（Playful Misinterpretation）：化被动自证为主动调情",
+    "chapter": "05-关系升级与情绪调动",
+    "file": "05-关系升级与情绪调动.md",
+    "category": "关系升高 · 暧昧框架",
+    "cost": "零金钱；需具备跳出字面逻辑的联想力。",
+    "plain_speak": "当女生说了一句普通话或调侃你时，故意把它歪曲理解成“你想占我便宜”或“你暗恋我很久了”。把被动防守转化为主动调情。",
+    "benefits": "- 瞬间打破严肃氛围，建立情侣间的打情骂俏预演；\n  - 永远不落入“我需要向你证明我自己”的低位心理；\n  - 巧妙测试对方对肢体与亲密接触的接受度。",
+    "evidence": "B",
+    "actions": "1. **故意误解动机**：\n     - 女生：“周末有空吗？”；\n     - 常规直男：“有空啊，去干嘛？”（平淡）；\n     - 幽默曲解：“怎么，终于按捺不住想约我吃大餐的冲动了？先声明，我可是很挑食的”；\n  2. **反客为主反向设防**：\n     - 女生发了一张好看的自拍；\n     - 幽默曲解：“别以为发张自拍就能免除你今天偷懒的借口，意志力稍微不坚定的人差点就被你迷住了”。",
+    "redlines": "- 语气过于严肃油腻，像真的在自恋自大；曲解必须伴随调侃、俏皮与假正经的语气。",
+    "source": "第一篇 第十八节、第二篇 第八节"
+  },
+  {
+    "id": 20,
+    "title": "识别并破解「废物测试」（Shit Test）：不自证、幽默反弹与共谋",
+    "chapter": "05-关系升级与情绪调动",
+    "file": "05-关系升级与情绪调动.md",
+    "category": "关系把控 · 攻防博弈",
+    "cost": "零金钱；需要保持内心情绪稳定（不慌乱、不急于澄清）。",
+    "plain_speak": "女生突然问你“你是不是海王？”、“你对所有人都这么说吧？”、“你平时很会哄女孩子吧？”这绝不是审问，而是潜意识在测试你的抗压能力和自信。千万别急着辩解“我不是，我真的很老实”，越自证越输。",
+    "benefits": "- 轻松通过高分女生的社交筛选机制；\n  - 展现从容不迫的情绪稳定性（Emotional Stability）；\n  - 瞬间将冰冷的质问转化为高甜的情感升温。",
+    "evidence": "B",
+    "actions": "1. **破测三大招数**：\n     - **招数 A：幽默夸大（Absurd Agreement）**：\n       - 女生：“你肯定是海王吧？”；\n       - 回应：“是啊，我这片海域现在就缺你这只难抓的小锦鲤了”；\n     - **招数 B：转移反弹（Reflect Back）**：\n       - 女生：“你对所有女孩都这么油嘴滑舌吗？”；\n       - 回应：“那得看情况，普通人我一般都高冷得很，遇到某些特别机灵的我才会超常发挥”；\n     - **招数 C：情绪拆穿（Label the Game）**：\n       - 女生故意刁难：“那你证明给我看你靠谱啊”；\n       - 回应：“哈哈，又在偷偷给我设置面试题目了？面试官，我合格了有什么奖励没有？”；\n  2. **黄金心法**：永远不要认真严肃地解释“我其实生活很规律/我不常聊天的”，自证等于认领罪名。",
+    "redlines": "- 慌张自证、情绪失控、甚至生气反驳“你凭什么这么说我”；\n  - 被测试吓退，立刻变得唯唯诺诺不敢说话。",
+    "source": "第一篇 第二十六节、第二篇 第十一节"
+  },
+  {
+    "id": 21,
+    "title": "线上植入「线下预期」（Planting Expectations）：消除约会肢体接触阻力",
+    "chapter": "05-关系升级与情绪调动",
+    "file": "05-关系升级与情绪调动.md",
+    "category": "关系升高 · 约会铺垫",
+    "cost": "提前在聊天中花 2-3 个回合进行场景想象。",
+    "plain_speak": "线下见面想牵手或拥抱，别等到见面时突然硬抓。在微信上聊天时就提前打好预防针：“过马路时你可别乱跑，我得拽紧你”、“见面时表现好请你喝奶茶，表现不好直接没收爆米花”。",
+    "benefits": "- 提前在双方潜意识中完成“亲密互动预演”；\n  - 见面后肢体接触自然顺畅，完全不突兀；\n  - 大幅降低线下邀约与牵手的被拒率（ASD / 反荡妇机制脱敏）。",
+    "evidence": "B",
+    "actions": "1. **轻度责任绑定预期**：\n     - 聊到逛街或出行：“那你走路可得跟紧点，万一你走丢了，我可不想在商场广播站帮你播寻人启事，到时候直接拽着你走”；\n  2. **奖惩游戏化预期**：\n     - 聊到各自的厨艺或游戏对决：“周六见面看谁先到，迟到的那个人要无条件帮对方拎包一整天，外加请喝一杯多糖奶茶”；\n  3. **肢体接触合理化脱敏**：\n     - 聊到密室或鬼屋：“看你胆子这么小，进去之后要是吓哭了，借我半边肩膀给你靠一下也不是不行”。",
+    "redlines": "- 植入带有低俗、过度露骨性暗示的下流内容，导致对方产生强烈的安全警戒。",
+    "source": "第一篇 第二十五节、第二篇 第九节"
+  },
+  {
+    "id": 22,
+    "title": "约会灵魂武器「多节点转场法则」（Venue Bouncing）：加速心理时间流速",
+    "chapter": "06-约会设计与现场实战",
+    "file": "06-约会设计与现场实战.md",
+    "category": "约会设计 · 流程管控",
+    "cost": "金钱约 150-300 元；需提前规划并确认各地点间的步行/行车距离。",
+    "plain_speak": "一场约会千万别只待在一个餐厅吃两个小时大眼瞪小眼。设计 2-3 个不同氛围的地点快速切换（比如：轻食甜品破冰 → 互动电玩/看展 → 晚餐/散步），这样一下午在女孩心理上相当于跟你约会了三次。",
+    "benefits": "- 心理信任度与熟络度指数级飙升（多场景经历加深记忆深度）；\n  - 打破单一静态坐姿带来的身体僵硬与尴尬话题瓶颈；\n  - 为后续自然牵手与并肩同行提供大量动态场景。",
+    "evidence": "A",
+    "actions": "1. **转场黄金三角路线**：\n     - **第一站（破冰轻饮）**：半开放式安静咖啡馆或果茶店（坐 30-40 分钟，轻松交流近况，消除初始生疏）；\n     - **第二站（动态互动）**：手作坊、射箭馆、复古街区逛店、艺术展或电玩城（身体处于走动状态，情绪高涨）；\n     - **第三站（深入交流与升温）**：环境微暗、桌距宽敞的特色餐厅，餐后步行至江边/公园漫步，或转至静吧小酌；\n  2. **转场话术（主导但不强迫）**：\n     - 不要问：“你想去哪？接下来干嘛？”；\n     - 主导带领：“这附近拐角有一家超棒的手工冰淇淋/黑胶唱片店，带你过去瞅瞅，走”。",
+    "redlines": "- 约会前完全不做功课，站在马路牙子上拿着手机问对方“你想吃啥”；\n  - 频繁长距离打车转场（把时间全耗在堵车上，破坏约会情绪节奏）。",
+    "source": "第一篇 第二十八节、第二十九节"
+  },
+  {
+    "id": 23,
+    "title": "约会场所红黑榜：避开直男雷区，挑选升温温床",
+    "chapter": "06-约会设计与现场实战",
+    "file": "06-约会设计与现场实战.md",
+    "category": "约会设计 · 场景选择",
+    "cost": "人均预算 80-200 元不等。",
+    "plain_speak": "初次约会坚决别去电影院（黑漆漆无法说话）和嘈杂大排档。选能并排坐、光线柔和、声音不用靠吼的轻社交场所。",
+    "benefits": "- 营造舒适放松的对话气场；\n  - 方便拉近物理坐姿距离（为肢体接触提供物理可能）；\n  - 避免因环境嘈杂混乱引发情绪烦躁。",
+    "evidence": "B",
+    "actions": "1. **推荐红榜场所**：\n     - **轻社交咖啡/甜品店**：明亮干净、有独立沙发座，适合快速建立初步现实印象；\n     - **沉浸互动体验**：DIY 烘焙、陶艺、射箭、猫咖、潮玩艺术展（有共同关注点，避免面面相觑）；\n     - **静吧/精酿小酒馆**：昏暗暧昧的暖色光源、轻柔背景爵士乐、微醺放松防御；\n  2. **避坑黑榜场所**：\n     - **传统电影院（初次约会大忌）**：全程戴 3D 眼镜黑屋坐两小时零交流，看完直接各回各家；\n     - **嘈杂火锅店/大排档**：满身油烟味、环境嘈杂靠大喊，完全无法进行走心或暧昧交流；\n     - **私人影院/密室（关系未到严禁强拉）**：容易触发女生的强烈安全警报与防备心。",
+    "redlines": "第一次见面直接把女生带到私人影院或偏僻无人的密闭空间，被认定为意图不轨。",
+    "source": "第一篇 第三十四节至第四十节"
+  },
+  {
+    "id": 24,
+    "title": "肢体接触阶梯模型（Kino Escalation）：安全测试与进退自如",
+    "chapter": "06-约会设计与现场实战",
+    "file": "06-约会设计与现场实战.md",
+    "category": "现场实战 · 肢体升级",
+    "cost": "零金钱；需要敏锐观察对方的微反应与微表情。",
+    "plain_speak": "牵手接吻绝对不能靠突然袭击或问“我能拉你手吗”。通过过马路顺手带一下、看手相看手掌大小等借口自然试探。她不抽走就顺势牵住；她缩回去就从容松开，毫无尴尬。",
+    "benefits": "- 100% 规避冒犯与性骚扰嫌疑；\n  - 突破身体界限（突破安全距离进入亲密距离）；\n  - 将朋友关系彻底坐实为情侣暧昧关系。",
+    "evidence": "A",
+    "actions": "1. **阶段一：无意微触碰（脱敏）**：\n     - 并排走路时肩膀/手背偶尔的自然碰触；\n     - 递水、递纸巾、看菜单时手指指尖的轻微交碰；\n  2. **阶段二：合理借口测试（看手相 / 比大小）**：\n     - 借口：“我刚才看你手指特别纤细，来伸手我对比一下”；\n     - 掌心相对比大小，顺势手指交叉扣住测试 3 秒；\n     - 若女生微笑没有缩手：直接握紧转换成十指紧扣；\n     - 若女生有些害羞缩回：微笑着收手继续聊天，仿佛什么都没发生；\n  3. **阶段三：场景驱动牵手（过马路 / 人群涌动）**：\n     - 绿灯亮起或人潮拥挤时，自然伸手抓住她的手腕或手掌：“小心看车，跟紧我”；\n     - 走过斑马线后不要立刻像触电一样放开，继续握着自然走 10-20 米；\n  4. **进退核心律**：\n     - **进时顺其自然，退时气定神闲**；\n     - 永远不要开口用言语征求许可（“请问我可以牵你的手吗？”——将责任全推给女生，女生只会说不可以）。",
+    "redlines": "- 坐着聊天时突然猴急硬搂硬抱；\n  - 对方明显抗拒甩手时，死皮赖脸硬抓不放。",
+    "source": "第一篇 第三十节至第三十三节、第六十节"
+  },
+  {
+    "id": 25,
+    "title": "破除「确定关系即摆烂」：长期维持个人魅力与精彩生活",
+    "chapter": "07-长期相处与关系维护",
+    "file": "07-长期相处与关系维护.md",
+    "category": "长期相处 · 个人状态",
+    "cost": "持续自律；每周保留至少 4-6 小时不受干扰的个人专注时间。",
+    "plain_speak": "追到手之后，千万别变成整天躺平刷手机、胡子不刮、大腹便便的油腻男。你的吸引力来源是你本身精彩的生活，而不是“男朋友”这个头衔。",
+    "benefits": "- 终身保持两性吸引力的保鲜度，防止性倦怠（Hedonic Adaptation）；\n  - 避免因生活重心过度单一导致的分离焦虑与情感勒索；\n  - 持续激发对方对你的崇拜感与珍惜感。",
+    "evidence": "A",
+    "actions": "1. **形象底线不退让**：即便同居或长期相处，定期理发、体能锻炼、穿搭干净得体依然是每日必修课；\n  2. **保持独立精神领地**：保留自己的核心爱好（如篮球、摄影、乐器、技术钻研），恋爱是两个独立星体的相互环绕，而非相互吞噬；\n  3. **不定期创造二人惊喜**：每隔 2-3 周策划一次完全脱离日常琐事的深度双人体验（如郊外露营、未曾探索的小众餐厅、短途周末旅行）。",
+    "redlines": "- 一恋爱就断绝所有外部朋友往来，整天围着女友转；\n  - 放弃身材管理与事业进取心，彻底变成无趣的家庭保姆角色。",
+    "source": "第一篇 第四十六节至第四十八节"
+  },
+  {
+    "id": 26,
+    "title": "引导对方「共同投资」（Mutual Investment）：告别单向消耗型供养",
+    "chapter": "07-长期相处与关系维护",
+    "file": "07-长期相处与关系维护.md",
+    "category": "长期相处 · 关系平衡",
+    "cost": "学会温和拒绝全包揽，克制大男子主义的虚荣心。",
+    "plain_speak": "一段关系里，如果永远只有你一个人花钱、送礼物、接送、做饭，女生反而更容易离开你。人只对自己付出过心血、时间、精力与金钱的东西最舍不得放手。",
+    "benefits": "- 彻底规避“供养者备胎”陷阱；\n  - 显著提升双方关系的情感粘性与退出成本（Sunk Cost）；\n  - 建立健康平等的双向奔赴良性循环。",
+    "evidence": "A",
+    "actions": "1. **时间与精力投资**：引导对方为你做力所能及的小事（如：生病时让她帮你泡一杯温水、出门前让她帮你挑选领带或衬衫配色）；\n  2. **情绪与心智投资**：鼓励对方参与你的职业选择与生活决策，共同探讨解决方案；\n  3. **物质与生活互惠**：倡导健康的收支默契（如你买电影票她买奶茶爆米花，你请正餐她请甜品或第二天早餐）；\n  4. **正面强化反馈**：当对方为你付出任何微小的细节，毫不吝啬地给予夸赞与情感回馈（“今天你挑选的这件衬衫同事都夸好看，眼光太棒了”）。",
+    "redlines": "- “真男人就该大包大揽所有开销，女生只管负责美”的自我感动式单向透支；\n  - 账目算到分厘不差的斤斤计较（AA 制演变成记账对抗）。",
+    "source": "第一篇 第五十二节"
+  },
+  {
+    "id": 27,
+    "title": "确立相处边界与冲突复盘机制：在第一次争吵时立下家规",
+    "chapter": "07-长期相处与关系维护",
+    "file": "07-长期相处与关系维护.md",
+    "category": "长期相处 · 冲突管理",
+    "cost": "在情绪上头时保持冷静并启动沟通协议。",
+    "plain_speak": "情侣吵架很正常，但绝对不能冷暴力、不能摔门而去、不能提分手当威胁。有矛盾当天必须把事情讲清楚，对事不对人。",
+    "benefits": "- 阻断恶意冷暴力对亲密关系的不可逆摧毁；\n  - 防止历史陈年旧账的反复反刍；\n  - 培养成年人级别的高阶解决问题能力。",
+    "evidence": "A",
+    "actions": "1. **争吵熔断机制**：当情绪激动血压飙升时，任一方可喊出“暂停词”（如“中场休息”），物理隔离 20 分钟平复交感神经，但约定 1 小时内必须返回沟通；\n  2. **三不原则**：\n     - 不攻击对方人格与原生家庭；\n     - 不翻两周前的历史旧账；\n     - 严禁将“分手”作为逼迫妥协的博弈筹码；\n  3. **睡前清零法则**：矛盾原则上不过夜，复盘时聚焦于“我们如何一起打败这个问题”，而不是“我如何证明你错了”。",
+    "redlines": "- 一言不合拉黑微信、电话关机玩失踪（严重情感暴力）；\n  - 争吵时习惯性翻出陈年芝麻烂谷子进行全盘人格否定。",
+    "source": "第一篇 第四十九节、第二篇 第十五节"
+  },
+  {
+    "id": 28,
+    "title": "需求感过载急救术：主动战略性后撤与框架重置",
+    "chapter": "08-聊天急救与逆转翻盘",
+    "file": "08-聊天急救与逆转翻盘.md",
+    "category": "急救翻盘 · 止损降温",
+    "cost": "零金钱；需要极强的自控力，忍住不发微信 5-7 天。",
+    "plain_speak": "如果不小心发了长篇大论倾诉好感，或者频繁找对方导致对方回复“呵呵/哦/先忙了”。立刻闭嘴！不要解释，不要道歉说“对不起我太冲动”。直接断联几天，去发两条高质量生活朋友圈，重新建立高价值平衡。",
+    "benefits": "- 立即刹住吸引力暴跌的雪崩势头；\n  - 激发女生的逆向心理预期（“他怎么突然不缠着我了？”）；\n  - 重新掌握关系互动的节奏主导权。",
+    "evidence": "B",
+    "actions": "1. **急刹车闭嘴**：觉察到对方态度断崖式转冷后，对方回的最后一句话绝不回复，或者只回复一个简短从容的表情包，立刻收手；\n  2. **绝对静默期（Freeze Period）**：保持 5-7 天绝不主动私聊对方任何一句话；\n  3. **侧面火力支援（朋友圈）**：在静默期内发布 1-2 条阳光、专注、与朋友尽兴聚会或户外运动的高质感动态，证明你的生活并未因她受任何负面影响；\n  4. **轻量级重新连接（Soft Ping）**：静默期后，禁止问“这几天怎么不理我”，必须以极低压力的第三方趣事或共同话题切入（如：“今天路过母校附近，发现那家老面馆居然重新营业了”）。",
+    "redlines": "- 发小作文解释：“你别误会，我刚才说那些没有别的意思，我只是太在乎你了……”（越抹越黑，彻底封死生路）；\n  - 每天换着花样发早安晚安试图感化对方。",
+    "source": "第六篇 第一节、第二篇 第一节"
+  },
+  {
+    "id": 29,
+    "title": "表白过早被拒逆转方案：降维退守与友谊掩护",
+    "chapter": "08-聊天急救与逆转翻盘",
+    "file": "08-聊天急救与逆转翻盘.md",
+    "category": "急救翻盘 · 破冰重塑",
+    "cost": "暂时放下男友名分执念，调整心态为“普通朋友”。",
+    "plain_speak": "如果没按流程走过早表白，被发了“我们还是做朋友吧”的好人卡。千万别纠缠问“我哪里不够好”，微笑着答应下来：“哈哈我也觉得之前进展有点太快了，那就先做好哥们”，然后退回吸引阶段重新打磨展示面。",
+    "benefits": "- 瞬间拆除女生竖起的“防备与避嫌”高墙；\n  - 保留合法的日常接触与微信联系通道；\n  - 消除对方的内疚感并扭转低位尴尬。",
+    "evidence": "B",
+    "actions": "1. **经典逆转回击话术**：\n     > “哈哈其实刚才跟你开玩笑/一时脑热呢，冷静下来想想确实太急躁了。我现在也觉得做朋友最舒服，走，改天打游戏你可别坑我。”\n  2. **重塑六阶段流程**：\n     - 把对方重新定义在【阶段三：吸引阶段】；\n     - 停止一切嘘寒问暖和特殊照顾，恢复到与普通朋友一样的对待标准；\n     - 重点通过形象改变、社交圈提升与朋友圈内容，让她重新发现你的全新特质；\n  3. **等待窗口再次释放**：当她在未来的某次互动中主动向你倾诉烦恼或高频互动时，再行启动推拉与约会流程。",
+    "redlines": "- 痛苦质问：“到底要我怎样你才肯答应？”、“他哪点比我好？”；\n  - 借酒消愁发朋友圈深夜买醉 emo。",
+    "source": "第一篇 第五节、第六篇 第四节与第十节"
+  },
+  {
+    "id": 30,
+    "title": "僵尸会话唤醒法则：假装无事发生与无压力求助",
+    "chapter": "08-聊天急救与逆转翻盘",
+    "file": "08-聊天急救与逆转翻盘.md",
+    "category": "急救翻盘 · 断联重启",
+    "cost": "零金钱；需挑选合理的外部触发事件。",
+    "plain_speak": "两个人断联好几个月没说过话，想重新联系。绝不要问“在吗？最近好吗？”这种沉重的话。假装上一次聊天就在昨天一样，借一个具体且她擅长的小问题找她求助（如买数码/宠物生病/推荐某地攻略），问完得到答案简单致谢，绝不纠缠。",
+    "benefits": "- 对方毫无心理负担，回复门槛降至最低；\n  - 巧妙唤醒历史良性记忆；\n  - 自然开启新一轮的日常互动循环。",
+    "evidence": "A",
+    "actions": "1. **求助切入模板**：\n     - “记得你之前去过成都/做过平面设计，我朋友刚好想问……你还记得那家店叫什么吗？”；\n  2. **见好就收原则**：\n     - 对方热情解答后，简单回复：“收到，帮大忙了！下周请你喝咖啡”，然后主动结束本轮对话；\n     - 切忌对方刚回复一句，你就立刻扑上去连聊三小时。",
+    "redlines": "- “好久没聊了，你现在有男朋友了吗？”；\n  - “为什么你从来都不主动找我说话？”。",
+    "source": "第二篇 第十三节、第六篇 第八节"
+  }
+]</script>
+
+  <script>
+    let itemsData = [];
+
+    const state = {
+      search: '',
+      chapter: 'ALL',
+      evidence: 'ALL',
+      theme: localStorage.getItem('theme') || 'dark'
+    };
+
+    if (state.theme === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+
+    document.getElementById('themeToggle').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const target = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', target);
+      localStorage.setItem('theme', target);
+    });
+
+    function showToast(msg) {
+      const toast = document.getElementById('toastBox');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    async function loadData() {
+      // 1. 优先尝试从内置 JSON 脚本标签解析
+      const embeddedScript = document.getElementById('embedded-data');
+      if (embeddedScript && embeddedScript.textContent.trim().length > 2) {
+        try {
+          itemsData = JSON.parse(embeddedScript.textContent);
+          if (itemsData && itemsData.length > 0) {
+            initUI();
+            return;
+          }
+        } catch (e) {
+          console.warn('解析 embedded-data 失败:', e);
+        }
+      }
+
+      // 2. 备用尝试 fetch 本地 data.json
+      try {
+        const resp = await fetch('data.json');
+        if (resp.ok) {
+          itemsData = await resp.json();
+          initUI();
+          return;
+        }
+      } catch (e) {
+        console.warn('Fetch data.json 失败:', e);
+      }
+
+      console.error('未能加载到任何条目数据！');
+    }
+
+    function initUI() {
+      const chapterSelect = document.getElementById('chapterSelect');
+      const chapters = Array.from(new Set(itemsData.map(d => d.chapter)));
+      
+      chapterSelect.innerHTML = '<option value="ALL">全部章节 (' + itemsData.length + '条)</option>';
+      chapters.forEach(c => {
+        const count = itemsData.filter(d => d.chapter === c).length;
+        const opt = document.createElement('option');
+        opt.value = c;
+        opt.textContent = `${c} (${count})`;
+        chapterSelect.appendChild(opt);
+      });
+
+      document.getElementById('statTotal').textContent = itemsData.length;
+      document.getElementById('statEvA').textContent = itemsData.filter(d => d.evidence === 'A').length;
+      document.getElementById('statEvB').textContent = itemsData.filter(d => d.evidence === 'B').length;
+      document.getElementById('statChapters').textContent = chapters.length;
+
+      document.getElementById('searchInput').addEventListener('input', (e) => {
+        state.search = e.target.value.trim().toLowerCase();
+        render();
+      });
+
+      chapterSelect.addEventListener('change', (e) => {
+        state.chapter = e.target.value;
+        render();
+      });
+
+      const chips = document.querySelectorAll('#evidenceChips .chip');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          state.evidence = chip.getAttribute('data-val');
+          render();
+        });
+      });
+
+      document.getElementById('resetBtn').addEventListener('click', () => {
+        state.search = '';
+        state.chapter = 'ALL';
+        state.evidence = 'ALL';
+        document.getElementById('searchInput').value = '';
+        chapterSelect.value = 'ALL';
+        chips.forEach(c => c.classList.toggle('active', c.getAttribute('data-val') === 'ALL'));
+        render();
+      });
+
+      render();
+
+      // 检查是否有哈希锚点跳转
+      if (window.location.hash) {
+        const targetId = window.location.hash.substring(1);
+        setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            el.style.borderColor = 'var(--accent)';
+          }
+        }, 200);
+      }
+    }
+
+    function render() {
+      const container = document.getElementById('itemsList');
+      const noResults = document.getElementById('noResults');
+      container.innerHTML = '';
+
+      const filtered = itemsData.filter(item => {
+        if (state.chapter !== 'ALL' && item.chapter !== state.chapter) return false;
+        if (state.evidence !== 'ALL' && item.evidence !== state.evidence) return false;
+        if (state.search) {
+          const s = state.search;
+          const matchTitle = (item.title || '').toLowerCase().includes(s);
+          const matchPlain = (item.plain_speak || '').toLowerCase().includes(s);
+          const matchActions = (item.actions || '').toLowerCase().includes(s);
+          const matchRedlines = (item.redlines || '').toLowerCase().includes(s);
+          const matchCategory = (item.category || '').toLowerCase().includes(s);
+          if (!matchTitle && !matchPlain && !matchActions && !matchRedlines && !matchCategory) {
+            return false;
+          }
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        noResults.style.display = 'block';
+        return;
+      }
+      noResults.style.display = 'none';
+
+      filtered.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.id = `item-${item.id}`;
+
+        card.innerHTML = `
+          <div class="card-header">
+            <span class="item-id">#${item.id}</span>
+            <div class="item-title">${escapeHTML(item.title)}</div>
+            <span class="evidence-tag ev-${item.evidence}">${item.evidence}级证据</span>
+          </div>
+
+          <div class="tag-row">
+            <span class="meta-tag">🏷️ ${escapeHTML(item.category || item.chapter)}</span>
+            <span class="meta-tag">⏳ 成本: ${escapeHTML(item.cost || '极低')}</span>
+          </div>
+
+          <div class="plain-speak">
+            💡 <b>说人话：</b>${escapeHTML(item.plain_speak)}
+          </div>
+
+          <button class="details-toggle" onclick="toggleDetails(${item.id})">
+            <span>展开详情 / 心法与红线</span> ▾
+          </button>
+
+          <div class="card-body" id="body-${item.id}">
+            ${item.benefits ? `
+              <div class="detail-section">
+                <div class="detail-title">收益与机制</div>
+                <div style="white-space: pre-line;">${escapeHTML(item.benefits)}</div>
+              </div>` : ''}
+
+            ${item.actions ? `
+              <div class="detail-section">
+                <div class="detail-title">操作心法与动作</div>
+                <div style="white-space: pre-line;">${escapeHTML(item.actions)}</div>
+              </div>` : ''}
+
+            ${item.redlines ? `
+              <div class="detail-section">
+                <div class="detail-title" style="color:var(--redline)">反面红线（必死禁区）</div>
+                <div class="redline-box" style="white-space: pre-line;">${escapeHTML(item.redlines)}</div>
+              </div>` : ''}
+
+            ${item.source ? `
+              <div class="source-info">
+                📖 对应原案：${escapeHTML(item.source)}
+              </div>` : ''}
+
+            <div class="card-actions">
+              <button class="action-btn" onclick="copyItemLink(${item.id})">🔗 复制条目直链</button>
+              <button class="action-btn" onclick="copyItemText(${item.id})">📋 复制纯文本摘要</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleDetails(id) {
+      const body = document.getElementById(`body-${id}`);
+      if (!body) return;
+      const btn = body.previousElementSibling;
+      const isExpanded = body.classList.contains('expanded');
+      if (isExpanded) {
+        body.classList.remove('expanded');
+        btn.innerHTML = `<span>展开详情 / 心法与红线</span> ▾`;
+      } else {
+        body.classList.add('expanded');
+        btn.innerHTML = `<span>收起详情</span> ▴`;
+      }
+    }
+
+    function copyItemLink(id) {
+      const url = `${window.location.href.split('#')[0]}#item-${id}`;
+      navigator.clipboard.writeText(url).then(() => {
+        showToast(`条目 #${id} 锚点链接已复制！`);
+      }).catch(() => {
+        showToast(`链接: ${url}`);
+      });
+    }
+
+    function copyItemText(id) {
+      const item = itemsData.find(d => d.id === id);
+      if (!item) return;
+      const text = `【条目 #${item.id}：${item.title}】\n说人话：${item.plain_speak}\n成本：${item.cost}\n证据等级：${item.evidence}级\n反面红线：${item.redlines}`;
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(`条目 #${id} 核心摘要已复制！`);
+      }).catch(() => {
+        alert(text);
+      });
+    }
+
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+
+    window.addEventListener('DOMContentLoaded', loadData);
+  </script>
+</body>
+</html>
