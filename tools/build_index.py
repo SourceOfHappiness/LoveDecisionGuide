@@ -8,6 +8,7 @@ OUTPUT_JSON = os.path.join(BASE_DIR, 'data.json')
 INDEX_HTML = os.path.join(BASE_DIR, 'index.html')
 
 def parse_markdown_files():
+    sections = []
     items = []
     files = sorted([f for f in os.listdir(BOOK_DIR) if f.endswith('.md')])
     
@@ -23,10 +24,20 @@ def parse_markdown_files():
         if first_line.startswith('# '):
             chapter_title = first_line.replace('# ', '').strip()
 
+        sec_m = re.match(r'^(\d+)', chapter_title)
+        sec_num = int(sec_m.group(1)) if sec_m else len(sections) + 1
+        clean_title = re.sub(r'^\d+[-_、\.]*\s*', '', chapter_title)
+
+        intro_m = re.search(r'^#\s+.*?\n+(.*?)(?=\n+---\n+###|\n+###)', content, re.S)
+        intro = intro_m.group(1).strip() if intro_m else ''
+
+        sec_entries = []
         matches = entry_pattern.findall(content)
         for num, title, body in matches:
             item = {
                 'id': int(num),
+                'sec': sec_num,
+                'sec_title': clean_title,
                 'title': title.strip(),
                 'chapter': chapter_title,
                 'file': filename,
@@ -57,7 +68,7 @@ def parse_markdown_files():
             ev_m = re.search(r'-\s+\*\*证据等级\*\*：([ABC])', body)
             if ev_m: item['evidence'] = ev_m.group(1).strip()
 
-            acad_m = re.search(r'-\s+\*\*学术依据与实验\*\*：(.*?)(?=\n-\s+\*\*|\Z)', body, re.DOTALL)
+            acad_m = re.search(r'-\s+\*\*(?:学术依据与实验|学术与法律依据|学术依据)\*\*：(.*?)(?=\n-\s+\*\*|\Z)', body, re.DOTALL)
             if acad_m: item['academic'] = acad_m.group(1).strip()
             
             act_m = re.search(r'-\s+\*\*操作心法\*\*：(.*?)(?=\n-\s+\*\*|\Z)', body, re.DOTALL)
@@ -72,14 +83,24 @@ def parse_markdown_files():
             src_m = re.search(r'-\s+\*\*来源\*\*：(.*?)(?=\n-|\n\n|\Z)', body, re.DOTALL)
             if src_m: item['source'] = src_m.group(1).strip()
             
+            sec_entries.append(item)
             items.append(item)
+
+        sections.append({
+            'sec': sec_num,
+            'title': clean_title,
+            'full_title': chapter_title,
+            'intro': intro,
+            'entries': sec_entries
+        })
             
     items.sort(key=lambda x: x['id'])
-    return items
+    sections.sort(key=lambda x: x['sec'])
+    return sections, items
 
 def main():
-    items = parse_markdown_files()
-    print(f'成功解析 {len(items)} 条规范建议。')
+    sections, items = parse_markdown_files()
+    print(f'成功解析 {len(sections)} 个章节，共 {len(items)} 条规范建议。')
     
     # 统计数据
     ev_counts = {'A': 0, 'B': 0, 'C': 0}
@@ -88,8 +109,14 @@ def main():
         
     print(f"证据分级分布: A={ev_counts['A']}, B={ev_counts['B']}, C={ev_counts['C']}")
 
+    # 数据包结构
+    payload = {
+        'sections': sections,
+        'items': items
+    }
+
     # 保存 data.json
-    json_str = json.dumps(items, ensure_ascii=False, indent=2)
+    json_str = json.dumps(payload, ensure_ascii=False, indent=2)
     with open(OUTPUT_JSON, 'w', encoding='utf-8') as f:
         f.write(json_str)
     print(f'已生成数据文件: {OUTPUT_JSON}')
