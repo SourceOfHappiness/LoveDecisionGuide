@@ -3,7 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Temporary text / logs
+# Documents & raw training materials
+*.pdf
 extracted.txt
 *.log
 
