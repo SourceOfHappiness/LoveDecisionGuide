@@ -43,6 +43,11 @@ def parse_markdown_files():
                 'file': filename,
                 'category': '',
                 'cost': '',
+                'money': '0',
+                'time': '少',
+                'will': '否',
+                'gain_level': '大',
+                'ratio': '高',
                 'plain_speak': '',
                 'benefits': '',
                 'evidence': 'A',
@@ -52,6 +57,25 @@ def parse_markdown_files():
                 'boundaries': '',
                 'source': ''
             }
+
+            cost_tag_m = re.search(r'<!--\s*成本标签:\s*(.*?)\s*-->', body)
+            if cost_tag_m:
+                for kv in cost_tag_m.group(1).split():
+                    if '=' in kv:
+                        k, v = kv.split('=', 1)
+                        if k == '钱': item['money'] = v
+                        elif k == '时间': item['time'] = v
+                        elif k == '毅力': item['will'] = v
+                        elif k == '收益': item['gain_level'] = v
+
+            cost_w = {'money': {'0': 0, '少': 1, '多': 2}, 'time': {'少': 0, '中': 1, '多': 2}, 'will': {'否': 0, '些': 1, '是': 2}}
+            cs = cost_w['money'].get(item['money'], 0) + cost_w['time'].get(item['time'], 0) + cost_w['will'].get(item['will'], 0)
+            if item['gain_level'] == '大':
+                item['ratio'] = '极高' if cs <= 1 else ('高' if cs <= 3 else '一般')
+            elif item['gain_level'] == '中':
+                item['ratio'] = '高' if cs <= 1 else '一般'
+            else:
+                item['ratio'] = '一般'
             
             cat_m = re.search(r'-\s+\*\*分类\*\*：(.*?)(?=\n-|\n\n|\Z)', body, re.DOTALL)
             if cat_m: item['category'] = cat_m.group(1).strip()

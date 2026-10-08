@@ -216,9 +216,40 @@ html.dark .switch .moon { display: block; }
 .badge.A { background: var(--green-soft); color: var(--green-1); }
 .badge.B { background: var(--yellow-soft); color: var(--yellow-1); }
 .badge.C { background: var(--gray-soft); color: var(--gray-1); }
+.badge.r3 { background: var(--brand-soft); color: var(--brand-1); }
+.badge.r2 { background: var(--green-soft); color: var(--green-1); }
+.badge.r1 { background: var(--gray-soft); color: var(--gray-1); }
 .badge.plain { background: var(--gray-soft); color: var(--t2); font-weight: 500; }
 .badge.law { background: var(--brand-soft); color: var(--brand-1); }
 .badge.danger { background: var(--red-soft); color: var(--red-1); }
+
+/* 交互式实务工具模态弹窗 */
+.tool-btn { display: flex; align-items: center; gap: 8px; width: 100%; padding: 8px 12px; margin-top: 6px; border: 1px solid var(--divider); border-radius: 8px; background: var(--bg-elv); color: var(--t1); font-size: 13px; font-weight: 500; cursor: pointer; transition: all .2s; text-align: left; }
+.tool-btn:hover { border-color: var(--brand-1); color: var(--brand-1); background: var(--brand-soft); }
+#tool-mask { position: fixed; inset: 0; z-index: 70; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; padding: 20px; }
+#tool-mask[hidden] { display: none; }
+#tool-modal { background: var(--bg); border: 1px solid var(--divider); border-radius: 12px; box-shadow: 0 12px 32px rgba(0,0,0,.25); width: min(620px, 100%); max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; }
+.tm-h { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--divider); }
+.tm-h b { font-size: 16px; font-weight: 600; color: var(--t1); }
+.tm-h button { width: 28px; height: 28px; border-radius: 6px; display: grid; place-items: center; font-size: 16px; color: var(--t2); cursor: pointer; border: 0; background: none; }
+.tm-h button:hover { background: var(--bg-soft); color: var(--t1); }
+.tm-b { padding: 20px; overflow-y: auto; line-height: 1.7; font-size: 14px; }
+.calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; margin-bottom: 16px; }
+@media (max-width: 600px) { .calc-grid { grid-template-columns: 1fr; } }
+.calc-field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--t2); margin-bottom: 4px; }
+.calc-field input, .calc-field select { width: 100%; height: 36px; padding: 0 10px; border-radius: 6px; border: 1px solid var(--divider); background: var(--bg-alt); color: var(--t1); font: inherit; font-size: 13.5px; }
+.calc-field input:focus, .calc-field select:focus { outline: 0; border-color: var(--brand-1); background: var(--bg); }
+.calc-res { background: var(--brand-soft); border-left: 3px solid var(--brand-1); border-radius: 0 8px 8px 0; padding: 14px 16px; margin-top: 14px; }
+.calc-res h4 { margin: 0 0 6px; font-size: 15px; color: var(--brand-1); }
+.calc-res p { margin: 4px 0; font-size: 13.5px; color: var(--t1); }
+.calc-res .val { font-size: 22px; font-weight: 700; color: var(--brand-1); }
+.tree-q { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px dashed var(--divider); }
+.tree-q:last-child { border-bottom: 0; }
+.tree-q b { display: block; font-size: 13.5px; margin-bottom: 6px; color: var(--t1); }
+.tree-opt { display: flex; flex-direction: column; gap: 6px; }
+.tree-opt label { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--t2); cursor: pointer; }
+.tree-opt input { accent-color: var(--brand-1); }
+
 
 /* 说人话 (HowToLiveBetter 特色 Callout) */
 .human { margin: 0 0 14px; padding: 10px 14px; border-left: 2px solid var(--brand-1); background: var(--brand-soft); border-radius: 0 6px 6px 0; font-size: 14.5px; line-height: 1.75; color: var(--t1); overflow-wrap: anywhere; }
@@ -316,10 +347,51 @@ html.dark .switch .moon { display: block; }
   </div>
 </div>
 
+<div id="tool-mask" hidden>
+  <div id="tool-modal" role="dialog" aria-modal="true">
+    <div class="tm-h">
+      <b id="tm-title">实务工具</b>
+      <button type="button" id="tm-close" aria-label="关闭">✕</button>
+    </div>
+    <div class="tm-b" id="tm-body"></div>
+  </div>
+</div>
+
 <aside class="sidebar" id="sidebar">
   <div class="group">
     <div class="gt">章节导航</div>
     <div class="sec-links" id="f-sec"></div>
+  </div>
+  <div class="group">
+    <div class="gt">性价比 <small>综合成本收益测算</small></div>
+    <div class="chips" data-dim="ratio">
+      <button class="chip" data-v="极高" aria-pressed="false">极高</button>
+      <button class="chip" data-v="高" aria-pressed="false">高</button>
+      <button class="chip" data-v="一般" aria-pressed="false">一般</button>
+    </div>
+  </div>
+  <div class="group">
+    <div class="gt">花钱</div>
+    <div class="chips" data-dim="money">
+      <button class="chip" data-v="0" aria-pressed="false">不花钱</button>
+      <button class="chip" data-v="少" aria-pressed="false">花少量钱</button>
+    </div>
+  </div>
+  <div class="group">
+    <div class="gt">花时间</div>
+    <div class="chips" data-dim="time">
+      <button class="chip" data-v="少" aria-pressed="false">顺手(5分钟内)</button>
+      <button class="chip" data-v="中" aria-pressed="false">花几小时</button>
+      <button class="chip" data-v="多" aria-pressed="false">长期坚持</button>
+    </div>
+  </div>
+  <div class="group">
+    <div class="gt">要毅力</div>
+    <div class="chips" data-dim="will">
+      <button class="chip" data-v="否" aria-pressed="false">不用毅力</button>
+      <button class="chip" data-v="些" aria-pressed="false">要一点毅力</button>
+      <button class="chip" data-v="是" aria-pressed="false">要很多毅力</button>
+    </div>
   </div>
   <div class="group">
     <div class="gt">证据等级 <small>心理学RCT · 元分析 · 法条</small></div>
@@ -344,13 +416,24 @@ html.dark .switch .moon { display: block; }
     </div>
   </div>
   <div class="group">
+    <div class="gt">高危实务工具</div>
+    <button type="button" class="tool-btn" id="btn-calc-house">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      婚前房产还贷分割试算器
+    </button>
+    <button type="button" class="tool-btn" id="btn-calc-caili">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      涉彩礼返还法定测算树
+    </button>
+  </div>
+  <div class="group">
     <label class="toggle"><input type="checkbox" id="f-law"> 仅看财产与法律红线</label>
     <button class="reset" id="reset">重置筛选</button>
   </div>
   <div class="hint">
-    <p>全书 9 大章节 36 项量化决策清单。</p>
+    <p>全书 9 大章节 40 项量化决策清单。</p>
     <p>每条写明成本、收益、说人话、操作心法与反面红线。</p>
-    <p>原始 Markdown 文件见 <a href="book/">book/</a> 目录。</p>
+    <p>可按钱、时间、毅力三个成本维度检索。</p>
     <p>开源许可：<a href="https://creativecommons.org/licenses/by/4.0/deed.zh-hans" target="_blank" rel="noopener">CC BY 4.0</a>。</p>
   </div>
 </aside>
@@ -359,7 +442,7 @@ html.dark .switch .moon { display: block; }
   <div class="doc">
     <div class="doc-head">
       <h1>现代亲密关系与沟通决策指南</h1>
-      <p>基于依恋理论、非暴力沟通、戈特曼婚恋科学与民法典裁判规则的 36 项量化循证决策清单。</p>
+      <p>基于依恋理论、非暴力沟通、戈特曼婚恋科学与民法典裁判规则的 40 项量化循证决策清单。</p>
       <p>用严谨科学与法理防线拆解交往障碍，拒绝PUA与伪科学。每条写明成本、收益与红线，男女皆宜，离线可用。</p>
       <div class="stat" aria-live="polite">当前显示 <b id="cnt">-</b> 条 / <span id="tot">-</span> 条</div>
       <div class="doc-links">
@@ -399,6 +482,11 @@ html.dark .switch .moon { display: block; }
           "file": "01-底层逻辑与心态.md",
           "category": "底层逻辑 · 节奏把控",
           "cost": "几乎零金钱；需克制焦虑与急于确立关系的冲动；需 2-4 周的耐心观察与节奏调谐。",
+          "money": "0",
+          "time": "中",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "高",
           "plain_speak": "从相识到相伴必须经历：初识建立安全感、日常互动建立熟悉、人格魅力产生吸引、确认心意后认真追求、身心契合自然亲密、到长期经营。没建立吸引前去表白只会给对方带来沉重的情感绑架；没建立基本熟悉就急于肢体接触只会让人感到冒犯。",
           "benefits": "- 彻底规避 90% 以上年轻人的典型死因「未吸引先表白」（过早表白被拒率高达 80% 以上，造成不可逆的社交防御）；\n  - 维持双向对等的权力平衡，避免因单向过早暴露强烈需求感导致知觉价值贬损；\n  - 明确知道当前双方的舒适区边界，知进退、有分寸。",
           "evidence": "A",
@@ -417,6 +505,11 @@ html.dark .switch .moon { display: block; }
           "file": "01-底层逻辑与心态.md",
           "category": "心智建设 · 情绪韧性",
           "cost": "零金钱；需打破过去的自我怀疑惯性与灾难化联想。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "社交沟通是一门可以终身练习的情商技能。被拒绝或者对方态度冷淡，往往只是当前场景、生活节奏或双方核心需求不匹配，绝不代表你的人生一无是处。总结经验、持续进化，不必自我否定。",
           "benefits": "- 消除对异性冷淡和拒绝的灾难化恐惧；\n  - 大幅缩短遭遇挫折后的内耗周期（从消沉数周缩短为从容复盘）；\n  - 建立终身自主升级外在仪表、沟通共情与社交能力的动力源泉。",
           "evidence": "A",
@@ -435,6 +528,11 @@ html.dark .switch .moon { display: block; }
           "file": "01-底层逻辑与心态.md",
           "category": "底层逻辑 · 吸引本质",
           "cost": "长期的自律提升与情商修行。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "优秀的伴侣选择你，必然基于两点：第一，你本身是一个独立自律、有工作能力、生活有趣的优秀个体；第二，与你相处时有安全感、被尊重、能获得情绪滋养。两者缺一不可。",
           "benefits": "- 告别卑微讨好：明白单纯“对她好、当仆人”无法产生性吸引与人格尊重；\n  - 告别浮夸油腻：明白单纯炫富、吹嘘背景只会招致提防与虚荣，无法建立深层心灵依恋。",
           "evidence": "A",
@@ -453,6 +551,11 @@ html.dark .switch .moon { display: block; }
           "file": "01-底层逻辑与心态.md",
           "category": "心智建设 · 人格自尊",
           "cost": "面临失去个别不尊重你的对象的短期心理不舍。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "谈恋爱必须有自己的底线。当对方肆意贬低你、践踏你的原则、搞双标冷暴力时，敢于明确表达拒绝甚至抽身离开。太好说话、没有脾气的人永远得不到珍惜，有清晰边界的灵魂才具备恒久魅力。",
           "benefits": "- 彻底规避被当作“情绪垃圾桶”或“单向供养者”的被动深渊；\n  - 维持高自尊人格的性吸引力（可得性过高会导致吸引力骤降）；\n  - 高效筛选出心智成熟、懂得相互尊重的高质量伴侣。",
           "evidence": "A",
@@ -471,6 +574,11 @@ html.dark .switch .moon { display: block; }
           "file": "01-底层逻辑与心态.md",
           "category": "心智建设 · 互动姿态",
           "cost": "克制急切求证的好奇心与过度占有欲。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "别总是问“你在干嘛/吃了吗/下班没”，这是在向对方索取注意力。多去分享具体美好的事物、带来轻松的幽默、倾听对方的烦恼，把注意力放在“如何让这场对话让彼此都感到舒服”。",
           "benefits": "- 对方与你交流毫无压力，主动回复与分享的意愿大幅提高；\n  - 树立充满正能量、生活充实、热爱当下的积极人格；\n  - 彻底消除如审讯般的查户口式聊天沉闷感。",
           "evidence": "A",
@@ -489,6 +597,11 @@ html.dark .switch .moon { display: block; }
           "file": "01-底层逻辑与心态.md",
           "category": "心智建设 · 情绪脱敏",
           "cost": "放下“命中注定非她不可”的宿命浪漫幻想。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "中",
+          "ratio": "高",
           "plain_speak": "刚认识一个女生，别在脑海里演完相伴一生的电影。抱着探索世界、结交朋友的从容心态与人交往。你越是轻松自然，展现出的魅力越真实；越是患得患失，越会把对方吓跑。",
           "benefits": "- 消除因单点执念引发的极度紧张与过度分析（Overthinking）；\n  - 散发自在松弛的成熟气场（过度匮乏感与饥渴感是吸引力最大的杀手）；\n  - 保持双向选择的理性，避免在一棵树上盲目自我感动。",
           "evidence": "A",
@@ -515,6 +628,11 @@ html.dark .switch .moon { display: block; }
           "file": "02-形象建设与展示面.md",
           "category": "个人形象 · 面容管理",
           "cost": "金钱约 100-200 元（寻找专业发型师设计）；时间约 1 小时；每月定期修剪一次。",
+          "money": "少",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "高",
           "plain_speak": "找一个口碑优秀的资深发型师，根据自己的脸型和头骨剪一个清爽利落的发型，并拍下各个角度的照片供日常维护；把杂乱的眉毛修整齐，每天彻底刮净胡茬，定期洗牙去除烟渍牙结石。",
           "benefits": "- 视觉清爽感与精神面貌即刻提升；\n  - 彻底规避邋遢、油腻、缺乏自我照顾能力的负面初印象；\n  - 增强面对面的社交自信与从容感。",
           "evidence": "A",
@@ -533,6 +651,11 @@ html.dark .switch .moon { display: block; }
           "file": "02-形象建设与展示面.md",
           "category": "个人形象 · 审美着装",
           "cost": "购置 2-3 套高质感基础款服装（预算约 400-800 元）；几乎零学习门槛。",
+          "money": "0",
+          "time": "多",
+          "will": "是",
+          "gain_level": "大",
+          "ratio": "一般",
           "plain_speak": "如果不擅长时尚穿搭，坚决选择纯色基础款。衣服必须合身、熨烫平整，全身颜色不超过三种。保持鞋子一尘不染，体态挺拔自然，永远胜过盲目跟风潮牌。",
           "benefits": "- 零容错率：极简经典款永远不会过时，亦不会给人浮夸感；\n  - 传递出稳重、干净、克制且有品位的人格特质；\n  - 规避因奇装异服在初次见面引发的审美偏见与不适。",
           "evidence": "A",
@@ -551,6 +674,11 @@ html.dark .switch .moon { display: block; }
           "file": "02-形象建设与展示面.md",
           "category": "社交呈现 · 线上主页",
           "cost": "零金钱；花费 1 小时整理主页设置；平时随手记录美好生活瞬间。",
+          "money": "少",
+          "time": "少",
+          "will": "否",
+          "gain_level": "中",
+          "ratio": "高",
           "plain_speak": "朋友圈或社交主页不是打广告、也不是炫富秀优越，而是让新朋友了解你生活方式的窗口。用温和自然的真实抓拍照做头像，背景墙放喜欢的风景或爱好，签名克制真诚，让人一眼感知到你是一个热爱生活的正常人。",
           "benefits": "- 新好友通过率与主动互动意愿提升数倍；\n  - 为后续日常交流提供天然的话题连接点与共同喜好线索；\n  - 消除线上沟通初期的神秘感防备与信任隔阂。",
           "evidence": "A",
@@ -569,6 +697,11 @@ html.dark .switch .moon { display: block; }
           "file": "02-形象建设与展示面.md",
           "category": "社交呈现 · 价值展现",
           "cost": "把时间与精力真正投入到现实生活、运动、工作与爱好中。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "中",
+          "ratio": "高",
           "plain_speak": "朋友圈不要刻意摆拍去“装逼”。去真正跑步健身、自己做一顿可口的晚餐、认真攻克工作难关、陪猫狗玩耍、去看一场话剧。把真实的生机勃勃展现出来，同频的人自然会被你吸引。",
           "benefits": "- 避免“人设崩塌”的心理负担（做真实的自己最轻松）；\n  - 吸引与你生活理念、审美和价值观真正契合的高质量伴侣；\n  - 潜意识向外界传递你的心理丰满与情感独立。",
           "evidence": "A",
@@ -595,6 +728,11 @@ html.dark .switch .moon { display: block; }
           "file": "03-认识破冰与社交渠道.md",
           "category": "社交破冰 · 线上匹配",
           "cost": "花费半小时梳理真实个人介绍；零金钱支出。",
+          "money": "少",
+          "time": "中",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "高",
           "plain_speak": "在社交软件（如青藤之恋、Soul等）上，如实填写自己的兴趣、爱好和真实生活照片。不要在软件里漫无目的地闲聊好几个星期，当连续互动 3-5 句且氛围良好时，自然、温和地提出互加微信，沉淀真实联系方式。",
           "benefits": "- 筛选掉只想在软件里刷存在感或不诚实的人；\n  - 避免在第三方平台上沉没大量时间却无法沉淀真实连接；\n  - 展现坦荡、真诚、不遮遮掩掩的沟通态度。",
           "evidence": "A",
@@ -613,6 +751,11 @@ html.dark .switch .moon { display: block; }
           "file": "03-认识破冰与社交渠道.md",
           "category": "社交破冰 · 现实交往",
           "cost": "零金钱；需要克服短暂的社交评价焦虑（心跳加速）。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "在讲座、展览、书店或活动现场遇到令人心动的对象，如果想结识，在 3 秒内采取行动。保持一米以上的礼貌物理距离，大方得体地表达对对方气质/行为的真诚欣赏，并礼貌询问能否加个联系方式。对方如果犹豫或拒绝，大方微笑祝福并立刻离开，绝不纠缠。",
           "benefits": "- 彻底战胜面对心仪异性时的羞怯心理（暴露脱敏训练）；\n  - 现实中建立的连接真实感和信任基础远高于纯网络交友；\n  - 展现出极其宝贵的真诚、果断与对他人边界的深刻尊重。",
           "evidence": "A",
@@ -631,6 +774,11 @@ html.dark .switch .moon { display: block; }
           "file": "03-认识破冰与社交渠道.md",
           "category": "社交破冰 · 制度化相亲",
           "cost": "餐饮人均 50-100 元；时间约 1-1.5 小时。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "中",
+          "ratio": "高",
           "plain_speak": "相亲第一面千万别装逼、别吹嘘、也别像审犯人一样查户口。把对方当成初次见面的普通朋友，找个安静有格调的咖啡厅喝杯饮品，衣着干净，态度温和真诚。不卑不亢、彼此尊重就是最完美的表现。",
           "benefits": "- 初次见面通过率与彼此舒适度显著提升；\n  - 杜绝因用力过猛或油腻说教引发的瞬间下头；\n  - 高效筛选出三观与沟通模式同频的靠谱伴侣。",
           "evidence": "A",
@@ -657,6 +805,11 @@ html.dark .switch .moon { display: block; }
           "file": "04-聊天思维与话题延伸.md",
           "category": "沟通思维 · 边界守则",
           "cost": "零金钱；需要克制表达冲动与急躁情绪。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "单条消息在手机屏幕上尽量控制在两行以内；禁止像警察审案一样连续追问两个以上的问题；别发一堆无意义的表情包敷衍了事。",
           "benefits": "- 聊天氛围轻松自在，对方回复意愿显著提升；\n  - 规避因信息过载与压迫感导致的下头与疏离；\n  - 建立平等、平衡的双向互动节奏。",
           "evidence": "A",
@@ -675,6 +828,11 @@ html.dark .switch .moon { display: block; }
           "file": "04-聊天思维与话题延伸.md",
           "category": "沟通思维 · 话题拓展",
           "cost": "需要通过日常练习培养敏锐的倾听与联想习惯。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "不知道回什么时，别绞尽脑汁硬憋话题。认真看对方上一句话，用三招接话：①提取她话里的关键词深入探讨；②通过一个词展开生活联想；③不评判事实本身，直接说出这句话带给你的氛围与感受。",
           "benefits": "- 永远告别“不知道回什么好”的僵局；\n  - 对方能深刻感知到你是在认真倾听她，而非自说自话；\n  - 自然将枯燥的事实汇报转化为鲜活生动的情绪共鸣。",
           "evidence": "A",
@@ -693,6 +851,11 @@ html.dark .switch .moon { display: block; }
           "file": "04-聊天思维与话题延伸.md",
           "category": "沟通思维 · 破冰开局",
           "cost": "沟通前花 20 秒细致留意对方当下的生活线索。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "中",
+          "ratio": "高",
           "plain_speak": "聊天开场白千万别发毫无营养的“在吗”、“早安”或一个挥手的表情。观察对方的动态、朋友圈的小细节或两人曾经聊过的共同记忆，一句话开启一段高质量对话。",
           "benefits": "- 开场回复率大幅攀升；\n  - 彻底摆脱流水线群发工具人的廉价感；\n  - 让对方感受到被真正关注与尊重的细腻温暖。",
           "evidence": "A",
@@ -711,6 +874,11 @@ html.dark .switch .moon { display: block; }
           "file": "04-聊天思维与话题延伸.md",
           "category": "沟通思维 · 情感共鸣",
           "cost": "梳理自己人生中真实的成长经历与感悟；展现真实的心理脆弱面。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "不要靠口头吹嘘自己“很专一、很上进、很善良”。在聊到相关话题时，自然讲一件你成长过程中真实经历过的挫折、努力或温情小事。真实的脆弱与反思，比完美的虚伪更有力量。",
           "benefits": "- 建立深层的心灵连接与情感共鸣（Rapport）；\n  - 引导对方也愿意对你敞开心扉，分享她的真实内心；\n  - 塑造立体、真实、有血有肉的人格魅力。",
           "evidence": "A",
@@ -737,6 +905,11 @@ html.dark .switch .moon { display: block; }
           "file": "05-关系升级与情绪调动.md",
           "category": "健康吸引 · 幽默表达",
           "cost": "需掌握细腻的分寸感与同理心，严禁冒犯。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "中",
+          "ratio": "高",
           "plain_speak": "幽默是最高级的智慧。真诚赞美的同时，带有一点俏皮的善意玩笑，能让聊天像打乒乓球一样有来有往。但记住：调侃的目的是让双方都笑出来，绝不是为了故意打压贬低对方。",
           "benefits": "- 彻底摆脱沉闷死板的交谈氛围；\n  - 营造轻松愉快的互动气场，展现松弛的自信心；\n  - 激发两人之间独有的默契与嬉笑打闹的情感张力。",
           "evidence": "A",
@@ -755,6 +928,11 @@ html.dark .switch .moon { display: block; }
           "file": "05-关系升级与情绪调动.md",
           "category": "深层沟通 · 信任建立",
           "cost": "保持内心情绪稳定，不陷入自卑或被冒犯的应激防卫。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "中",
+          "ratio": "高",
           "plain_speak": "当对方突然问你“你平时对所有人说话都这么甜吗？”、“你看起来挺会谈恋爱的吧？”这绝不是故意刁难你，而是她在潜意识中对你产生了好感，但也伴随着对未知伤害的本能防御。别慌张自证，用从容幽默化解，并给出清晰的安全感。",
           "benefits": "- 顺利通过深层信任筛选；\n  - 展现极其罕见的高情绪稳定性（Emotional Stability）；\n  - 将原本带有防御性的质问，转化为加深彼此信任的绝佳契机。",
           "evidence": "A",
@@ -773,6 +951,11 @@ html.dark .switch .moon { display: block; }
           "file": "05-关系升级与情绪调动.md",
           "category": "健康吸引 · 情感推进",
           "cost": "克服面对喜欢之人的羞怯，敢于真诚袒露欣赏。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "喜欢就要大方、得体地表达出来。别把好感藏在心底当闷葫芦，也别搞虚头巴脑的套路。坦荡地欣赏她的美好，用尊重的语言传递你的心意，让暧昧在阳光下自然发生。",
           "benefits": "- 明确双方的关系走向，避免在纯友谊区无止境内耗；\n  - 给予对方被珍视、被欣赏的情感滋养；\n  - 建立双向确认的浪漫默契。",
           "evidence": "A",
@@ -791,6 +974,11 @@ html.dark .switch .moon { display: block; }
           "file": "05-关系升级与情绪调动.md",
           "category": "关系推进 · 约会铺垫",
           "cost": "在邀约时多花一两分钟充分说明计划与行程。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "邀请对方线下见面时，把去哪里、吃什么、大概几点结束提前说清楚，并主动征求对方意见。给予对方充分的知情权与安全感，女生赴约时才能毫无心理负担、感到被充分尊重。",
           "benefits": "- 显著提升线下邀约的应约率；\n  - 消除女生对未知环境或安全边界的隐性担忧；\n  - 树立成熟、细心、值得托付的绅士形象。",
           "evidence": "A",
@@ -817,6 +1005,11 @@ html.dark .switch .moon { display: block; }
           "file": "06-约会设计与现场实战.md",
           "category": "约会设计 · 流程体验",
           "cost": "金钱约 150-300 元；需提前规划并确认步行可达的动线。",
+          "money": "少",
+          "time": "中",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "高",
           "plain_speak": "一场约会千万别只待在一个餐厅里两个小时枯坐。规划 2-3 个不同氛围的地点自然转换（例如：轻饮破冰 → 互动看展/手作体验 → 漫步或晚餐），这样一下午在心理记忆上会留下极为充实丰满的多维度印象。",
           "benefits": "- 极大加深彼此的情境记忆厚度与心理亲密感；\n  - 打破单一面对面静态坐姿带来的对话枯竭与身体紧绷；\n  - 为两人提供自然并肩漫步、共同探索城市的动态互动机会。",
           "evidence": "A",
@@ -835,6 +1028,11 @@ html.dark .switch .moon { display: block; }
           "file": "06-约会设计与现场实战.md",
           "category": "约会设计 · 环境选择",
           "cost": "人均预算 80-150 元不等。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "初次约会千万别选传统电影院（黑灯瞎火戴 3D 眼镜无法交流）和嘈杂大排档。选采光柔和、背景音乐轻柔、可以并排坐或近距离轻声交谈的舒适空间。",
           "benefits": "- 营造松弛、安全、不紧绷的对话环境；\n  - 促进非言语肢体语言的自然交流与目光接触；\n  - 避免因环境嘈杂混乱引发的听觉疲劳与情绪烦躁。",
           "evidence": "A",
@@ -853,6 +1051,11 @@ html.dark .switch .moon { display: block; }
           "file": "06-约会设计与现场实战.md",
           "category": "肢体亲密 · 尊重边界",
           "cost": "克制急躁与猴急冲动；保持极高的绅士风度与同理心。",
+          "money": "少",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "牵手与拥抱必须建立在双方自然的情感流露与对彼此身体的绝对尊重之上。永远不要搞自以为是的“霸道强拉”或用看手相等小动作占便宜。观察对方的舒适度与身体语言，循序渐进，如果对方退缩，立刻从容保持礼貌距离。",
           "benefits": "- 彻底规避给对方带来任何不适、冒犯与心理阴影；\n  - 树立成熟自持、高度尊重女性的君子人格；\n  - 让每一次身体接触都建立在真心渴望与双向奔赴的甜蜜基石上。",
           "evidence": "A",
@@ -879,6 +1082,11 @@ html.dark .switch .moon { display: block; }
           "file": "07-长期相处与关系维护.md",
           "category": "长期相处 · 个人状态",
           "cost": "长期的自律自爱；每周保留 4-6 小时独立的个人专属精进时间。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "确定恋爱关系甚至结婚后，千万别立刻放弃身材管理、不修边幅、整天躺平刷手机。伴侣当初爱上的是那个充满生机、热爱生活、专注上进的你。持续保持成长与独立世界，你的魅力才会随着岁月流逝愈发醇厚。",
           "benefits": "- 终身保持两性吸引力的保鲜度，抗拒享乐适应（Hedonic Adaptation）引发的审美疲劳；\n  - 避免将生活重心全部压在对方身上，消除窒息的分离焦虑与控制欲；\n  - 维持健康亲密关系的最佳形态：两个独立完整的圆相遇，共同滚向远方。",
           "evidence": "A",
@@ -897,6 +1105,11 @@ html.dark .switch .moon { display: block; }
           "file": "07-长期相处与关系维护.md",
           "category": "长期相处 · 权力平衡",
           "cost": "放下“全包揽的大男子主义”或“理所应当的索取心态”。",
+          "money": "0",
+          "time": "多",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "高",
           "plain_speak": "健康的关系必须是双向奔赴。如果永远只有一个人在花钱、做家务、赔笑脸、迁就对方，这段关系迟早会因为怨恨积压而崩溃。引导并鼓励对方也为这段感情投入心力与时间，共同参与、共同承担，才会共同珍惜。",
           "benefits": "- 彻底规避“供养者被抛弃”或“单方面情绪崩溃”的悲剧；\n  - 大幅提升双方关系的抗风险能力与情感粘性；\n  - 建立彼此平等的“亲密战友”信任契约。",
           "evidence": "A",
@@ -915,6 +1128,11 @@ html.dark .switch .moon { display: block; }
           "file": "07-长期相处与关系维护.md",
           "category": "长期相处 · 冲突管理",
           "cost": "在情绪上头、心率飙升时克制言语攻击的本能。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "情侣吵架不可避免，但绝对不能冷暴力、不能翻旧账、不能人身攻击。识别并戒除戈特曼实验室提出的四大婚姻杀手：批评、蔑视、辩解、冷战。建立暂停冷静机制，矛盾尽量不过夜，对事不对人。",
           "benefits": "- 终结恶意冷暴力与人身攻击对亲密关系带来的不可逆结构性破坏；\n  - 培养成年人级别的高阶冲突解决能力；\n  - 将每次争吵转化为更加了解彼此底线与需求的契机。",
           "evidence": "A",
@@ -923,6 +1141,52 @@ html.dark .switch .moon { display: block; }
           "redlines": "- 争吵时动辄提“分手/离婚”作为控制筹码；\n  - 连续拉黑微信、电话关机数天玩失踪（严重情感虐待）。",
           "boundaries": "",
           "source": "Gottman JM, Levenson RW (1992). J Fam Psychol. https://doi.org/10.1037/0893-3200.6.2.221"
+        },
+        {
+          "id": 28,
+          "sec": 7,
+          "sec_title": "长期相处与戈特曼法则",
+          "title": "原生家庭边界与长辈干涉防线：确立伴侣第一序位原则",
+          "chapter": "07-长期相处与戈特曼法则",
+          "file": "07-长期相处与关系维护.md",
+          "category": "长期相处 · 家庭边界",
+          "cost": "金钱 0 元；需要克服对原生家庭父母的情感附庸惯性，勇于在核心利益分歧时对长辈温和而坚定地说“不”。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
+          "plain_speak": "结婚或确立深度伴侣关系后，两个人组成的新家庭必须是第一优先级，任何一方的原生家庭（父母、亲戚）只能排第二。如果任由父母插手你们的买房、同居、婚宴细节、甚至床头吵架，婚姻百分之百走向毁灭。伴侣吵架关起门来内部解决，坚决不向父母诉苦告状引狼入室；父母提出不合理要求，必须由该方子女出面去挡，绝不能让伴侣直接顶在炮火前线。",
+          "benefits": "- 彻底规避两性关系中最具毁灭性的“双边父母角力与恶性对抗”；\n  - 建立坚不可摧的夫妻信任核心同盟，消除被伴侣背后插刀的背叛感；\n  - 引导两家父母学会尊重成年子女的独立生活，建立健康的代际交往距离。",
+          "evidence": "A",
+          "academic": "- **鲍文家庭系统理论（Bowen Family Systems Theory）实证**：Skowron EA, & Friedlander ML (1998). *The Differentiation of Self Inventory: Development and initial validation*. Journal of Counseling Psychology. https://doi.org/10.1037/0022-0167.45.3.235 （对长期婚恋群体的心理分化度追踪：个体在面对原生家庭干预时的“自我分化度（Differentiation of Self）”与婚姻满意度呈极其显著正相关（r=0.48, p<0.001）。未能与父母完成心理断乳（即处于“情感纠缠/融合”状态）的个体，其婚姻在 3 年内因婆媳/翁婿矛盾破裂的几率高达普通伴侣的 3.4 倍）。\n  - **法定夫妻独立地位依据**：《中华人民共和国民法典》第一千零四十三条（夫妻应当互相忠实、互相尊重、互相关爱；家庭成员应当尊老爱幼、互相帮助，维护平等、和睦、文明的婚姻家庭关系）及第一千零五十五条（夫妻双方都有参加生产、工作、学习和社会活动的自由，一方不得对另一方加以限制或者干涉）。",
+          "actions": "1. **谁的父母谁去沟通**：男方父母有意见，男方出面沟通安抚；女方父母有要求，女方出面协商定夺。严禁让伴侣直接与对方父母起正面冲突；\n  2. **信息防火墙原则**：两人关起门来的小摩擦、偶发性口角，坚决不向各自父母诉苦倒苦水。父母会代入血缘偏袒，留下不可磨灭的敌意印记；\n  3. **小家庭经济主权独立**：凡涉及大额财产赠与、借贷或购房出资，必须以书面协议明确性质，防止长辈以“出资人”身份随意剥夺新家庭的决策自主权。",
+          "redlines": "- 典型的“妈宝男/扶弟魔”行为：长辈一施压立刻牺牲伴侣利益，要求伴侣无底线隐忍让步；\n  - 吵架后立刻跑回娘家/婆家告状，把两个人的私密分歧激化为两个家族的恶性争斗。",
+          "boundaries": "",
+          "source": "Skowron EA, Friedlander ML (1998). J Couns Psychol. https://doi.org/10.1037/0022-0167.45.3.235 & 民法典第 1043 条"
+        },
+        {
+          "id": 29,
+          "sec": 7,
+          "sec_title": "长期相处与戈特曼法则",
+          "title": "异地恋维系科学与终结机制：设定不可逾越的「落定时钟」",
+          "chapter": "07-长期相处与戈特曼法则",
+          "file": "07-长期相处与关系维护.md",
+          "category": "长期相处 · 异地维系",
+          "cost": "交通往返差旅费；每日固定的高质量深度视讯时间；克制因物理距离诱发的猜忌与防御。",
+          "money": "少",
+          "time": "多",
+          "will": "是",
+          "gain_level": "大",
+          "ratio": "一般",
+          "plain_speak": "异地恋不可能靠虚无缥缈的“深情”无限期维持。异地恋能存活的核心只有两件事：第一，建立高频但低压迫的日常分享与每周固定深度视讯；第二，必须有清晰的【结束异地的时间表】（最长不超过 1-2 年必须同城）。如果双方谁都不愿意为了未来做出迁移妥协，或者根本没有结束异地的确切日期，那就只是在用幻想拖延不可避免的痛苦分手。",
+          "benefits": "- 极大降低由物理隔离、多巴胺衰退引发的情感疏离与相互猜忌；\n  - 提前筛选出是否有共同携手走向现实生活的长期意愿；\n  - 为漫长异地生活设立明确的精神灯塔与倒计时心理支撑。",
+          "evidence": "A",
+          "academic": "- **异地恋存续与重聚追踪研究**：Stafford L, & Merolla AJ (2007). *Idealization, reunions, and stability in long-distance dating relationships*. Journal of Social and Personal Relationships. https://doi.org/10.1177/0265407507072578 （对 200 余对异地伴侣的纵向跟踪研究：具备明确且不可逾越的“同城结束期（Sunset Clause）”的伴侣，重聚并最终结婚的几率高达 71.3%；而处于“无限期异地”状态的情侣，在 12 个月内的分手率高达 68.2%，且异地期间理想化幻想破灭导致的重聚即分手效应极显著（p<0.01））。\n  - **媒体丰富度理论（Media Richness Theory）实证**：Daft RL, & Lengel RH (1986). *Organizational information requirements, media richness and structural design*. Management Science.（纯文字微信沟通属于最低信息丰富度媒介，缺乏语调、面部微表情与肢体语言，误读率高出面对面或视频沟通 4.6 倍。每日 15-30 分钟的高质量视频连线能补充 80% 以上的情感非语言线索）。",
+          "actions": "1. **设定终结倒计时（Sunset Clause）**：双方必须在异地开始 3 个月内，共同确定一个清晰的时间节点（如“后年 6 月你毕业我调岗，我们在同一个城市生活”），没有倒计时的异地恋是慢性自杀；\n  2. **固定沟通契约与透明日程**：约定每天固定 15-30 分钟的视频连线，互相分享日常琐碎（哪怕只是开着视频各自看书做饭），降低“失联恐慌”；\n  3. **物理见面周期与财务共担**：原则上异地见面周期不应超过 4-6 周；差旅费用由双方健康共担，轮流奔赴对方所在的城市，避免单方长期劳累与经济透支。",
+          "redlines": "- “走一步看一步吧”：从来不讨论何时结束异地，拖延对方数年青春；\n  - 异地期间动辄冷暴力断联数天，诱发对方灾难化猜忌。",
+          "boundaries": "",
+          "source": "Stafford L, Merolla AJ (2007). J Soc Pers Relat. https://doi.org/10.1177/0265407507072578"
         }
       ]
     },
@@ -933,7 +1197,7 @@ html.dark .switch .moon { display: block; }
       "intro": "在情感交往中，沟通节奏错配、过早表达心意遭遇拒绝、或是因情绪过载导致关系陷入冰点是极其常见的挫折。绝大多数人在此刻的本能反应是：**疯狂发小作文解释、连环追问、当街挽留甚至道德绑架**。这种应激反应只会彻底摧毁仅存的尊严与好感。本章提供成熟、理性且高情商的危机应对方案。",
       "entries": [
         {
-          "id": 28,
+          "id": 30,
           "sec": 8,
           "sec_title": "关系危机与理性止损",
           "title": "情绪过载时的「战略性降温与心理留白」：止住关系雪崩",
@@ -941,6 +1205,11 @@ html.dark .switch .moon { display: block; }
           "file": "08-聊天急救与逆转翻盘.md",
           "category": "危机应对 · 情绪止损",
           "cost": "零金钱；需要极其强大的情绪自控力，克制住抓起手机发长文解释的冲动。",
+          "money": "0",
+          "time": "多",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "高",
           "plain_speak": "如果不小心发了长篇大论倾诉好感造成尴尬，或者频繁发消息导致对方态度断崖式变冷淡。立刻停下来！不要道歉说“对不起我太冲动”，不要反复追问。给彼此 5-7 天的冷静空间，把精力收回自己的现实生活，让对方的心理防御自然消退。",
           "benefits": "- 立即刹住因急迫逼迫导致的彻底拉黑与反感；\n  - 给对方留出消化情绪、摆脱压迫感的安全心理距离；\n  - 重新找回个人的情绪重心与尊严基线。",
           "evidence": "A",
@@ -951,7 +1220,7 @@ html.dark .switch .moon { display: block; }
           "source": "Dillard JP, Shen L (2005). Commun Monogr. https://doi.org/10.1080/03637750500111815"
         },
         {
-          "id": 29,
+          "id": 31,
           "sec": 8,
           "sec_title": "关系危机与理性止损",
           "title": "表白受挫后的「体面降维与边界重置」：以从容化解尴尬",
@@ -959,6 +1228,11 @@ html.dark .switch .moon { display: block; }
           "file": "08-聊天急救与逆转翻盘.md",
           "category": "危机应对 · 尊严退守",
           "cost": "放下“非要一个名分”的执念，接纳现实。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "如果过早表白被发了“只把你当朋友”的好人卡，千万不要气急败坏质问“我哪里不够好”。大方坦然地微笑着接纳：“完全理解，之前是我有些急躁了，退回普通朋友相处最自在”。尊重对方的意愿，同时也把自己的特殊待遇全部收回，退回普通朋友界限。",
           "benefits": "- 瞬间拆除对方竖起的避嫌防备高墙；\n  - 维护自身高尊严、通透、体面的人格底色；\n  - 避免因追求不成导致彼此社会关系彻底决裂。",
           "evidence": "A",
@@ -969,7 +1243,7 @@ html.dark .switch .moon { display: block; }
           "source": "Christensen A, Heavey CL (1990). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.59.1.73"
         },
         {
-          "id": 30,
+          "id": 32,
           "sec": 8,
           "sec_title": "关系危机与理性止损",
           "title": "僵尸会话唤醒与沉没成本止损：理智面对未竟之缘",
@@ -977,6 +1251,11 @@ html.dark .switch .moon { display: block; }
           "file": "08-聊天急救与逆转翻盘.md",
           "category": "危机应对 · 理性止损",
           "cost": "如果尝试无果，彻底放下执念的心理决断力。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "如果一段关系断联了几个月，想最后尝试一次连接，借一个她擅长的话题或具体的小事轻量求助。如果对方热情回应，可以重构交流；如果对方依然冷若冰霜、礼貌敷衍，那就优雅接受事实，果断停止投入，向前看。",
           "benefits": "- 做最后一次低阻力尝试，不留遗憾；\n  - 战胜沉没成本谬误（Sunk Cost Fallacy），避免在无希望的关系里耗费数年青春；\n  - 为真正值得相伴的同频伴侣腾出生命空间。",
           "evidence": "A",
@@ -995,7 +1274,7 @@ html.dark .switch .moon { display: block; }
       "intro": "亲密关系不仅涉及情感流动，更深植于**人身权利、民事财产与法定责任**的现实土壤中。两性交往中最为惨烈的悲剧，往往并非源于情感冷却，而是源于金钱债务暴雷、暴力侵害或严重欺瞒。本章严格依据《中华人民共和国民法典》及最高人民法院最新司法解释，构筑坚不可摧的法治与人身避险铠甲。",
       "entries": [
         {
-          "id": 31,
+          "id": 33,
           "sec": 9,
           "sec_title": "财产安全、法律红线与人身退场防线",
           "title": "恋爱期间转账定性与借贷证据留存：区分赠与与民间借贷",
@@ -1003,6 +1282,11 @@ html.dark .switch .moon { display: block; }
           "file": "09-财产安全、法律红线与人身退场防线.md",
           "category": "财产安全 · 资金借贷",
           "cost": "金钱 0 元；大额转账时多花 1 分钟在转账附言中写清用途，或补发一条确认微信。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "恋爱期间转账 520、1314 这种有特殊含义的金额，分手后法院一律算作无偿赠与，绝对要不回来；如果是数千上万的借款或资金周转，必须通过银行卡/微信转账并明确备注“借款周转”，同时在聊天记录里让对方确认“这是借的、回头还”。",
           "benefits": "- 彻底规避恋爱分手后被“卷款跑路”却因证据不足败诉的人财两空；\n  - 依法保护个人婚前合法财产所有权；\n  - 维护平等健康的交往金钱观，杜绝把恋爱当提款机的恶意寄生。",
           "evidence": "A",
@@ -1013,7 +1297,7 @@ html.dark .switch .moon { display: block; }
           "source": "最高人民法院关于审理民间借贷案件适用法律若干问题的规定 & 民法典第 657/667 条"
         },
         {
-          "id": 32,
+          "id": 34,
           "sec": 9,
           "sec_title": "财产安全、法律红线与人身退场防线",
           "title": "涉彩礼纠纷的返还法定裁判边界：区分礼金与共同消耗",
@@ -1021,6 +1305,11 @@ html.dark .switch .moon { display: block; }
           "file": "09-财产安全、法律红线与人身退场防线.md",
           "category": "财产安全 · 彩礼纠纷",
           "cost": "聘礼给付前与家庭充分沟通，明晰地方习俗与法定权利。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "彩礼是为了缔结婚姻为目的的给付。如果两人没领结婚证就分手了，或者刚领证就分居没实际共同生活、或者给彩礼导致男方家庭债台高筑陷入赤贫，法律明确支持要求返还彩礼。",
           "benefits": "- 依法防范“闪婚闪离卷走天价彩礼”的情感诈骗与经济陷阱；\n  - 明确双方财产权益，避免因非理性质疑引发两家恶性肢体冲突；\n  - 引导婚俗回归理性真诚，消除物质沉重负担。",
           "evidence": "A",
@@ -1031,7 +1320,7 @@ html.dark .switch .moon { display: block; }
           "source": "最高人民法院法释〔2024〕1号司法解释"
         },
         {
-          "id": 33,
+          "id": 35,
           "sec": 9,
           "sec_title": "财产安全、法律红线与人身退场防线",
           "title": "婚前买房出资归属与产权协议：防止婚变净身出户",
@@ -1039,6 +1328,11 @@ html.dark .switch .moon { display: block; }
           "file": "09-财产安全、法律红线与人身退场防线.md",
           "category": "财产安全 · 不动产纠纷",
           "cost": "购房前起草一份《出资与产权确认协议》，花费约 200-500 元做律师见证或家庭签字确认。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "结婚前买房，首付款是谁出的、银行流水必须从谁的卡里走，一定要清清楚楚。如果是一方婚前出首付、写一方名字，婚后共同还贷，离婚时房子归首付方，但婚后共同还贷及增值部分必须给另一方现金补偿。",
           "benefits": "- 彻底规避倾尽两代人积蓄买房、离婚时却因权属模糊遭遇重大财产分割损失；\n  - 建立透明健康的家庭财务合作规则；\n  - 为双方还贷贡献提供无可争议的法律依据。",
           "evidence": "A",
@@ -1049,7 +1343,7 @@ html.dark .switch .moon { display: block; }
           "source": "民法典婚姻家庭编解释（一）第七十八条"
         },
         {
-          "id": 34,
+          "id": 36,
           "sec": 9,
           "sec_title": "财产安全、法律红线与人身退场防线",
           "title": "夫妻共同债务隔离与防坑：恪守「共债共签」原则",
@@ -1057,6 +1351,11 @@ html.dark .switch .moon { display: block; }
           "file": "09-财产安全、法律红线与人身退场防线.md",
           "category": "财产安全 · 债务隔离",
           "cost": "零金钱；面对借款文件坚决不盲目签字。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "结婚后，伴侣如果瞒着你去借网贷、炒股、赌博欠了几百万，只要你没在借条上签字、借来的钱也没用于家庭柴米油盐，法律规定这笔巨债由他个人承担，绝不能强扣到你头上。但是千万别随便在“担保人/共同借款人”一栏签字！",
           "benefits": "- 筑牢家庭债务防火墙，防止被伴侣的非理性债务连带破产、列入失信被执行人黑名单；\n  - 保护未成年子女与自身的基础生存财产安全。",
           "evidence": "A",
@@ -1067,7 +1366,7 @@ html.dark .switch .moon { display: block; }
           "source": "中华人民共和国民法典第一千零六十四条"
         },
         {
-          "id": 35,
+          "id": 37,
           "sec": 9,
           "sec_title": "财产安全、法律红线与人身退场防线",
           "title": "家庭暴力防范与人身安全保护令：法定六大取证链",
@@ -1075,6 +1374,11 @@ html.dark .switch .moon { display: block; }
           "file": "09-财产安全、法律红线与人身退场防线.md",
           "category": "人身安全 · 危机解脱",
           "cost": "发生侵害时果断报警，花费 1-2 小时完成笔录与验伤。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "家暴绝不是“家务事”，而是违法犯罪！如果遭受肢体暴力、殴打、威胁或人身自由限制，必须在发生当时立即拨打 110 报警索要《受案回执》，去公立医院验伤开诊断书。凭这些证据，不需离婚诉讼，就可以直接向法院申请《人身安全保护令》，法院会下令禁止对方靠近你和你的住所。",
           "benefits": "- 获得国家司法强制力保护，违法违反保护令者直接面临司法拘留甚至刑事判刑；\n  - 斩断家暴“施暴-忏悔-再次施暴”的恐怖循环；\n  - 在后续离婚诉讼中，作为主张损害赔偿和争取子女抚养权的核心压倒性证据。",
           "evidence": "A",
@@ -1085,7 +1389,7 @@ html.dark .switch .moon { display: block; }
           "source": "中华人民共和国反家庭暴力法 & 法释〔2022〕19号"
         },
         {
-          "id": 36,
+          "id": 38,
           "sec": 9,
           "sec_title": "财产安全、法律红线与人身退场防线",
           "title": "婚前重大疾病隐瞒的法定撤销权：一年除斥期间的生命线",
@@ -1093,6 +1397,11 @@ html.dark .switch .moon { display: block; }
           "file": "09-财产安全、法律红线与人身退场防线.md",
           "category": "人身权益 · 婚姻效力",
           "cost": "婚前共同参与正规公立医院免费或自费婚检（约 200-400 元）。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
           "plain_speak": "结婚前，如果一方患有严重精神障碍、艾滋病、重大遗传性疾病等，必须在结婚登记前如实告知对方。如果故意隐瞒骗婚，另一方可以在知道事实后的「一年之内」向法院申请撤销婚姻。一旦撤销，婚姻自始无效，自己的户口本上依然是“未婚”而不是“离异”。但记住：这一年期限过期不候！",
           "benefits": "- 捍卫自身的重大知情权与生命健康权；\n  - 依法撤销受欺诈婚姻，避免背负“离异”身份痕迹；\n  - 请求过错方承担精神与物质损害赔偿。",
           "evidence": "A",
@@ -1101,6 +1410,52 @@ html.dark .switch .moon { display: block; }
           "redlines": "- 发现对方婚前瞒报重病后，只顾吵架冷战拖延超过一年，错失撤销婚姻的不变除斥期间；\n  - 迷信“对方爱我就会对我负责”，拒绝做任何婚前医学体检。",
           "boundaries": "",
           "source": "中华人民共和国民法典第一千零五十三条"
+        },
+        {
+          "id": 39,
+          "sec": 9,
+          "sec_title": "财产安全、法律红线与人身退场防线",
+          "title": "生育意愿前置对齐、避孕责任对等与非意愿妊娠救济：知情同意与身体权底线",
+          "chapter": "09-财产安全、法律红线与人身退场防线",
+          "file": "09-财产安全、法律红线与人身退场防线.md",
+          "category": "法律防线 · 人身权益",
+          "cost": "金钱 0 元；在关系进入深度亲密前进行 15-30 分钟冷静严肃的生育与避孕价值观对齐。",
+          "money": "0",
+          "time": "少",
+          "will": "否",
+          "gain_level": "大",
+          "ratio": "极高",
+          "plain_speak": "生不生孩子、什么时候生、生几个，必须在谈婚论嫁前清清楚楚摊开讲明白；避孕是两个人的共同责任，坚决反对男方不戴套要求女方吃紧急避孕药的单向自私伤害。女性对自己的身体享有绝对的自主决定权，任何强迫生育、隐瞒不育或以“生儿子”为要挟的行为，在法律与伦理上都是不可逾越的红线。",
+          "benefits": "- 彻底规避婚后因“一方坚决丁克、另一方必须生娃”导致的毁灭性婚姻解体；\n  - 杜绝非意愿妊娠（意外怀孕流产）对女性身体与心理健康造成的严重不可逆创伤；\n  - 确立两性在生育健康上的对等责任与相互尊重伦理。",
+          "evidence": "A",
+          "academic": "- **身体权与知情同意法定依据**：《中华人民共和国民法典》第一千零零四条（自然人享有健康权，其身心健康受法律保护）、第一千零零七条（禁止以任何形式买卖人体细胞、人体组织、人体器官、遗体）及《中华人民共和国妇女权益保障法》第三十二条（妇女有按照国家有关规定生育子女的权利，也有不生育的自由）。\n  - **非意愿妊娠与生殖健康实证研究**：Guttmacher Institute (2020). *Unintended Pregnancy and Abortion Worldwide*. WHO 公共卫生报告。（因避孕责任缺失导致的非意愿妊娠，不仅流产后感染与继发不孕风险升高 4.2 倍，更是诱发伴侣间相互推诿、精神暴力与迅速解体的高危核心因子（r=0.51, p<0.001））。",
+          "actions": "1. **婚前“生育三问”前置对齐**：\n     - 是否要孩子？（如果一方坚决丁克，切忌幻想“结了婚对方就会改主意”）；\n     - 育儿分工与财务预期如何？（教育投入预期、主要照料者责任如何平衡）；\n     - 若遭遇生理不育问题，双方对试管/领养的接受度与底线是什么；\n  2. **避孕责任双向对等**：\n     - 未做好迎接新生命准备前，严格采取男用安全套等科学双重防护；\n     - 严禁将紧急避孕药（大剂量激素）作为常规避孕手段长期转嫁给伴侣身体；\n  3. **突发非意愿妊娠的救济底线**：\n     - 一旦发生意外，男方必须承担全部医疗开销、营养照护与情绪陪伴责任，严禁推诿失联。",
+          "redlines": "- 婚前信誓旦旦同意丁克，婚后受父母压力突然反悔逼迫生育；\n  - 发生意外怀孕后单方面拉黑删除、逃避抚养与医疗责任（引发人身损害赔偿民事侵权）。",
+          "boundaries": "",
+          "source": "民法典第 1004 条 & 妇女权益保障法第 32 条 & WHO (2020) 生殖健康指引"
+        },
+        {
+          "id": 40,
+          "sec": 9,
+          "sec_title": "财产安全、法律红线与人身退场防线",
+          "title": "职场恋情与同一社交圈恋情（Office Romance）避险防线：利益冲突与声誉防火墙",
+          "chapter": "09-财产安全、法律红线与人身退场防线",
+          "file": "09-财产安全、法律红线与人身退场防线.md",
+          "category": "法律红线 · 职场伦理",
+          "cost": "金钱 0 元；在工作与社交场合严格克制言行界限，坚守公私分离。",
+          "money": "0",
+          "time": "少",
+          "will": "些",
+          "gain_level": "大",
+          "ratio": "极高",
+          "plain_speak": "办公室恋爱或共同核心圈子谈恋爱，风险远高于普通恋爱。绝对不能搞“上下级汇报关系的潜规则恋爱”（涉嫌利益冲突甚至职场性骚扰）；在公司必须公事公办，禁止在工作群或同事面前秀恩爱；一旦分手必须体面退场，严禁在职场公开散布伴侣私密隐私或实施职场报复。",
+          "benefits": "- 彻底防范因感情纠葛导致丢掉工作、名誉扫地甚至陷入性骚扰指控的毁灭性职业危机；\n  - 维护职业专业度与雇佣合规边界；\n  - 建立恋爱与事业互不干扰的成熟防御机制。",
+          "evidence": "A",
+          "academic": "- **组织行为学与职场恋情实证**：Pierce CA, & Aguinis H (2003). *Romantic relationships in organizations: A test of a model of formation and impact on workplace behaviors*. Journal of Applied Psychology. https://doi.org/10.1037/0021-9010.88.5.811 （对 400 余家企事业单位调查：存在上下级权力从属关系的职场恋爱，在业绩考评、晋升公信力上的团队冲突发生率高达 84%；恋情破裂后至少一方因敌对工作环境被迫离职的概率高达 62%）。\n  - **反性骚扰与保密法定红线**：《中华人民共和国民法典》第一千零一十条（机关、企业、学校等单位应当采取合理的预防、受理投诉、调查处置等措施，防止和制止利用职权、从属关系等实施性骚扰）及《民法典》第一千零三十二条（隐私权与个人信息保护）。",
+          "actions": "1. **权力从属关系绝对回避**：若产生感情的双方存在直接上下级审批、考评或财务关联，其中一方必须主动申请转岗、调线或申报利益冲突，消除公私不分隐患；\n  2. **职场“隐身协议”**：在工作场所一律使用规范商务称谓，严禁利用公司公共资源与工作沟通软件传递私密信息；\n  3. **分手后的“竞业与保密”契约**：无论分手如何痛苦，严格坚守个人职业操守，不得向第三方泄露前任的私密聊天记录、身体隐私或商业机密，否则构成侵犯隐私权与名誉权。",
+          "redlines": "- 利用主管、领导职权暗示或强迫下属发展亲密关系（直接触犯民法典第 1010 条性骚扰责任，严重者触犯刑法强制猥亵罪）；\n  - 分手后在公司大群发小作文、张贴大字报报复抹黑对方（侵犯名誉权并面临辞退开除）。",
+          "boundaries": "",
+          "source": "民法典第 1010/1032 条 & Pierce CA, Aguinis H (2003). J Appl Psychol. https://doi.org/10.1037/0021-9010.88.5.811"
         }
       ]
     }
@@ -1115,6 +1470,11 @@ html.dark .switch .moon { display: block; }
       "file": "01-底层逻辑与心态.md",
       "category": "底层逻辑 · 节奏把控",
       "cost": "几乎零金钱；需克制焦虑与急于确立关系的冲动；需 2-4 周的耐心观察与节奏调谐。",
+      "money": "0",
+      "time": "中",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "高",
       "plain_speak": "从相识到相伴必须经历：初识建立安全感、日常互动建立熟悉、人格魅力产生吸引、确认心意后认真追求、身心契合自然亲密、到长期经营。没建立吸引前去表白只会给对方带来沉重的情感绑架；没建立基本熟悉就急于肢体接触只会让人感到冒犯。",
       "benefits": "- 彻底规避 90% 以上年轻人的典型死因「未吸引先表白」（过早表白被拒率高达 80% 以上，造成不可逆的社交防御）；\n  - 维持双向对等的权力平衡，避免因单向过早暴露强烈需求感导致知觉价值贬损；\n  - 明确知道当前双方的舒适区边界，知进退、有分寸。",
       "evidence": "A",
@@ -1133,6 +1493,11 @@ html.dark .switch .moon { display: block; }
       "file": "01-底层逻辑与心态.md",
       "category": "心智建设 · 情绪韧性",
       "cost": "零金钱；需打破过去的自我怀疑惯性与灾难化联想。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "社交沟通是一门可以终身练习的情商技能。被拒绝或者对方态度冷淡，往往只是当前场景、生活节奏或双方核心需求不匹配，绝不代表你的人生一无是处。总结经验、持续进化，不必自我否定。",
       "benefits": "- 消除对异性冷淡和拒绝的灾难化恐惧；\n  - 大幅缩短遭遇挫折后的内耗周期（从消沉数周缩短为从容复盘）；\n  - 建立终身自主升级外在仪表、沟通共情与社交能力的动力源泉。",
       "evidence": "A",
@@ -1151,6 +1516,11 @@ html.dark .switch .moon { display: block; }
       "file": "01-底层逻辑与心态.md",
       "category": "底层逻辑 · 吸引本质",
       "cost": "长期的自律提升与情商修行。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "优秀的伴侣选择你，必然基于两点：第一，你本身是一个独立自律、有工作能力、生活有趣的优秀个体；第二，与你相处时有安全感、被尊重、能获得情绪滋养。两者缺一不可。",
       "benefits": "- 告别卑微讨好：明白单纯“对她好、当仆人”无法产生性吸引与人格尊重；\n  - 告别浮夸油腻：明白单纯炫富、吹嘘背景只会招致提防与虚荣，无法建立深层心灵依恋。",
       "evidence": "A",
@@ -1169,6 +1539,11 @@ html.dark .switch .moon { display: block; }
       "file": "01-底层逻辑与心态.md",
       "category": "心智建设 · 人格自尊",
       "cost": "面临失去个别不尊重你的对象的短期心理不舍。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "谈恋爱必须有自己的底线。当对方肆意贬低你、践踏你的原则、搞双标冷暴力时，敢于明确表达拒绝甚至抽身离开。太好说话、没有脾气的人永远得不到珍惜，有清晰边界的灵魂才具备恒久魅力。",
       "benefits": "- 彻底规避被当作“情绪垃圾桶”或“单向供养者”的被动深渊；\n  - 维持高自尊人格的性吸引力（可得性过高会导致吸引力骤降）；\n  - 高效筛选出心智成熟、懂得相互尊重的高质量伴侣。",
       "evidence": "A",
@@ -1187,6 +1562,11 @@ html.dark .switch .moon { display: block; }
       "file": "01-底层逻辑与心态.md",
       "category": "心智建设 · 互动姿态",
       "cost": "克制急切求证的好奇心与过度占有欲。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "别总是问“你在干嘛/吃了吗/下班没”，这是在向对方索取注意力。多去分享具体美好的事物、带来轻松的幽默、倾听对方的烦恼，把注意力放在“如何让这场对话让彼此都感到舒服”。",
       "benefits": "- 对方与你交流毫无压力，主动回复与分享的意愿大幅提高；\n  - 树立充满正能量、生活充实、热爱当下的积极人格；\n  - 彻底消除如审讯般的查户口式聊天沉闷感。",
       "evidence": "A",
@@ -1205,6 +1585,11 @@ html.dark .switch .moon { display: block; }
       "file": "01-底层逻辑与心态.md",
       "category": "心智建设 · 情绪脱敏",
       "cost": "放下“命中注定非她不可”的宿命浪漫幻想。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "中",
+      "ratio": "高",
       "plain_speak": "刚认识一个女生，别在脑海里演完相伴一生的电影。抱着探索世界、结交朋友的从容心态与人交往。你越是轻松自然，展现出的魅力越真实；越是患得患失，越会把对方吓跑。",
       "benefits": "- 消除因单点执念引发的极度紧张与过度分析（Overthinking）；\n  - 散发自在松弛的成熟气场（过度匮乏感与饥渴感是吸引力最大的杀手）；\n  - 保持双向选择的理性，避免在一棵树上盲目自我感动。",
       "evidence": "A",
@@ -1223,6 +1608,11 @@ html.dark .switch .moon { display: block; }
       "file": "02-形象建设与展示面.md",
       "category": "个人形象 · 面容管理",
       "cost": "金钱约 100-200 元（寻找专业发型师设计）；时间约 1 小时；每月定期修剪一次。",
+      "money": "少",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "高",
       "plain_speak": "找一个口碑优秀的资深发型师，根据自己的脸型和头骨剪一个清爽利落的发型，并拍下各个角度的照片供日常维护；把杂乱的眉毛修整齐，每天彻底刮净胡茬，定期洗牙去除烟渍牙结石。",
       "benefits": "- 视觉清爽感与精神面貌即刻提升；\n  - 彻底规避邋遢、油腻、缺乏自我照顾能力的负面初印象；\n  - 增强面对面的社交自信与从容感。",
       "evidence": "A",
@@ -1241,6 +1631,11 @@ html.dark .switch .moon { display: block; }
       "file": "02-形象建设与展示面.md",
       "category": "个人形象 · 审美着装",
       "cost": "购置 2-3 套高质感基础款服装（预算约 400-800 元）；几乎零学习门槛。",
+      "money": "0",
+      "time": "多",
+      "will": "是",
+      "gain_level": "大",
+      "ratio": "一般",
       "plain_speak": "如果不擅长时尚穿搭，坚决选择纯色基础款。衣服必须合身、熨烫平整，全身颜色不超过三种。保持鞋子一尘不染，体态挺拔自然，永远胜过盲目跟风潮牌。",
       "benefits": "- 零容错率：极简经典款永远不会过时，亦不会给人浮夸感；\n  - 传递出稳重、干净、克制且有品位的人格特质；\n  - 规避因奇装异服在初次见面引发的审美偏见与不适。",
       "evidence": "A",
@@ -1259,6 +1654,11 @@ html.dark .switch .moon { display: block; }
       "file": "02-形象建设与展示面.md",
       "category": "社交呈现 · 线上主页",
       "cost": "零金钱；花费 1 小时整理主页设置；平时随手记录美好生活瞬间。",
+      "money": "少",
+      "time": "少",
+      "will": "否",
+      "gain_level": "中",
+      "ratio": "高",
       "plain_speak": "朋友圈或社交主页不是打广告、也不是炫富秀优越，而是让新朋友了解你生活方式的窗口。用温和自然的真实抓拍照做头像，背景墙放喜欢的风景或爱好，签名克制真诚，让人一眼感知到你是一个热爱生活的正常人。",
       "benefits": "- 新好友通过率与主动互动意愿提升数倍；\n  - 为后续日常交流提供天然的话题连接点与共同喜好线索；\n  - 消除线上沟通初期的神秘感防备与信任隔阂。",
       "evidence": "A",
@@ -1277,6 +1677,11 @@ html.dark .switch .moon { display: block; }
       "file": "02-形象建设与展示面.md",
       "category": "社交呈现 · 价值展现",
       "cost": "把时间与精力真正投入到现实生活、运动、工作与爱好中。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "中",
+      "ratio": "高",
       "plain_speak": "朋友圈不要刻意摆拍去“装逼”。去真正跑步健身、自己做一顿可口的晚餐、认真攻克工作难关、陪猫狗玩耍、去看一场话剧。把真实的生机勃勃展现出来，同频的人自然会被你吸引。",
       "benefits": "- 避免“人设崩塌”的心理负担（做真实的自己最轻松）；\n  - 吸引与你生活理念、审美和价值观真正契合的高质量伴侣；\n  - 潜意识向外界传递你的心理丰满与情感独立。",
       "evidence": "A",
@@ -1295,6 +1700,11 @@ html.dark .switch .moon { display: block; }
       "file": "03-认识破冰与社交渠道.md",
       "category": "社交破冰 · 线上匹配",
       "cost": "花费半小时梳理真实个人介绍；零金钱支出。",
+      "money": "少",
+      "time": "中",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "高",
       "plain_speak": "在社交软件（如青藤之恋、Soul等）上，如实填写自己的兴趣、爱好和真实生活照片。不要在软件里漫无目的地闲聊好几个星期，当连续互动 3-5 句且氛围良好时，自然、温和地提出互加微信，沉淀真实联系方式。",
       "benefits": "- 筛选掉只想在软件里刷存在感或不诚实的人；\n  - 避免在第三方平台上沉没大量时间却无法沉淀真实连接；\n  - 展现坦荡、真诚、不遮遮掩掩的沟通态度。",
       "evidence": "A",
@@ -1313,6 +1723,11 @@ html.dark .switch .moon { display: block; }
       "file": "03-认识破冰与社交渠道.md",
       "category": "社交破冰 · 现实交往",
       "cost": "零金钱；需要克服短暂的社交评价焦虑（心跳加速）。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "在讲座、展览、书店或活动现场遇到令人心动的对象，如果想结识，在 3 秒内采取行动。保持一米以上的礼貌物理距离，大方得体地表达对对方气质/行为的真诚欣赏，并礼貌询问能否加个联系方式。对方如果犹豫或拒绝，大方微笑祝福并立刻离开，绝不纠缠。",
       "benefits": "- 彻底战胜面对心仪异性时的羞怯心理（暴露脱敏训练）；\n  - 现实中建立的连接真实感和信任基础远高于纯网络交友；\n  - 展现出极其宝贵的真诚、果断与对他人边界的深刻尊重。",
       "evidence": "A",
@@ -1331,6 +1746,11 @@ html.dark .switch .moon { display: block; }
       "file": "03-认识破冰与社交渠道.md",
       "category": "社交破冰 · 制度化相亲",
       "cost": "餐饮人均 50-100 元；时间约 1-1.5 小时。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "中",
+      "ratio": "高",
       "plain_speak": "相亲第一面千万别装逼、别吹嘘、也别像审犯人一样查户口。把对方当成初次见面的普通朋友，找个安静有格调的咖啡厅喝杯饮品，衣着干净，态度温和真诚。不卑不亢、彼此尊重就是最完美的表现。",
       "benefits": "- 初次见面通过率与彼此舒适度显著提升；\n  - 杜绝因用力过猛或油腻说教引发的瞬间下头；\n  - 高效筛选出三观与沟通模式同频的靠谱伴侣。",
       "evidence": "A",
@@ -1349,6 +1769,11 @@ html.dark .switch .moon { display: block; }
       "file": "04-聊天思维与话题延伸.md",
       "category": "沟通思维 · 边界守则",
       "cost": "零金钱；需要克制表达冲动与急躁情绪。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "单条消息在手机屏幕上尽量控制在两行以内；禁止像警察审案一样连续追问两个以上的问题；别发一堆无意义的表情包敷衍了事。",
       "benefits": "- 聊天氛围轻松自在，对方回复意愿显著提升；\n  - 规避因信息过载与压迫感导致的下头与疏离；\n  - 建立平等、平衡的双向互动节奏。",
       "evidence": "A",
@@ -1367,6 +1792,11 @@ html.dark .switch .moon { display: block; }
       "file": "04-聊天思维与话题延伸.md",
       "category": "沟通思维 · 话题拓展",
       "cost": "需要通过日常练习培养敏锐的倾听与联想习惯。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "不知道回什么时，别绞尽脑汁硬憋话题。认真看对方上一句话，用三招接话：①提取她话里的关键词深入探讨；②通过一个词展开生活联想；③不评判事实本身，直接说出这句话带给你的氛围与感受。",
       "benefits": "- 永远告别“不知道回什么好”的僵局；\n  - 对方能深刻感知到你是在认真倾听她，而非自说自话；\n  - 自然将枯燥的事实汇报转化为鲜活生动的情绪共鸣。",
       "evidence": "A",
@@ -1385,6 +1815,11 @@ html.dark .switch .moon { display: block; }
       "file": "04-聊天思维与话题延伸.md",
       "category": "沟通思维 · 破冰开局",
       "cost": "沟通前花 20 秒细致留意对方当下的生活线索。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "中",
+      "ratio": "高",
       "plain_speak": "聊天开场白千万别发毫无营养的“在吗”、“早安”或一个挥手的表情。观察对方的动态、朋友圈的小细节或两人曾经聊过的共同记忆，一句话开启一段高质量对话。",
       "benefits": "- 开场回复率大幅攀升；\n  - 彻底摆脱流水线群发工具人的廉价感；\n  - 让对方感受到被真正关注与尊重的细腻温暖。",
       "evidence": "A",
@@ -1403,6 +1838,11 @@ html.dark .switch .moon { display: block; }
       "file": "04-聊天思维与话题延伸.md",
       "category": "沟通思维 · 情感共鸣",
       "cost": "梳理自己人生中真实的成长经历与感悟；展现真实的心理脆弱面。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "不要靠口头吹嘘自己“很专一、很上进、很善良”。在聊到相关话题时，自然讲一件你成长过程中真实经历过的挫折、努力或温情小事。真实的脆弱与反思，比完美的虚伪更有力量。",
       "benefits": "- 建立深层的心灵连接与情感共鸣（Rapport）；\n  - 引导对方也愿意对你敞开心扉，分享她的真实内心；\n  - 塑造立体、真实、有血有肉的人格魅力。",
       "evidence": "A",
@@ -1421,6 +1861,11 @@ html.dark .switch .moon { display: block; }
       "file": "05-关系升级与情绪调动.md",
       "category": "健康吸引 · 幽默表达",
       "cost": "需掌握细腻的分寸感与同理心，严禁冒犯。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "中",
+      "ratio": "高",
       "plain_speak": "幽默是最高级的智慧。真诚赞美的同时，带有一点俏皮的善意玩笑，能让聊天像打乒乓球一样有来有往。但记住：调侃的目的是让双方都笑出来，绝不是为了故意打压贬低对方。",
       "benefits": "- 彻底摆脱沉闷死板的交谈氛围；\n  - 营造轻松愉快的互动气场，展现松弛的自信心；\n  - 激发两人之间独有的默契与嬉笑打闹的情感张力。",
       "evidence": "A",
@@ -1439,6 +1884,11 @@ html.dark .switch .moon { display: block; }
       "file": "05-关系升级与情绪调动.md",
       "category": "深层沟通 · 信任建立",
       "cost": "保持内心情绪稳定，不陷入自卑或被冒犯的应激防卫。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "中",
+      "ratio": "高",
       "plain_speak": "当对方突然问你“你平时对所有人说话都这么甜吗？”、“你看起来挺会谈恋爱的吧？”这绝不是故意刁难你，而是她在潜意识中对你产生了好感，但也伴随着对未知伤害的本能防御。别慌张自证，用从容幽默化解，并给出清晰的安全感。",
       "benefits": "- 顺利通过深层信任筛选；\n  - 展现极其罕见的高情绪稳定性（Emotional Stability）；\n  - 将原本带有防御性的质问，转化为加深彼此信任的绝佳契机。",
       "evidence": "A",
@@ -1457,6 +1907,11 @@ html.dark .switch .moon { display: block; }
       "file": "05-关系升级与情绪调动.md",
       "category": "健康吸引 · 情感推进",
       "cost": "克服面对喜欢之人的羞怯，敢于真诚袒露欣赏。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "喜欢就要大方、得体地表达出来。别把好感藏在心底当闷葫芦，也别搞虚头巴脑的套路。坦荡地欣赏她的美好，用尊重的语言传递你的心意，让暧昧在阳光下自然发生。",
       "benefits": "- 明确双方的关系走向，避免在纯友谊区无止境内耗；\n  - 给予对方被珍视、被欣赏的情感滋养；\n  - 建立双向确认的浪漫默契。",
       "evidence": "A",
@@ -1475,6 +1930,11 @@ html.dark .switch .moon { display: block; }
       "file": "05-关系升级与情绪调动.md",
       "category": "关系推进 · 约会铺垫",
       "cost": "在邀约时多花一两分钟充分说明计划与行程。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "邀请对方线下见面时，把去哪里、吃什么、大概几点结束提前说清楚，并主动征求对方意见。给予对方充分的知情权与安全感，女生赴约时才能毫无心理负担、感到被充分尊重。",
       "benefits": "- 显著提升线下邀约的应约率；\n  - 消除女生对未知环境或安全边界的隐性担忧；\n  - 树立成熟、细心、值得托付的绅士形象。",
       "evidence": "A",
@@ -1493,6 +1953,11 @@ html.dark .switch .moon { display: block; }
       "file": "06-约会设计与现场实战.md",
       "category": "约会设计 · 流程体验",
       "cost": "金钱约 150-300 元；需提前规划并确认步行可达的动线。",
+      "money": "少",
+      "time": "中",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "高",
       "plain_speak": "一场约会千万别只待在一个餐厅里两个小时枯坐。规划 2-3 个不同氛围的地点自然转换（例如：轻饮破冰 → 互动看展/手作体验 → 漫步或晚餐），这样一下午在心理记忆上会留下极为充实丰满的多维度印象。",
       "benefits": "- 极大加深彼此的情境记忆厚度与心理亲密感；\n  - 打破单一面对面静态坐姿带来的对话枯竭与身体紧绷；\n  - 为两人提供自然并肩漫步、共同探索城市的动态互动机会。",
       "evidence": "A",
@@ -1511,6 +1976,11 @@ html.dark .switch .moon { display: block; }
       "file": "06-约会设计与现场实战.md",
       "category": "约会设计 · 环境选择",
       "cost": "人均预算 80-150 元不等。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "初次约会千万别选传统电影院（黑灯瞎火戴 3D 眼镜无法交流）和嘈杂大排档。选采光柔和、背景音乐轻柔、可以并排坐或近距离轻声交谈的舒适空间。",
       "benefits": "- 营造松弛、安全、不紧绷的对话环境；\n  - 促进非言语肢体语言的自然交流与目光接触；\n  - 避免因环境嘈杂混乱引发的听觉疲劳与情绪烦躁。",
       "evidence": "A",
@@ -1529,6 +1999,11 @@ html.dark .switch .moon { display: block; }
       "file": "06-约会设计与现场实战.md",
       "category": "肢体亲密 · 尊重边界",
       "cost": "克制急躁与猴急冲动；保持极高的绅士风度与同理心。",
+      "money": "少",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "牵手与拥抱必须建立在双方自然的情感流露与对彼此身体的绝对尊重之上。永远不要搞自以为是的“霸道强拉”或用看手相等小动作占便宜。观察对方的舒适度与身体语言，循序渐进，如果对方退缩，立刻从容保持礼貌距离。",
       "benefits": "- 彻底规避给对方带来任何不适、冒犯与心理阴影；\n  - 树立成熟自持、高度尊重女性的君子人格；\n  - 让每一次身体接触都建立在真心渴望与双向奔赴的甜蜜基石上。",
       "evidence": "A",
@@ -1547,6 +2022,11 @@ html.dark .switch .moon { display: block; }
       "file": "07-长期相处与关系维护.md",
       "category": "长期相处 · 个人状态",
       "cost": "长期的自律自爱；每周保留 4-6 小时独立的个人专属精进时间。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "确定恋爱关系甚至结婚后，千万别立刻放弃身材管理、不修边幅、整天躺平刷手机。伴侣当初爱上的是那个充满生机、热爱生活、专注上进的你。持续保持成长与独立世界，你的魅力才会随着岁月流逝愈发醇厚。",
       "benefits": "- 终身保持两性吸引力的保鲜度，抗拒享乐适应（Hedonic Adaptation）引发的审美疲劳；\n  - 避免将生活重心全部压在对方身上，消除窒息的分离焦虑与控制欲；\n  - 维持健康亲密关系的最佳形态：两个独立完整的圆相遇，共同滚向远方。",
       "evidence": "A",
@@ -1565,6 +2045,11 @@ html.dark .switch .moon { display: block; }
       "file": "07-长期相处与关系维护.md",
       "category": "长期相处 · 权力平衡",
       "cost": "放下“全包揽的大男子主义”或“理所应当的索取心态”。",
+      "money": "0",
+      "time": "多",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "高",
       "plain_speak": "健康的关系必须是双向奔赴。如果永远只有一个人在花钱、做家务、赔笑脸、迁就对方，这段关系迟早会因为怨恨积压而崩溃。引导并鼓励对方也为这段感情投入心力与时间，共同参与、共同承担，才会共同珍惜。",
       "benefits": "- 彻底规避“供养者被抛弃”或“单方面情绪崩溃”的悲剧；\n  - 大幅提升双方关系的抗风险能力与情感粘性；\n  - 建立彼此平等的“亲密战友”信任契约。",
       "evidence": "A",
@@ -1583,6 +2068,11 @@ html.dark .switch .moon { display: block; }
       "file": "07-长期相处与关系维护.md",
       "category": "长期相处 · 冲突管理",
       "cost": "在情绪上头、心率飙升时克制言语攻击的本能。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "情侣吵架不可避免，但绝对不能冷暴力、不能翻旧账、不能人身攻击。识别并戒除戈特曼实验室提出的四大婚姻杀手：批评、蔑视、辩解、冷战。建立暂停冷静机制，矛盾尽量不过夜，对事不对人。",
       "benefits": "- 终结恶意冷暴力与人身攻击对亲密关系带来的不可逆结构性破坏；\n  - 培养成年人级别的高阶冲突解决能力；\n  - 将每次争吵转化为更加了解彼此底线与需求的契机。",
       "evidence": "A",
@@ -1594,6 +2084,52 @@ html.dark .switch .moon { display: block; }
     },
     {
       "id": 28,
+      "sec": 7,
+      "sec_title": "长期相处与戈特曼法则",
+      "title": "原生家庭边界与长辈干涉防线：确立伴侣第一序位原则",
+      "chapter": "07-长期相处与戈特曼法则",
+      "file": "07-长期相处与关系维护.md",
+      "category": "长期相处 · 家庭边界",
+      "cost": "金钱 0 元；需要克服对原生家庭父母的情感附庸惯性，勇于在核心利益分歧时对长辈温和而坚定地说“不”。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
+      "plain_speak": "结婚或确立深度伴侣关系后，两个人组成的新家庭必须是第一优先级，任何一方的原生家庭（父母、亲戚）只能排第二。如果任由父母插手你们的买房、同居、婚宴细节、甚至床头吵架，婚姻百分之百走向毁灭。伴侣吵架关起门来内部解决，坚决不向父母诉苦告状引狼入室；父母提出不合理要求，必须由该方子女出面去挡，绝不能让伴侣直接顶在炮火前线。",
+      "benefits": "- 彻底规避两性关系中最具毁灭性的“双边父母角力与恶性对抗”；\n  - 建立坚不可摧的夫妻信任核心同盟，消除被伴侣背后插刀的背叛感；\n  - 引导两家父母学会尊重成年子女的独立生活，建立健康的代际交往距离。",
+      "evidence": "A",
+      "academic": "- **鲍文家庭系统理论（Bowen Family Systems Theory）实证**：Skowron EA, & Friedlander ML (1998). *The Differentiation of Self Inventory: Development and initial validation*. Journal of Counseling Psychology. https://doi.org/10.1037/0022-0167.45.3.235 （对长期婚恋群体的心理分化度追踪：个体在面对原生家庭干预时的“自我分化度（Differentiation of Self）”与婚姻满意度呈极其显著正相关（r=0.48, p<0.001）。未能与父母完成心理断乳（即处于“情感纠缠/融合”状态）的个体，其婚姻在 3 年内因婆媳/翁婿矛盾破裂的几率高达普通伴侣的 3.4 倍）。\n  - **法定夫妻独立地位依据**：《中华人民共和国民法典》第一千零四十三条（夫妻应当互相忠实、互相尊重、互相关爱；家庭成员应当尊老爱幼、互相帮助，维护平等、和睦、文明的婚姻家庭关系）及第一千零五十五条（夫妻双方都有参加生产、工作、学习和社会活动的自由，一方不得对另一方加以限制或者干涉）。",
+      "actions": "1. **谁的父母谁去沟通**：男方父母有意见，男方出面沟通安抚；女方父母有要求，女方出面协商定夺。严禁让伴侣直接与对方父母起正面冲突；\n  2. **信息防火墙原则**：两人关起门来的小摩擦、偶发性口角，坚决不向各自父母诉苦倒苦水。父母会代入血缘偏袒，留下不可磨灭的敌意印记；\n  3. **小家庭经济主权独立**：凡涉及大额财产赠与、借贷或购房出资，必须以书面协议明确性质，防止长辈以“出资人”身份随意剥夺新家庭的决策自主权。",
+      "redlines": "- 典型的“妈宝男/扶弟魔”行为：长辈一施压立刻牺牲伴侣利益，要求伴侣无底线隐忍让步；\n  - 吵架后立刻跑回娘家/婆家告状，把两个人的私密分歧激化为两个家族的恶性争斗。",
+      "boundaries": "",
+      "source": "Skowron EA, Friedlander ML (1998). J Couns Psychol. https://doi.org/10.1037/0022-0167.45.3.235 & 民法典第 1043 条"
+    },
+    {
+      "id": 29,
+      "sec": 7,
+      "sec_title": "长期相处与戈特曼法则",
+      "title": "异地恋维系科学与终结机制：设定不可逾越的「落定时钟」",
+      "chapter": "07-长期相处与戈特曼法则",
+      "file": "07-长期相处与关系维护.md",
+      "category": "长期相处 · 异地维系",
+      "cost": "交通往返差旅费；每日固定的高质量深度视讯时间；克制因物理距离诱发的猜忌与防御。",
+      "money": "少",
+      "time": "多",
+      "will": "是",
+      "gain_level": "大",
+      "ratio": "一般",
+      "plain_speak": "异地恋不可能靠虚无缥缈的“深情”无限期维持。异地恋能存活的核心只有两件事：第一，建立高频但低压迫的日常分享与每周固定深度视讯；第二，必须有清晰的【结束异地的时间表】（最长不超过 1-2 年必须同城）。如果双方谁都不愿意为了未来做出迁移妥协，或者根本没有结束异地的确切日期，那就只是在用幻想拖延不可避免的痛苦分手。",
+      "benefits": "- 极大降低由物理隔离、多巴胺衰退引发的情感疏离与相互猜忌；\n  - 提前筛选出是否有共同携手走向现实生活的长期意愿；\n  - 为漫长异地生活设立明确的精神灯塔与倒计时心理支撑。",
+      "evidence": "A",
+      "academic": "- **异地恋存续与重聚追踪研究**：Stafford L, & Merolla AJ (2007). *Idealization, reunions, and stability in long-distance dating relationships*. Journal of Social and Personal Relationships. https://doi.org/10.1177/0265407507072578 （对 200 余对异地伴侣的纵向跟踪研究：具备明确且不可逾越的“同城结束期（Sunset Clause）”的伴侣，重聚并最终结婚的几率高达 71.3%；而处于“无限期异地”状态的情侣，在 12 个月内的分手率高达 68.2%，且异地期间理想化幻想破灭导致的重聚即分手效应极显著（p<0.01））。\n  - **媒体丰富度理论（Media Richness Theory）实证**：Daft RL, & Lengel RH (1986). *Organizational information requirements, media richness and structural design*. Management Science.（纯文字微信沟通属于最低信息丰富度媒介，缺乏语调、面部微表情与肢体语言，误读率高出面对面或视频沟通 4.6 倍。每日 15-30 分钟的高质量视频连线能补充 80% 以上的情感非语言线索）。",
+      "actions": "1. **设定终结倒计时（Sunset Clause）**：双方必须在异地开始 3 个月内，共同确定一个清晰的时间节点（如“后年 6 月你毕业我调岗，我们在同一个城市生活”），没有倒计时的异地恋是慢性自杀；\n  2. **固定沟通契约与透明日程**：约定每天固定 15-30 分钟的视频连线，互相分享日常琐碎（哪怕只是开着视频各自看书做饭），降低“失联恐慌”；\n  3. **物理见面周期与财务共担**：原则上异地见面周期不应超过 4-6 周；差旅费用由双方健康共担，轮流奔赴对方所在的城市，避免单方长期劳累与经济透支。",
+      "redlines": "- “走一步看一步吧”：从来不讨论何时结束异地，拖延对方数年青春；\n  - 异地期间动辄冷暴力断联数天，诱发对方灾难化猜忌。",
+      "boundaries": "",
+      "source": "Stafford L, Merolla AJ (2007). J Soc Pers Relat. https://doi.org/10.1177/0265407507072578"
+    },
+    {
+      "id": 30,
       "sec": 8,
       "sec_title": "关系危机与理性止损",
       "title": "情绪过载时的「战略性降温与心理留白」：止住关系雪崩",
@@ -1601,6 +2137,11 @@ html.dark .switch .moon { display: block; }
       "file": "08-聊天急救与逆转翻盘.md",
       "category": "危机应对 · 情绪止损",
       "cost": "零金钱；需要极其强大的情绪自控力，克制住抓起手机发长文解释的冲动。",
+      "money": "0",
+      "time": "多",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "高",
       "plain_speak": "如果不小心发了长篇大论倾诉好感造成尴尬，或者频繁发消息导致对方态度断崖式变冷淡。立刻停下来！不要道歉说“对不起我太冲动”，不要反复追问。给彼此 5-7 天的冷静空间，把精力收回自己的现实生活，让对方的心理防御自然消退。",
       "benefits": "- 立即刹住因急迫逼迫导致的彻底拉黑与反感；\n  - 给对方留出消化情绪、摆脱压迫感的安全心理距离；\n  - 重新找回个人的情绪重心与尊严基线。",
       "evidence": "A",
@@ -1611,7 +2152,7 @@ html.dark .switch .moon { display: block; }
       "source": "Dillard JP, Shen L (2005). Commun Monogr. https://doi.org/10.1080/03637750500111815"
     },
     {
-      "id": 29,
+      "id": 31,
       "sec": 8,
       "sec_title": "关系危机与理性止损",
       "title": "表白受挫后的「体面降维与边界重置」：以从容化解尴尬",
@@ -1619,6 +2160,11 @@ html.dark .switch .moon { display: block; }
       "file": "08-聊天急救与逆转翻盘.md",
       "category": "危机应对 · 尊严退守",
       "cost": "放下“非要一个名分”的执念，接纳现实。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "如果过早表白被发了“只把你当朋友”的好人卡，千万不要气急败坏质问“我哪里不够好”。大方坦然地微笑着接纳：“完全理解，之前是我有些急躁了，退回普通朋友相处最自在”。尊重对方的意愿，同时也把自己的特殊待遇全部收回，退回普通朋友界限。",
       "benefits": "- 瞬间拆除对方竖起的避嫌防备高墙；\n  - 维护自身高尊严、通透、体面的人格底色；\n  - 避免因追求不成导致彼此社会关系彻底决裂。",
       "evidence": "A",
@@ -1629,7 +2175,7 @@ html.dark .switch .moon { display: block; }
       "source": "Christensen A, Heavey CL (1990). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.59.1.73"
     },
     {
-      "id": 30,
+      "id": 32,
       "sec": 8,
       "sec_title": "关系危机与理性止损",
       "title": "僵尸会话唤醒与沉没成本止损：理智面对未竟之缘",
@@ -1637,6 +2183,11 @@ html.dark .switch .moon { display: block; }
       "file": "08-聊天急救与逆转翻盘.md",
       "category": "危机应对 · 理性止损",
       "cost": "如果尝试无果，彻底放下执念的心理决断力。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "如果一段关系断联了几个月，想最后尝试一次连接，借一个她擅长的话题或具体的小事轻量求助。如果对方热情回应，可以重构交流；如果对方依然冷若冰霜、礼貌敷衍，那就优雅接受事实，果断停止投入，向前看。",
       "benefits": "- 做最后一次低阻力尝试，不留遗憾；\n  - 战胜沉没成本谬误（Sunk Cost Fallacy），避免在无希望的关系里耗费数年青春；\n  - 为真正值得相伴的同频伴侣腾出生命空间。",
       "evidence": "A",
@@ -1647,7 +2198,7 @@ html.dark .switch .moon { display: block; }
       "source": "Jecker J, Landy D (1969). Hum Relat. https://doi.org/10.1177/001872676902200407"
     },
     {
-      "id": 31,
+      "id": 33,
       "sec": 9,
       "sec_title": "财产安全、法律红线与人身退场防线",
       "title": "恋爱期间转账定性与借贷证据留存：区分赠与与民间借贷",
@@ -1655,6 +2206,11 @@ html.dark .switch .moon { display: block; }
       "file": "09-财产安全、法律红线与人身退场防线.md",
       "category": "财产安全 · 资金借贷",
       "cost": "金钱 0 元；大额转账时多花 1 分钟在转账附言中写清用途，或补发一条确认微信。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "恋爱期间转账 520、1314 这种有特殊含义的金额，分手后法院一律算作无偿赠与，绝对要不回来；如果是数千上万的借款或资金周转，必须通过银行卡/微信转账并明确备注“借款周转”，同时在聊天记录里让对方确认“这是借的、回头还”。",
       "benefits": "- 彻底规避恋爱分手后被“卷款跑路”却因证据不足败诉的人财两空；\n  - 依法保护个人婚前合法财产所有权；\n  - 维护平等健康的交往金钱观，杜绝把恋爱当提款机的恶意寄生。",
       "evidence": "A",
@@ -1665,7 +2221,7 @@ html.dark .switch .moon { display: block; }
       "source": "最高人民法院关于审理民间借贷案件适用法律若干问题的规定 & 民法典第 657/667 条"
     },
     {
-      "id": 32,
+      "id": 34,
       "sec": 9,
       "sec_title": "财产安全、法律红线与人身退场防线",
       "title": "涉彩礼纠纷的返还法定裁判边界：区分礼金与共同消耗",
@@ -1673,6 +2229,11 @@ html.dark .switch .moon { display: block; }
       "file": "09-财产安全、法律红线与人身退场防线.md",
       "category": "财产安全 · 彩礼纠纷",
       "cost": "聘礼给付前与家庭充分沟通，明晰地方习俗与法定权利。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "彩礼是为了缔结婚姻为目的的给付。如果两人没领结婚证就分手了，或者刚领证就分居没实际共同生活、或者给彩礼导致男方家庭债台高筑陷入赤贫，法律明确支持要求返还彩礼。",
       "benefits": "- 依法防范“闪婚闪离卷走天价彩礼”的情感诈骗与经济陷阱；\n  - 明确双方财产权益，避免因非理性质疑引发两家恶性肢体冲突；\n  - 引导婚俗回归理性真诚，消除物质沉重负担。",
       "evidence": "A",
@@ -1683,7 +2244,7 @@ html.dark .switch .moon { display: block; }
       "source": "最高人民法院法释〔2024〕1号司法解释"
     },
     {
-      "id": 33,
+      "id": 35,
       "sec": 9,
       "sec_title": "财产安全、法律红线与人身退场防线",
       "title": "婚前买房出资归属与产权协议：防止婚变净身出户",
@@ -1691,6 +2252,11 @@ html.dark .switch .moon { display: block; }
       "file": "09-财产安全、法律红线与人身退场防线.md",
       "category": "财产安全 · 不动产纠纷",
       "cost": "购房前起草一份《出资与产权确认协议》，花费约 200-500 元做律师见证或家庭签字确认。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "结婚前买房，首付款是谁出的、银行流水必须从谁的卡里走，一定要清清楚楚。如果是一方婚前出首付、写一方名字，婚后共同还贷，离婚时房子归首付方，但婚后共同还贷及增值部分必须给另一方现金补偿。",
       "benefits": "- 彻底规避倾尽两代人积蓄买房、离婚时却因权属模糊遭遇重大财产分割损失；\n  - 建立透明健康的家庭财务合作规则；\n  - 为双方还贷贡献提供无可争议的法律依据。",
       "evidence": "A",
@@ -1701,7 +2267,7 @@ html.dark .switch .moon { display: block; }
       "source": "民法典婚姻家庭编解释（一）第七十八条"
     },
     {
-      "id": 34,
+      "id": 36,
       "sec": 9,
       "sec_title": "财产安全、法律红线与人身退场防线",
       "title": "夫妻共同债务隔离与防坑：恪守「共债共签」原则",
@@ -1709,6 +2275,11 @@ html.dark .switch .moon { display: block; }
       "file": "09-财产安全、法律红线与人身退场防线.md",
       "category": "财产安全 · 债务隔离",
       "cost": "零金钱；面对借款文件坚决不盲目签字。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "结婚后，伴侣如果瞒着你去借网贷、炒股、赌博欠了几百万，只要你没在借条上签字、借来的钱也没用于家庭柴米油盐，法律规定这笔巨债由他个人承担，绝不能强扣到你头上。但是千万别随便在“担保人/共同借款人”一栏签字！",
       "benefits": "- 筑牢家庭债务防火墙，防止被伴侣的非理性债务连带破产、列入失信被执行人黑名单；\n  - 保护未成年子女与自身的基础生存财产安全。",
       "evidence": "A",
@@ -1719,7 +2290,7 @@ html.dark .switch .moon { display: block; }
       "source": "中华人民共和国民法典第一千零六十四条"
     },
     {
-      "id": 35,
+      "id": 37,
       "sec": 9,
       "sec_title": "财产安全、法律红线与人身退场防线",
       "title": "家庭暴力防范与人身安全保护令：法定六大取证链",
@@ -1727,6 +2298,11 @@ html.dark .switch .moon { display: block; }
       "file": "09-财产安全、法律红线与人身退场防线.md",
       "category": "人身安全 · 危机解脱",
       "cost": "发生侵害时果断报警，花费 1-2 小时完成笔录与验伤。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "家暴绝不是“家务事”，而是违法犯罪！如果遭受肢体暴力、殴打、威胁或人身自由限制，必须在发生当时立即拨打 110 报警索要《受案回执》，去公立医院验伤开诊断书。凭这些证据，不需离婚诉讼，就可以直接向法院申请《人身安全保护令》，法院会下令禁止对方靠近你和你的住所。",
       "benefits": "- 获得国家司法强制力保护，违法违反保护令者直接面临司法拘留甚至刑事判刑；\n  - 斩断家暴“施暴-忏悔-再次施暴”的恐怖循环；\n  - 在后续离婚诉讼中，作为主张损害赔偿和争取子女抚养权的核心压倒性证据。",
       "evidence": "A",
@@ -1737,7 +2313,7 @@ html.dark .switch .moon { display: block; }
       "source": "中华人民共和国反家庭暴力法 & 法释〔2022〕19号"
     },
     {
-      "id": 36,
+      "id": 38,
       "sec": 9,
       "sec_title": "财产安全、法律红线与人身退场防线",
       "title": "婚前重大疾病隐瞒的法定撤销权：一年除斥期间的生命线",
@@ -1745,6 +2321,11 @@ html.dark .switch .moon { display: block; }
       "file": "09-财产安全、法律红线与人身退场防线.md",
       "category": "人身权益 · 婚姻效力",
       "cost": "婚前共同参与正规公立医院免费或自费婚检（约 200-400 元）。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
       "plain_speak": "结婚前，如果一方患有严重精神障碍、艾滋病、重大遗传性疾病等，必须在结婚登记前如实告知对方。如果故意隐瞒骗婚，另一方可以在知道事实后的「一年之内」向法院申请撤销婚姻。一旦撤销，婚姻自始无效，自己的户口本上依然是“未婚”而不是“离异”。但记住：这一年期限过期不候！",
       "benefits": "- 捍卫自身的重大知情权与生命健康权；\n  - 依法撤销受欺诈婚姻，避免背负“离异”身份痕迹；\n  - 请求过错方承担精神与物质损害赔偿。",
       "evidence": "A",
@@ -1753,6 +2334,52 @@ html.dark .switch .moon { display: block; }
       "redlines": "- 发现对方婚前瞒报重病后，只顾吵架冷战拖延超过一年，错失撤销婚姻的不变除斥期间；\n  - 迷信“对方爱我就会对我负责”，拒绝做任何婚前医学体检。",
       "boundaries": "",
       "source": "中华人民共和国民法典第一千零五十三条"
+    },
+    {
+      "id": 39,
+      "sec": 9,
+      "sec_title": "财产安全、法律红线与人身退场防线",
+      "title": "生育意愿前置对齐、避孕责任对等与非意愿妊娠救济：知情同意与身体权底线",
+      "chapter": "09-财产安全、法律红线与人身退场防线",
+      "file": "09-财产安全、法律红线与人身退场防线.md",
+      "category": "法律防线 · 人身权益",
+      "cost": "金钱 0 元；在关系进入深度亲密前进行 15-30 分钟冷静严肃的生育与避孕价值观对齐。",
+      "money": "0",
+      "time": "少",
+      "will": "否",
+      "gain_level": "大",
+      "ratio": "极高",
+      "plain_speak": "生不生孩子、什么时候生、生几个，必须在谈婚论嫁前清清楚楚摊开讲明白；避孕是两个人的共同责任，坚决反对男方不戴套要求女方吃紧急避孕药的单向自私伤害。女性对自己的身体享有绝对的自主决定权，任何强迫生育、隐瞒不育或以“生儿子”为要挟的行为，在法律与伦理上都是不可逾越的红线。",
+      "benefits": "- 彻底规避婚后因“一方坚决丁克、另一方必须生娃”导致的毁灭性婚姻解体；\n  - 杜绝非意愿妊娠（意外怀孕流产）对女性身体与心理健康造成的严重不可逆创伤；\n  - 确立两性在生育健康上的对等责任与相互尊重伦理。",
+      "evidence": "A",
+      "academic": "- **身体权与知情同意法定依据**：《中华人民共和国民法典》第一千零零四条（自然人享有健康权，其身心健康受法律保护）、第一千零零七条（禁止以任何形式买卖人体细胞、人体组织、人体器官、遗体）及《中华人民共和国妇女权益保障法》第三十二条（妇女有按照国家有关规定生育子女的权利，也有不生育的自由）。\n  - **非意愿妊娠与生殖健康实证研究**：Guttmacher Institute (2020). *Unintended Pregnancy and Abortion Worldwide*. WHO 公共卫生报告。（因避孕责任缺失导致的非意愿妊娠，不仅流产后感染与继发不孕风险升高 4.2 倍，更是诱发伴侣间相互推诿、精神暴力与迅速解体的高危核心因子（r=0.51, p<0.001））。",
+      "actions": "1. **婚前“生育三问”前置对齐**：\n     - 是否要孩子？（如果一方坚决丁克，切忌幻想“结了婚对方就会改主意”）；\n     - 育儿分工与财务预期如何？（教育投入预期、主要照料者责任如何平衡）；\n     - 若遭遇生理不育问题，双方对试管/领养的接受度与底线是什么；\n  2. **避孕责任双向对等**：\n     - 未做好迎接新生命准备前，严格采取男用安全套等科学双重防护；\n     - 严禁将紧急避孕药（大剂量激素）作为常规避孕手段长期转嫁给伴侣身体；\n  3. **突发非意愿妊娠的救济底线**：\n     - 一旦发生意外，男方必须承担全部医疗开销、营养照护与情绪陪伴责任，严禁推诿失联。",
+      "redlines": "- 婚前信誓旦旦同意丁克，婚后受父母压力突然反悔逼迫生育；\n  - 发生意外怀孕后单方面拉黑删除、逃避抚养与医疗责任（引发人身损害赔偿民事侵权）。",
+      "boundaries": "",
+      "source": "民法典第 1004 条 & 妇女权益保障法第 32 条 & WHO (2020) 生殖健康指引"
+    },
+    {
+      "id": 40,
+      "sec": 9,
+      "sec_title": "财产安全、法律红线与人身退场防线",
+      "title": "职场恋情与同一社交圈恋情（Office Romance）避险防线：利益冲突与声誉防火墙",
+      "chapter": "09-财产安全、法律红线与人身退场防线",
+      "file": "09-财产安全、法律红线与人身退场防线.md",
+      "category": "法律红线 · 职场伦理",
+      "cost": "金钱 0 元；在工作与社交场合严格克制言行界限，坚守公私分离。",
+      "money": "0",
+      "time": "少",
+      "will": "些",
+      "gain_level": "大",
+      "ratio": "极高",
+      "plain_speak": "办公室恋爱或共同核心圈子谈恋爱，风险远高于普通恋爱。绝对不能搞“上下级汇报关系的潜规则恋爱”（涉嫌利益冲突甚至职场性骚扰）；在公司必须公事公办，禁止在工作群或同事面前秀恩爱；一旦分手必须体面退场，严禁在职场公开散布伴侣私密隐私或实施职场报复。",
+      "benefits": "- 彻底防范因感情纠葛导致丢掉工作、名誉扫地甚至陷入性骚扰指控的毁灭性职业危机；\n  - 维护职业专业度与雇佣合规边界；\n  - 建立恋爱与事业互不干扰的成熟防御机制。",
+      "evidence": "A",
+      "academic": "- **组织行为学与职场恋情实证**：Pierce CA, & Aguinis H (2003). *Romantic relationships in organizations: A test of a model of formation and impact on workplace behaviors*. Journal of Applied Psychology. https://doi.org/10.1037/0021-9010.88.5.811 （对 400 余家企事业单位调查：存在上下级权力从属关系的职场恋爱，在业绩考评、晋升公信力上的团队冲突发生率高达 84%；恋情破裂后至少一方因敌对工作环境被迫离职的概率高达 62%）。\n  - **反性骚扰与保密法定红线**：《中华人民共和国民法典》第一千零一十条（机关、企业、学校等单位应当采取合理的预防、受理投诉、调查处置等措施，防止和制止利用职权、从属关系等实施性骚扰）及《民法典》第一千零三十二条（隐私权与个人信息保护）。",
+      "actions": "1. **权力从属关系绝对回避**：若产生感情的双方存在直接上下级审批、考评或财务关联，其中一方必须主动申请转岗、调线或申报利益冲突，消除公私不分隐患；\n  2. **职场“隐身协议”**：在工作场所一律使用规范商务称谓，严禁利用公司公共资源与工作沟通软件传递私密信息；\n  3. **分手后的“竞业与保密”契约**：无论分手如何痛苦，严格坚守个人职业操守，不得向第三方泄露前任的私密聊天记录、身体隐私或商业机密，否则构成侵犯隐私权与名誉权。",
+      "redlines": "- 利用主管、领导职权暗示或强迫下属发展亲密关系（直接触犯民法典第 1010 条性骚扰责任，严重者触犯刑法强制猥亵罪）；\n  - 分手后在公司大群发小作文、张贴大字报报复抹黑对方（侵犯名誉权并面临辞退开除）。",
+      "boundaries": "",
+      "source": "民法典第 1010/1032 条 & Pierce CA, Aguinis H (2003). J Appl Psychol. https://doi.org/10.1037/0021-9010.88.5.811"
     }
   ]
 }</script>
@@ -1774,6 +2401,10 @@ let CARDS = [];
 const state = {
   q: '',
   sec: new Set(),
+  ratio: new Set(),
+  money: new Set(),
+  time: new Set(),
+  will: new Set(),
   grade: new Set(),
   cat: new Set(),
   law: false
@@ -2079,7 +2710,11 @@ function buildPage(sections, items) {
           <a class="anchor" href="#e-${e.id}" aria-label="本条永久链接">#</a>
         </div>
         <div class="badges">
+          <span class="badge ${e.ratio === '极高' ? 'r3' : (e.ratio === '高' ? 'r2' : 'r1')}">性价比 ${e.ratio || '高'}</span>
           <span class="badge ${e.evidence || 'A'}">证据 ${e.evidence || 'A'} 级</span>
+          <span class="badge plain">${e.money === '0' ? '不花钱' : '花少量钱'}</span>
+          <span class="badge plain">${e.time === '少' ? '顺手' : (e.time === '中' ? '花几小时' : '长期坚持')}</span>
+          <span class="badge plain">${e.will === '否' ? '不用毅力' : (e.will === '些' ? '要一点毅力' : '要很多毅力')}</span>
           ${e.category ? `<span class="badge plain">${esc(e.category)}</span>` : ''}
           ${e.sec === 9 ? `<span class="badge law">民法典司法规则</span>` : ''}
         </div>
@@ -2163,6 +2798,12 @@ function applyFilters() {
 
     // 章节筛选
     if (state.sec.size && !state.sec.has(e.sec)) match = false;
+    // 性价比筛选
+    if (match && state.ratio.size && !state.ratio.has(e.ratio)) match = false;
+    // 钱/时间/毅力成本筛选
+    if (match && state.money.size && !state.money.has(e.money)) match = false;
+    if (match && state.time.size && !state.time.has(e.time)) match = false;
+    if (match && state.will.size && !state.will.has(e.will)) match = false;
     // 证据等级
     if (match && state.grade.size && !state.grade.has(e.evidence)) match = false;
     // 维度/分类
@@ -2214,11 +2855,10 @@ function applyFilters() {
 
 function syncControls() {
   document.getElementById('q').value = state.q;
-  document.querySelectorAll('[data-dim="grade"] [data-v]').forEach(btn => {
-    btn.setAttribute('aria-pressed', String(state.grade.has(btn.dataset.v)));
-  });
-  document.querySelectorAll('[data-dim="cat"] [data-v]').forEach(btn => {
-    btn.setAttribute('aria-pressed', String(state.cat.has(btn.dataset.v)));
+  ['ratio', 'money', 'time', 'will', 'grade', 'cat'].forEach(dim => {
+    document.querySelectorAll(`[data-dim="${dim}"] [data-v]`).forEach(btn => {
+      btn.setAttribute('aria-pressed', String(state[dim].has(btn.dataset.v)));
+    });
   });
   document.querySelectorAll('#f-sec .sec-link[data-v]').forEach(btn => {
     if (btn.classList.contains('all')) {
@@ -2233,6 +2873,10 @@ function syncControls() {
 function resetAll() {
   state.q = '';
   state.sec.clear();
+  state.ratio.clear();
+  state.money.clear();
+  state.time.clear();
+  state.will.clear();
   state.grade.clear();
   state.cat.clear();
   state.law = false;
@@ -2337,6 +2981,8 @@ function bindEvents() {
       if (document.activeElement.id === 'q') document.activeElement.blur();
       setDrawer(false);
       POP.hidden = true;
+      const mask = document.getElementById('tool-mask');
+      if (mask) mask.hidden = true;
     }
   });
 
@@ -2364,6 +3010,207 @@ function bindEvents() {
     const fromId = POP.dataset.from;
     POP.hidden = true;
     gotoItem(targetId, fromId);
+  });
+}
+
+/* ---------- 高危实务工具模态弹窗 ---------- */
+function updateHouseCalc() {
+  const price = parseFloat(document.getElementById('h-price')?.value) || 0;
+  const interest = parseFloat(document.getElementById('h-interest')?.value) || 0;
+  const joint = parseFloat(document.getElementById('h-joint')?.value) || 0;
+  const current = parseFloat(document.getElementById('h-current')?.value) || 0;
+
+  const totalCost = price + interest;
+  let ratio = 0;
+  let compensation = 0;
+  if (totalCost > 0) {
+    ratio = joint / totalCost;
+    compensation = (ratio * current) / 2;
+  }
+  const appreciation = current - price;
+  const resEl = document.getElementById('h-result');
+  if (!resEl) return;
+  resEl.innerHTML = `
+    <h4>试算结果：另一方应获补偿款估算</h4>
+    <div class="val">${compensation.toFixed(2)} 万元</div>
+    <p>• 房屋总成本（房价+利息）：<strong>${totalCost.toFixed(1)} 万元</strong></p>
+    <p>• 夫妻共同还贷贡献占比：<strong>${(ratio * 100).toFixed(2)}%</strong></p>
+    <p>• 房屋整体增值额：<strong>${appreciation >= 0 ? '+' : ''}${appreciation.toFixed(1)} 万元</strong></p>
+    <p style="margin-top:8px;font-size:12.5px;color:var(--t2);">产权归属：房屋归婚前付首付并登记的一方所有；尚未归还的剩余银行贷款由产权人个人继续偿还；产权人向另一方一次性支付上述 <strong>${compensation.toFixed(2)} 万元</strong> 现金补偿。</p>
+  `;
+}
+
+function updateCailiCalc() {
+  const reg = document.querySelector('input[name="c-reg"]:checked')?.value || 'no';
+  const cohabit = document.querySelector('input[name="c-cohabit"]:checked')?.value || 'none';
+  const preg = document.querySelector('input[name="c-preg"]:checked')?.value || 'none';
+  const poverty = document.getElementById('c-poverty')?.checked || false;
+  const dowry = document.getElementById('c-dowry')?.checked || false;
+  const fault = document.getElementById('c-fault')?.checked || false;
+
+  let score = 0;
+  let summary = '';
+  let range = '';
+  const rationale = [];
+
+  if (reg === 'no') {
+    rationale.push('双方未登记结婚，民法典及司法解释原则上支持返还彩礼。');
+    score += 60;
+  } else {
+    rationale.push('已办理结婚登记，法律原则上不支持返还彩礼，除非未共同生活或导致生活困难。');
+    score += 10;
+  }
+
+  if (cohabit === 'none') {
+    rationale.push('双方确未共同生活，符合司法解释法定全额/高额返还核心要件。');
+    score += 40;
+  } else if (cohabit === 'short') {
+    rationale.push('共同生活时间极短，对彩礼返还影响有限，倾向支持大部分返还。');
+    score += 20;
+  } else if (cohabit === 'medium') {
+    rationale.push('共同生活满1年，日常生活共同消耗增加，彩礼返还比例显著折减。');
+    score -= 20;
+  } else if (cohabit === 'long') {
+    rationale.push('已长期共同生活，彩礼已转化为家庭共有沉淀，原则上不支持大幅返还。');
+    score -= 40;
+  }
+
+  if (preg === 'abort') {
+    rationale.push('女方有终止妊娠等身体损害经历，司法解释明确优先保护女性身心健康，大幅调低返还比例。');
+    score -= 25;
+  } else if (preg === 'child') {
+    rationale.push('双方已育有子女，出于对未成年子女利益保护及共同抚养考量，返还诉求一般不予支持或仅极少象征性支持。');
+    score -= 40;
+  }
+
+  if (poverty) {
+    rationale.push('给付彩礼导致给付方全家陷入绝对生活困难，属于司法解释法定支持返还加分情形。');
+    score += 25;
+  }
+  if (dowry) {
+    rationale.push('女方实际陪嫁、酒席筹备等共同开销，在返还数额中依法予以扣减折抵。');
+    score -= 20;
+  }
+  if (fault) {
+    rationale.push('过错方若为主张返还方将受司法不利裁量；若为接收方则返还比例相应提高。');
+  }
+
+  if (score >= 70) {
+    range = '大部分至全额返还（约 70% ~ 100%）';
+    summary = '高度支持返还';
+  } else if (score >= 40) {
+    range = '酌情较多返还（约 40% ~ 70%）';
+    summary = '倾向支持部分返还';
+  } else if (score >= 10) {
+    range = '酌情少量返还（约 15% ~ 40%）';
+    summary = '倾向少量折抵返还';
+  } else {
+    range = '原则上不予支持返还（或仅象征性返还 < 15%）';
+    summary = '极难支持返还';
+  }
+
+  const resEl = document.getElementById('c-result');
+  if (!resEl) return;
+  resEl.innerHTML = `
+    <h4>司法裁判倾向预测：${summary}</h4>
+    <div class="val">${range}</div>
+    <div style="margin-top:8px;">
+      ${rationale.map(r => `<p>• ${r}</p>`).join('')}
+    </div>
+    <p style="margin-top:8px;font-size:12.5px;color:var(--t2);">法定依据：最高人民法院《关于审理涉彩礼纠纷案件适用法律若干问题的规定》（法释〔2024〕1号）第二至第六条。法院将综合考虑双方共同生活时间长短、孕育情况、彩礼数额、双方过错等因素确定具体返还比例。</p>
+  `;
+}
+
+function setupTools() {
+  const mask = document.getElementById('tool-mask');
+  const title = document.getElementById('tm-title');
+  const body = document.getElementById('tm-body');
+  const close = document.getElementById('tm-close');
+  if (!mask || !title || !body) return;
+
+  const closeModal = () => { mask.hidden = true; };
+  close?.addEventListener('click', closeModal);
+  mask.addEventListener('click', ev => {
+    if (ev.target === mask) closeModal();
+  });
+
+  document.getElementById('btn-calc-house')?.addEventListener('click', () => {
+    title.textContent = '婚前房产共同还贷增值分割试算器';
+    body.innerHTML = `
+      <p style="margin-top:0;color:var(--t2);font-size:13px;">依据《民法典婚姻家庭编解释（一）》第78条法定裁判标准，产权归首付方，另一方依法享有共同还贷及对应增值补偿。</p>
+      <div class="calc-grid">
+        <div class="calc-field">
+          <label>房屋买入合同价（万元）</label>
+          <input type="number" id="h-price" value="300" min="0" step="1">
+        </div>
+        <div class="calc-field">
+          <label>贷款总利息（万元）</label>
+          <input type="number" id="h-interest" value="100" min="0" step="1">
+        </div>
+        <div class="calc-field">
+          <label>婚后夫妻共同还贷本息（万元）</label>
+          <input type="number" id="h-joint" value="80" min="0" step="1">
+        </div>
+        <div class="calc-field">
+          <label>离婚时房屋市场现值（万元）</label>
+          <input type="number" id="h-current" value="500" min="0" step="1">
+        </div>
+      </div>
+      <div class="calc-res" id="h-result"></div>
+      <div style="font-size:12px;color:var(--t3);margin-top:10px;">
+        注：房屋总成本 = 房屋买入价 + 贷款总利息；共同还贷占比 = 共同还贷本息 ÷ 房屋总成本；依法补偿款 = (共同还贷占比 × 房屋现值) ÷ 2。剩余尚未归还贷款由取得房产的一方自行承担。
+      </div>
+    `;
+    ['h-price', 'h-interest', 'h-joint', 'h-current'].forEach(id => {
+      document.getElementById(id)?.addEventListener('input', updateHouseCalc);
+    });
+    updateHouseCalc();
+    mask.hidden = false;
+  });
+
+  document.getElementById('btn-calc-caili')?.addEventListener('click', () => {
+    title.textContent = '涉彩礼返还法定裁判比例测算树';
+    body.innerHTML = `
+      <p style="margin-top:0;color:var(--t2);font-size:13px;">依据最高人民法院《关于审理涉彩礼纠纷案件适用法律若干问题的规定》（法释〔2024〕1号）裁量标准测算。</p>
+      <div class="tree-q">
+        <b>1. 双方是否办理结婚登记手续？</b>
+        <div class="tree-opt">
+          <label><input type="radio" name="c-reg" value="no" checked> 未办理结婚登记手续</label>
+          <label><input type="radio" name="c-reg" value="yes"> 已办理结婚登记手续</label>
+        </div>
+      </div>
+      <div class="tree-q">
+        <b>2. 双方实际共同生活（同居）情况？</b>
+        <div class="tree-opt">
+          <label><input type="radio" name="c-cohabit" value="none" checked> 确未共同生活（未同居）</label>
+          <label><input type="radio" name="c-cohabit" value="short"> 短暂共同生活（数周至数月内）</label>
+          <label><input type="radio" name="c-cohabit" value="medium"> 共同生活1年以上</label>
+          <label><input type="radio" name="c-cohabit" value="long"> 长期共同生活（2年以上）且深度融合</label>
+        </div>
+      </div>
+      <div class="tree-q">
+        <b>3. 是否有孕育经历或子女？</b>
+        <div class="tree-opt">
+          <label><input type="radio" name="c-preg" value="none" checked> 无怀孕生育经历</label>
+          <label><input type="radio" name="c-preg" value="abort"> 曾怀孕流产或引产（女方承受身体健康损耗）</label>
+          <label><input type="radio" name="c-preg" value="child"> 已生育子女</label>
+        </div>
+      </div>
+      <div class="tree-q">
+        <b>4. 特殊考量情节（可多选）：</b>
+        <div class="tree-opt">
+          <label><input type="checkbox" id="c-poverty"> 给付彩礼导致给付方家庭债台高筑陷入生活困难（法释〔2024〕1号§5条）</label>
+          <label><input type="checkbox" id="c-dowry"> 女方已购置大额嫁妆带入家庭或共同消耗于婚礼酒席</label>
+          <label><input type="checkbox" id="c-fault"> 一方存在严重过错（如重婚、隐瞒重大疾病、家暴等）</label>
+        </div>
+      </div>
+      <div class="calc-res" id="c-result"></div>
+    `;
+    body.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('change', updateCailiCalc);
+    });
+    updateCailiCalc();
+    mask.hidden = false;
   });
 }
 
@@ -2395,6 +3242,7 @@ async function init() {
   const items = payload.items || payload;
   buildPage(sections, items);
   bindEvents();
+  setupTools();
   tocSync('e-1');
 
   // 若 URL 中带有哈希 (如 #e-31)，就地滚动定位
