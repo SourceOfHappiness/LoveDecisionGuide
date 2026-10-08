@@ -1,11 +1,11 @@
 {
   "name": "现代亲密关系与沟通决策指南",
   "short_name": "亲密关系指南",
-  "description": "基于依恋理论、非暴力沟通与戈特曼婚恋科学的 36 项量化循证决策指南",
+  "description": "基于依恋理论、非暴力沟通、戈特曼婚恋科学与民法典司法裁判规则的 40 项量化循证决策指南",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0b0f19",
-  "theme_color": "#38bdf8",
+  "background_color": "#1b1b1f",
+  "theme_color": "#3451b2",
   "icons": [
     {
       "src": "icon.png",
