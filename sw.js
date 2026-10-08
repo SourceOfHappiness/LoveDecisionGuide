@@ -1,4 +1,4 @@
-const CACHE_NAME = 'love-decision-guide-v3.0';
+const CACHE_NAME = 'love-decision-guide-v3.1';
 const STATIC_ASSETS = [
   './',
   './index.html',
