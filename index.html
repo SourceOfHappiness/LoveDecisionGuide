@@ -294,6 +294,21 @@ html.dark .switch .moon { display: block; }
 #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
 
+
+/* 场景速查决策链路 (Scenario Pathways) */
+.pathways { margin: 18px 0 24px; padding: 16px 18px; border-radius: 12px; background: var(--bg-soft); border: 1px solid var(--divider); }
+.pw-title { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+.pw-title span { font-size: 14.5px; font-weight: 700; color: var(--t1); }
+.pw-title small { font-size: 12px; color: var(--t3); }
+.pw-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.pw-card { display: flex; flex-direction: column; text-align: left; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--divider); background: var(--bg-elv); color: var(--t1); cursor: pointer; transition: all .2s; }
+.pw-card:hover { border-color: var(--brand-1); background: var(--brand-soft); transform: translateY(-1px); }
+.pw-card.active { border-color: var(--brand-1); background: var(--brand-soft); box-shadow: 0 0 0 1.5px var(--brand-1); }
+.pw-badge { align-self: flex-start; font-size: 11px; font-weight: 600; padding: 2px 7px; border-radius: 4px; background: var(--brand-soft); color: var(--brand-1); margin-bottom: 6px; }
+.pw-card.active .pw-badge { background: var(--brand-1); color: #fff; }
+.pw-card b { font-size: 13.5px; margin-bottom: 5px; line-height: 1.4; color: var(--t1); }
+.pw-card p { margin: 0; font-size: 12px; color: var(--t2); line-height: 1.55; }
+
 /* 说人话 (HowToLiveBetter 特色 Callout) */
 .human { margin: 0 0 14px; padding: 10px 14px; border-left: 2px solid var(--brand-1); background: var(--brand-soft); border-radius: 0 6px 6px 0; font-size: 14.5px; line-height: 1.75; color: var(--t1); overflow-wrap: anywhere; }
 .human strong { font-weight: 600; color: var(--t1); }
@@ -498,6 +513,37 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
         <a href="https://github.com/SourceOfHappiness/LoveDecisionGuide/blob/main/LICENSE" target="_blank" rel="noopener">CC BY 4.0 协议</a>
       </div>
     </div>
+
+    <!-- 场景速查决策链路 (Scenario Pathways) -->
+    <div class="pathways" id="pathways">
+      <div class="pw-title">
+        <span>🎯 场景速查决策链路</span>
+        <small>点击直接聚焦情境核心链路，再次点击恢复全部条目</small>
+      </div>
+      <div class="pw-grid">
+        <button type="button" class="pw-card" data-pw="icebreak" data-items="1,7,12,14,16">
+          <span class="pw-badge">破冰建立</span>
+          <b>社交探索与初建连接</b>
+          <p>#1 阶段递进 → #7 形象管理 → #12 现实破冰 → #14 留白节奏 → #16 真实开场</p>
+        </button>
+        <button type="button" class="pw-card" data-pw="conflict" data-items="21,24,25,26,27,30">
+          <span class="pw-badge">相处磨合</span>
+          <b>深度相处与冲突化解</b>
+          <p>#21 预期对齐 → #24 身体边界 → #25 自我扩展 → #26 双向互惠 → #27 驱逐四骑士 → #30 战略降温</p>
+        </button>
+        <button type="button" class="pw-card" data-pw="marriage" data-items="28,33,34,35,36,38,39">
+          <span class="pw-badge">婚恋排雷</span>
+          <b>谈婚论嫁与财产排雷</b>
+          <p>#28 家庭第一位 → #33 借贷定性 → #34 彩礼边界 → #35 房产协议 → #36 债务隔离 → #38 重病隐瞒 → #39 生育意愿</p>
+        </button>
+        <button type="button" class="pw-card" data-pw="exit" data-items="4,6,31,32,37,40">
+          <span class="pw-badge">危机退场</span>
+          <b>理性止损与安全退场</b>
+          <p>#4 心理底线 → #6 丰足心智 → #31 体面降维 → #32 沉没成本 → #37 家暴保护令 → #40 职场恋情</p>
+        </button>
+      </div>
+    </div>
+
     <div id="list">
       <div class="empty" id="empty" hidden>
         没有符合当前筛选的条目。试试清空筛选或更换搜索关键词。
@@ -536,7 +582,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底规避 90% 以上年轻人的典型死因「未吸引先表白」（过早表白被拒率高达 80% 以上，造成不可逆的社交防御）；\n  - 维持双向对等的权力平衡，避免因单向过早暴露强烈需求感导致知觉价值贬损；\n  - 明确知道当前双方的舒适区边界，知进退、有分寸。",
           "evidence": "A",
           "academic": "- **经典理论**：Altman I, & Taylor DA (1973). *Social Penetration: The Development of Interpersonal Relationships*. Holt, Rinehart & Winston. 人际关系深化的“洋葱模型”表明，关系必须遵循由表层（外周特征）向核心（脆弱价值观）逐步渗透的规律。强行跳跃阶段会触发强烈的心理侵犯感与排斥防御。\n  - **实证追踪**：Hall JA (2019). *How many hours does it take to make a friend?* Journal of Social and Personal Relationships. https://doi.org/10.1177/0265407518761225 （对 467 名成年人的纵向跟踪研究：从浅层认识发展为好友平均需要投入约 50 小时的互动，成为挚友需要约 200 小时。缺乏足够时长与阶段沉淀的强行亲密，关系破裂率高出 3.2 倍）。",
-          "actions": "1. **初识阶段**：仅完成基本信息交换，核心是建立“安全、正常、无侵害性”的初始印象；\n  2. **熟悉阶段**：双方放下手机能记住彼此 2-3 个核心特质，日常寒暄自然轻松；\n  3. **吸引阶段（重中之重）**：展示真实的专业胜任力、审美格调、情绪稳定性与生活热爱，让彼此产生由衷的好奇与倾慕；\n  4. **追求与确认**：在明确感知到对方好感信号后，真诚表达排他性的偏爱与责任担当；\n  5. **亲密阶段**：身心自然契合、深层情感共鸣与知情同意下的肢体接触；\n  6. **长期相处**：生活方式磨合、相处契约与双向承诺。",
+          "actions": "1. **初识阶段**：仅完成基本信息交换，核心是建立“安全、正常、无侵害性”的初始印象，日常沟通严格遵守 第 14 条 的留白与戒除连续盘问原则；\n  2. **熟悉阶段**：双方放下手机能记住彼此 2-3 个核心特质，日常寒暄自然轻松；\n  3. **吸引阶段（重中之重）**：展示真实的专业胜任力、审美格调、情绪稳定性与生活热爱，让彼此产生由衷的好奇与倾慕；\n  4. **追求与确认**：在明确感知到对方好感信号后，真诚表达排他性的偏爱与责任担当；若发生过早表白造成尴尬，参见 第 31 条 的体面降维与尊严退守；\n  5. **亲密阶段**：身心自然契合、深层情感共鸣，肢体接触必须严格恪守 第 24 条 的知情同意边界；\n  6. **长期相处**：生活方式磨合、相处契约与双向承诺，全面迈入长期相处经营。",
           "redlines": "- 刚认识几天、对方态度尚平淡时突然送昂贵贵重礼物或当众点蜡烛表白（道德绑架式求爱）；\n  - 企图绕过了解与吸引阶段，以“约吗”或轻浮肢体接触直奔肉体。",
           "boundaries": "部分高冲动型人格或极高匹配度的天降情侣可能在短时间内迅速升温，但该情况属于统计学长尾分布（<5%），不适用于普遍性亲密关系建立。",
           "source": "Hall JA (2019). J Soc Pers Relat. https://doi.org/10.1177/0265407518761225"
@@ -559,7 +605,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 消除对异性冷淡和拒绝的灾难化恐惧；\n  - 大幅缩短遭遇挫折后的内耗周期（从消沉数周缩短为从容复盘）；\n  - 建立终身自主升级外在仪表、沟通共情与社交能力的动力源泉。",
           "evidence": "A",
           "academic": "- **经典实验**：Dweck CS, & Leggett EL (1988). *A social-cognitive approach to motivation and personality*. Psychological Review. https://doi.org/10.1037/0033-295X.95.2.256 （成长型思维模式个体在遭遇挫败时，多巴胺回路激励其寻找解决方案，而固定型思维个体皮质醇激增陷入习得性无助）。\n  - **亲密关系纵向实证**：Knee CR (1998). *Implicit theories of relationships: What are they, what do they predict, and why do they matter?* Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.74.2.360 （跟踪大学情侣发现：持有“成长信念（Growth belief）”的个体在面对交往初期挫折和拒绝时，关系修复率显著高出 38%，灾难化心理反刍显著降低，r=0.45）。",
-          "actions": "1. **脱敏阶段性笨拙**：在刚开始学习形象管理、主动破冰与倾听共情时，笨拙与卡壳是正常的学习曲线；\n  2. **归因客观化**：对方没回消息，可能正在开会、情绪低落或单纯忙碌，不要自动脑补“她讨厌我、我太差劲了”；\n  3. **复盘而非自贬**：每次交流遇冷，客观记录是开场白过于生硬？连续发问制造了压迫？还是缺乏共同语言？针对性调优即可。",
+          "actions": "1. **脱敏阶段性笨拙**：在刚开始学习形象管理、主动破冰与倾听共情时，笨拙与卡壳是正常的学习曲线；\n  2. **归因客观化**：对方没回消息，可能正在开会、情绪低落或单纯忙碌，不要自动脑补“她讨厌我、我太差劲了”；\n  3. **复盘而非自贬**：交流遇冷并不代表彻底失败，复盘时可结合 第 15 条 的倾听联想接话；若遇态度骤冷，参考 第 30 条 进行战略性降温与心理留白；面对彻底无法调和的关系，依据 第 32 条 及时止损。",
           "redlines": "把所有恋爱不顺归咎于单一宿命借口（“因为我穷/我不帅”），陷入习得性无助与网络仇恨情绪。",
           "boundaries": "成长型思维强调个人技能的进化，但不能替代对客观不可调和的客观现实（如不可逾越的地理异地、极端价值观冲突）的清醒评估。",
           "source": "Knee CR (1998). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.74.2.360"
@@ -582,7 +628,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 告别卑微讨好：明白单纯“对她好、当仆人”无法产生性吸引与人格尊重；\n  - 告别浮夸油腻：明白单纯炫富、吹嘘背景只会招致提防与虚荣，无法建立深层心灵依恋。",
           "evidence": "A",
           "academic": "- **跨文化大样本实证**：Buss DM (1989). *Sex differences in human mate preferences: Evolutionary hypotheses tested in 37 cultures*. Behavioral and Brain Sciences. https://doi.org/10.1017/S0140525X00023992 （覆盖全球 37 个文化、33 个国家、N=10,047 名受试者的大规模跨文化研究：全世界女性普遍在长期伴侣选择中对“良好财务前景/进取心”（生存资源，r=0.68）与“可靠成熟性格/情绪稳定性”（情绪安全，平均评分 2.69/3.00）表现出极其一致的双核偏好）。\n  - **知觉安全感实验**：Simpson JA et al. (1992). *Support oriented behavior in romantic partners: An experimental study*. J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.62.3.434 （在面对外部压力情境时，能提供有效情绪抚慰与安全感的伴侣，其性吸引力与承诺度评分提升 43%）。",
-          "actions": "1. **做优秀的自我建设者**：搞好学业事业、保持体能自律、拥有深耕的爱好，散发“我的生活本身就很精彩”的从容感；\n  2. **做成熟的情绪提供者**：在具备自我价值的同时，善于倾听、共情、恪守承诺，给予伴侣情绪稳定感。",
+          "actions": "1. **做优秀的自我建设者**：搞好学业事业、保持体能自律、拥有深耕的爱好，外在形象建设可参考 第 7 条 与 第 8 条，散发“我的生活本身就很精彩”的从容感；\n  2. **做成熟的情绪提供者**：在具备自我价值的同时，善于倾听、共情、恪守承诺，给予伴侣情绪稳定感，具体落地联动 第 19 条 的安全感给予与 第 21 条 的约会预期对齐。",
           "redlines": "- 只有讨好没有自我（无底线老好人/备胎）；\n  - 只有炫耀没有温度（自恋型人格、漠视伴侣感受）。",
           "boundaries": "",
           "source": "Buss DM (1989). Behav Brain Sci. https://doi.org/10.1017/S0140525X00023992"
@@ -605,7 +651,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底规避被当作“情绪垃圾桶”或“单向供养者”的被动深渊；\n  - 维持高自尊人格的性吸引力（可得性过高会导致吸引力骤降）；\n  - 高效筛选出心智成熟、懂得相互尊重的高质量伴侣。",
           "evidence": "A",
           "academic": "- **边界与心理健康**：Blais RK et al. (2014). *Relationship boundaries and interpersonal functioning in romantic couples*. Journal of Family Psychology. https://doi.org/10.1037/a0036611 （对 214 对伴侣的追踪研究：具备清晰清晰个人边界（Clear Differentiation of Self）的个体，其亲密关系破裂率低 42%，知觉抑郁降低 31%，在冲突中的情绪调节能力显著提高）。\n  - **过度可得性贬值模型**：Worchel S et al. (1975). *Effects of supply and demand on ratings of object value*. J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.32.5.906 （稀缺性与可得性实验：无条件唾手可得的人或物，其主观价值评分下降 35-50%）。",
-          "actions": "1. **核心底线清单**：\n     - 永远不放弃个人职业成长与身心健康来盲目取悦他人；\n     - 坚持平等真诚的沟通，绝不容忍无端辱骂、当众贬低与恶意试探；\n     - 彼此珍惜则加倍付出，一旦触碰道德红线或遭遇持续冷暴力，果断止损；\n  2. **温和而坚定（Gentle yet Firm）**：表达边界时不带情绪攻击，就事论事表明自己的原则与感受。",
+          "actions": "1. **核心底线清单**：\n     - 永远不放弃个人职业成长与身心健康来盲目取悦他人，日常互动遵循 第 14 条 的平衡节奏；\n     - 坚持平等真诚的沟通，绝不容忍无端辱骂、当众贬低与恶意试探，面对长期冲突运用 第 27 条 的四骑士解毒剂；\n     - 彼此珍惜则加倍付出，一旦触碰道德红线或遭遇身体威胁，绝不妥协，坚决启动 第 37 条 的人身安全保护令防线；\n  2. **温和而坚定（Gentle yet Firm）**：表达边界时不带情绪攻击，就事论事表明自己的原则与感受。",
           "redlines": "为了害怕失去对方，在原则问题上一退再退，甚至为对方的不当行为主动寻找借口。",
           "boundaries": "",
           "source": "Blais RK et al. (2014). J Fam Psychol. https://doi.org/10.1037/a0036611"
@@ -628,7 +674,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 对方与你交流毫无压力，主动回复与分享的意愿大幅提高；\n  - 树立充满正能量、生活充实、热爱当下的积极人格；\n  - 彻底消除如审讯般的查户口式聊天沉闷感。",
           "evidence": "A",
           "academic": "- **积极情绪拓展理论**：Fredrickson BL (2001). *The role of positive emotions in positive psychology: The broaden-and-build theory of positive emotions*. American Psychologist. https://doi.org/10.1037/0003-066X.56.3.218 （积极情绪微光体验能将人际注意范围与亲社会行为提升 2.4 倍，促使双方产生长期的“共振联结”）。\n  - **提问模式实验**：Huang K et al. (2017). *It Doesn't Hurt to Ask: Question-Asking Increases Liking*. J Pers Soc Psychol. https://doi.org/10.1037/pspi0000089 （对速配相亲与在线沟通的大样本分析：倾听式后续提问能增加好感度 d=0.42，但缺乏自我状态分享的离散式连环发问，会引发受试者明显的焦虑与被审视感，好感度降低 35%）。",
-          "actions": "1. **提供情绪价值**：幽默化解尴尬、真诚认可对方的闪光点、遇到低谷时提供无评判的倾听；\n  2. **提供信息与审美价值**：分享近期读到的有趣洞见、城市里值得探索的新角落、动听的音乐；\n  3. **改变提问方式**：把审问式的“你在干嘛”，转换为“今天路过书店看到一本插画，瞬间想到你可能会喜欢”。",
+          "actions": "1. **提供情绪价值**：幽默化解尴尬、真诚认可对方的闪光点、遇到低谷时提供无评判的倾听，具体实战心法详见 第 14 条 与 第 15 条；\n  2. **提供信息与审美价值**：分享近期读到的有趣洞见、城市里值得探索的新角落、动听的音乐；\n  3. **改变提问方式**：把审问式的“你在干嘛”，转换为具体生活观察的分享，并在长期相处中融入 第 26 条 的双向互惠投资模型。",
           "redlines": "- 连续追踪提问；\n  - 对方短时间未回消息时，追问“怎么不理我了？你是不是在忙别的？我做错什么了吗？”。",
           "boundaries": "",
           "source": "Huang K et al. (2017). J Pers Soc Psychol. https://doi.org/10.1037/pspi0000089"
@@ -651,7 +697,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 消除因单点执念引发的极度紧张与过度分析（Overthinking）；\n  - 散发自在松弛的成熟气场（过度匮乏感与饥渴感是吸引力最大的杀手）；\n  - 保持双向选择的理性，避免在一棵树上盲目自我感动。",
           "evidence": "A",
           "academic": "- **稀缺心态带宽损耗实验**：Shah AK, Mullainathan S, Shafir E (2012). *Some consequences of having too little*. Science. https://doi.org/10.1126/science.1222426 （对稀缺心态的实验研究表明：处于情感或资源过度稀缺焦虑中的个体，前额叶执行功能显著受损，认知带宽（Bandwidth）缩水相当于失去 13 点 IQ，导致冲动、灾难化决策增加 37%）。\n  - **选择架构与依恋焦虑**：Hazan C, Shaver P (1987). *Romantic love conceptualized as an attachment process*. J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.52.3.511 （具有焦虑依恋特征的个体在单一目标上产生强迫性固着，被遗弃恐惧增加 2.8 倍，极易导致窒息式控制行为）。",
-          "actions": "1. **破除宿命幻想**：世界上不存在唯一的“灵魂伴侣”，好的关系是两个成熟个体通过后天长期的真诚磨合共同铸就的；\n  2. **扩展生活与社交基数**：把精力投入到工作、健身、多元朋友聚会中，不把一个人的微小反应作为生活的全部支点；\n  3. **尊重对方的选择权**：若尝试沟通后发现彼此三观或节奏严重不合，大方送上祝福并体面转身。",
+          "actions": "1. **破除宿命幻想**：世界上不存在唯一的“灵魂伴侣”，好的关系是两个成熟个体通过后天长期的真诚磨合共同铸就的；\n  2. **扩展生活与社交基数**：把精力投入到工作、健身、多元朋友聚会中，不把一个人的微小反应作为生活的全部支点；\n  3. **尊重对方的选择权与止损魄力**：若尝试沟通后发现对方持续冰冷或三观严重不合，依据 第 32 条 克服沉没成本果断止损；同时在深度交往中保持清醒，严格防范 第 36 条 的共同债务风险与 第 38 条 的重大疾病欺瞒。",
           "redlines": "加好友第一天就翻遍对方数年前的朋友圈逐字分析，对对方的一举一动产生过度解读与控制欲。",
           "boundaries": "",
           "source": "Shah AK et al. (2012). Science. https://doi.org/10.1126/science.1222426"
@@ -682,7 +728,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 视觉清爽感与精神面貌即刻提升；\n  - 彻底规避邋遢、油腻、缺乏自我照顾能力的负面初印象；\n  - 增强面对面的社交自信与从容感。",
           "evidence": "A",
           "academic": "- **100毫秒面部知觉实验**：Willis J, & Todorov A (2006). *First Impressions: Making Up Your Mind After a 100-Ms Exposure to a Face*. Psychological Science. https://doi.org/10.1111/j.1467-9280.2006.01750.x （对 245 名受试者的实验表明：仅需 100 毫秒（0.1 秒）的面部特征曝光，大脑即已完成对一个人吸引力、可信度与能力的稳定判断，判定相关系数高达 r=0.73，后续更长时间的观察仅强化初次判断，极少发生逆转）。\n  - **面部毛发与整洁度评价**：Dixson BJ, & Brooks RC (2013). *The role of facial hair in women's perceptions of men's attractiveness, health, masculinity and parenting abilities*. Evolution and Human Behavior. https://doi.org/10.1016/j.evolhumbehav.2013.02.003 （对 351 名女性和 177 名异性恋男性的测试表明：修剪整洁无杂毛的面容在“健康度与可信赖度”评分中居于最高档 p<0.001，而未经打理的凌乱胡茬评分垫底）。",
-          "actions": "1. **发型固定法**：沟通时明确以“修饰脸型、容易日常打理”为首要原则；理发完毕后请理发师传授简单的吹风与定型技巧，手机留存前后左右角度作为日后修剪标准；\n  2. **眉毛修剪**：眉周杂毛容易让人显得倦怠杂乱，修出清晰眉峰即可，切忌画过浓过假的一字眉；\n  3. **面部卫生细节**：保持皮肤水油平衡，修剪露出的鼻毛，保持口气清新（常备口腔喷雾或无糖薄荷糖）。",
+          "actions": "1. **发型固定法**：沟通时明确以“修饰脸型、容易日常打理”为首要原则；理发完毕后请理发师传授简单的吹风与定型技巧，手机留存前后左右角度作为日后修剪标准。干净利落的面容是 第 3 条 自我价值硬实力的基础体现，为 第 13 条 的相亲初见和 第 22 条 的线下约会提供良好起点；\n  2. **眉毛修剪**：眉周杂毛容易让人显得倦怠杂乱，修出清晰眉峰即可，切忌画过浓过假的一字眉；\n  3. **面部卫生细节**：保持皮肤水油平衡，修剪露出的鼻毛，保持口气清新（常备口腔喷雾或无糖薄荷糖）。",
           "redlines": "头发长达数月不理导致两侧炸毛、后颈碎发散乱；留稀疏不齐、未经打理的胡渣冒充成熟；口臭、牙黄、指甲缝带有污垢。",
           "boundaries": "",
           "source": "Willis J, Todorov A (2006). Psychol Sci. https://doi.org/10.1111/j.1467-9280.2006.01750.x"
@@ -705,7 +751,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 零容错率：极简经典款永远不会过时，亦不会给人浮夸感；\n  - 传递出稳重、干净、克制且有品位的人格特质；\n  - 规避因奇装异服在初次见面引发的审美偏见与不适。",
           "evidence": "A",
           "academic": "- **认知流畅度与审美偏好实验**：Reber R, Schwarz N, & Winkielman P (2004). *Processing fluency and aesthetic pleasure: Is beauty in the perceiver's processing experience?* Personality and Social Psychology Review. https://doi.org/10.1207/s15327957pspr0804_3 （审美心理学实验：视觉复杂度低、对称度高、对比协调的极简图案在人脑视觉皮层的加工流畅度（Processing Fluency）显著高出 28%，能直接触发无意识的积极情绪与美感认可）。\n  - **服饰合身度对能力评价的影响**：Howlett N et al. (2013). *The influence of clothing on first impressions: Rapid and positive responses to minor changes in male attire*. Journal of Fashion Marketing and Management. https://doi.org/10.1108/13612021311305164 （在仅曝光 3-5 秒的情况下，合身剪裁基础装扮相比不合身服饰，使男性的专业度与个人好感度评分显著提高，Cohen's d=0.48）。",
-          "actions": "1. **经典色系基调**：以黑、白、中灰、藏蓝、卡其色为主，避免荧光色与大面积花哨印花；\n  2. **合身大于品牌**：衣服肩线准确、下摆长短适中，裤长以轻微触碰鞋面为宜，严禁裤腿拖地或紧绷；\n  3. **鞋靴整洁度**：鞋子是判断一个人生活细节的关键窗口。常备干净小白鞋、德训鞋或质感麂皮休闲鞋，定期擦拭清洁；\n  4. **体态管理**：站姿与坐姿保持肩部自然舒展、沉肩挺胸，挺拔的体态在视觉上比昂贵的服饰更显自信。",
+          "actions": "1. **经典色系基调**：以黑、白、中灰、藏蓝、卡其色为主，避免荧光色与大面积花哨印花，与 第 23 条 约会场所的环境色调和谐呼应；\n  2. **合身大于品牌**：衣服肩线准确、下摆长短适中，裤长以轻微触碰鞋面为宜，严禁裤腿拖地或紧绷；\n  3. **鞋靴整洁度**：鞋子是判断一个人生活细节的关键窗口。常备干净小白鞋、德训鞋或质感麂皮休闲鞋，定期擦拭清洁；\n  4. **体态管理**：站姿与坐姿保持肩部自然舒展、沉肩挺胸，在初识阶段（第 1 条）建立干净端庄的信任感。",
           "redlines": "- 穿着带有巨大烫金 Logo 的山寨名牌、紧身豆豆鞋或带有攻击性图案的服饰；\n  - 衣服领口洗至松垮变形、起球严重或充满褶皱；\n  - 衣物散发汗酸味或刺鼻烟味。",
           "boundaries": "",
           "source": "Reber R et al. (2004). Pers Soc Psychol Rev. https://doi.org/10.1207/s15327957pspr0804_3"
@@ -728,7 +774,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 新好友通过率与主动互动意愿提升数倍；\n  - 为后续日常交流提供天然的话题连接点与共同喜好线索；\n  - 消除线上沟通初期的神秘感防备与信任隔阂。",
           "evidence": "A",
           "academic": "- **网络自我呈现与约会成功追踪**：Ellison NB, Heino R, & Gibbs J (2006). *Managing impressions online: Self-presentation processes in the online dating environment*. Journal of Computer-Mediated Communication. https://doi.org/10.1111/j.1083-6101.2006.00020.x （对 334 名在线交往用户的深入追踪：在展示面中呈现“真实自我（Real Self）与现实锚定细节”的用户，其线下转化的约会满意度比过度美化虚构人设的用户高出 2.1 倍，见面后的心理落差率降低 47%）。\n  - **社交线索与信任建构**：Toma CL, & Hancock JT (2012). *What lies beneath: The linguistic traces of deception in online dating profiles*. Journal of Communication. https://doi.org/10.1111/j.1460-2466.2011.01619.x （虚假或过度包装的主页会无意识显露防御性语言线索，显著降低高情商受试者的信任评级）。",
-          "actions": "1. **昵称设计**：简单好记的名字、拼音或英文名，杜绝奇奇怪怪的火星文、各种微商前缀符号；\n  2. **头像选择**：自然光线下拍摄的开朗生活照、与宠物互动、或是能看清五官的半身照（神态放松、目光真诚），杜绝死板证件照或模糊网图；\n  3. **背景墙设定**：展现审美品位的一幅宽幅摄影、自驾路上的一抹余晖、或是喜欢的建筑/艺术设计；\n  4. **个性签名**：保持留白或简短的一句人生理念，不写矫揉造作的伤感情话；\n  5. **发圈节奏**：每周 1-2 条，图文以 3-6 张高清实拍为主，文案真实风趣，分享当下真实生活。",
+          "actions": "1. **昵称设计**：简单好记的名字、拼音或英文名，杜绝奇奇怪怪的火星文、各种微商前缀符号；\n  2. **头像选择**：自然光线下拍摄的开朗生活照、与宠物互动、或是能看清五官的半身照（神态放松、目光真诚），杜绝死板证件照或模糊网图；\n  3. **背景墙设定**：展现审美品位的一幅宽幅摄影、自驾路上的一抹余晖、或是喜欢的建筑/艺术设计；\n  4. **个性签名**：保持留白或简短的一句人生理念，不写矫揉造作的伤感情话；\n  5. **发圈节奏**：每周 1-2 条，图文以 3-6 张高清实拍为主，文案真实风趣，分享当下真实生活。真实的主页为日常破冰（第 11 条）和高情商开场白（第 16 条）提供最自然的切入线索。",
           "redlines": "- 头像使用网图假装自己、低质二次元动漫图、或过度磨皮失真的大头自拍；\n  - 朋友圈全是转发的心灵鸡汤、负能量牢骚发泄或纯业务广告刷屏；\n  - 刻意三天可见且空无一物，给新朋友制造极大的距离感与社交防备。",
           "boundaries": "",
           "source": "Ellison NB et al. (2006). J Comput-Mediat Comm. https://doi.org/10.1111/j.1083-6101.2006.00020.x"
@@ -782,7 +828,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 筛选掉只想在软件里刷存在感或不诚实的人；\n  - 避免在第三方平台上沉没大量时间却无法沉淀真实连接；\n  - 展现坦荡、真诚、不遮遮掩掩的沟通态度。",
           "evidence": "A",
           "academic": "- **网络约会大规模荟萃分析**：Finkel EJ, Eastwick PW, Karney BR, Reis HT, & Sprecher S (2012). *Online Dating: A Critical Analysis From the Perspective of Psychological Science*. Psychological Science in the Public Interest. https://doi.org/10.1177/1529100612436522 （心理科学学会权威长篇报告：纯文本或低丰富度网络平台超过 2-3 周不转入现实/多模态交互，个体会基于有限信息过度脑补“完美投射”，导致在线下首次见面时心理幻灭感陡增 60% 以上）。\n  - **媒介丰富度与信任建立**：Daft RL, & Lengel RH (1986). *Organizational information requirements, media richness and structural design*. Management Science. https://doi.org/10.1287/mnsc.32.5.554 （迁移至包含朋友圈、语音等多模态媒介，能显著降低人际模糊性，信任建立速度提升 40%）。",
-          "actions": "1. **资料真实多元**：2 张清晰面部生活照 + 1 张全身照 + 2 张真实爱好/旅行实拍（体现审美与生活气息）；\n  2. **个人简介精炼具体**：写具体的喜好（如“喜欢手冲咖啡/马拉松跑者/周末爱去二手书店”），而非空泛的标签；\n  3. **顺理成章转微信**：\n     - 当双方在某一个共同话题产生共鸣时，顺水推舟：“平时这边消息提醒不太及时，要是方便的话我们微信聊吧，回头把那家店的地址推给你”。",
+          "actions": "1. **资料真实多元**：2 张清晰面部生活照 + 1 张全身照 + 2 张真实爱好/旅行实拍（体现审美与生活气息）；\n  2. **个人简介精炼具体**：写具体的喜好（如“喜欢手冲咖啡/马拉松跑者/周末爱去二手书店”），而非空泛的标签；\n  3. **顺理成章转微信**：\n     - 当双方在某一个共同话题产生共鸣时，顺水推舟：“平时这边消息提醒不太及时，要是方便的话我们微信聊吧，回头把那家店的地址推给你”。移行至微信后，开启日常交流严格遵循 第 14 条 的聊天节奏，切勿陷入查户口模式，朋友圈互动可参考 第 16 条 的开场白设计。",
           "redlines": "- 使用虚假网图冒充高富帅/白富美，一见面彻底见光死；\n  - 加了好友后在社交软件上打卡式早安晚安聊一个月都不推进现实接触。",
           "boundaries": "",
           "source": "Finkel EJ et al. (2012). Psychol Sci Public Interest. https://doi.org/10.1177/1529100612436522"
@@ -805,7 +851,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底战胜面对心仪异性时的羞怯心理（暴露脱敏训练）；\n  - 现实中建立的连接真实感和信任基础远高于纯网络交友；\n  - 展现出极其宝贵的真诚、果断与对他人边界的深刻尊重。",
           "evidence": "A",
           "academic": "- **社交距离与神经防御机制**：Perry A et al. (2013). *Intrapersonal distance: The role of the amygdala and emotional empathy*. Neuropsychologia. https://doi.org/10.1016/j.neuropsychologia.2013.07.014 （人际空间 fMRI 脑成像实验：陌生人侵入 1 米以内的亲密空间（Intimate Space）会直接引发杏仁核（Amygdala）防御性激活与皮质醇激增 p<0.01；而保持 1-1.2 米的礼貌社交距离能使受试者保持前额叶平静理性评估）。\n  - **认知暴露疗法效果**：Heimberg RG et al. (1998). *Cognitive behavioral group therapy vs phenelzine therapy for social phobia: 12-week outcome, 6-month follow-up, and 24-month follow-up*. Archives of General Psychiatry. https://doi.org/10.1001/archpsyc.55.12.1133 （通过主动脱敏暴露，行为抑制与社交恐惧反应在 4-6 周内显著下降，效应量 d=0.82）。",
-          "actions": "1. **三秒决断律**：在萌生想要认识对方的念头后，在 3 秒内迈步上前。一旦犹豫超过 3 秒，大脑会迅速被恐惧防御机制接管，产生无限内耗借口；\n  2. **物理界限规范**：绝对不要从背后惊吓对方；始终站在侧前方 45 度角，保持一米以上的安全距离，双手自然放松，目光温和真诚；\n  3. **坦荡尊重的话术模板**：\n     > “你好打扰一下，刚才看到你专心看展/挑书的样子感觉气质特别好，犹豫了一下还是想过来打个招呼，如果方便的话可以加个微信认识一下吗？”\n  4. **零冒犯撤退准则**：\n     - 如果对方微笑同意：出示二维码，简短致谢后从容告别，不占用对方过多时间；\n     - 如果对方表示“不太方便”或面露难色：立刻温和微笑道歉：“完全理解，冒昧打扰了，祝你今天过得愉快！”，体面转身离开。",
+          "actions": "1. **三秒决断律**：在萌生想要认识对方的念头后，在 3 秒内迈步上前。一旦犹豫超过 3 秒，大脑会迅速被恐惧防御机制接管，产生无限内耗借口；\n  2. **物理界限规范**：绝对不要从背后惊吓对方；始终站在侧前方 45 度角，保持一米以上的安全距离，双手自然放松，目光温和真诚；\n  3. **核心态度与真实表达原则（拒绝套路台词）**：\n     - **心智内核**：坦荡、礼貌、尊重对方空间。核心意图是“真诚欣赏对方专注当下的气质”，并“赋予对方完全平等的拒绝权利”，切勿油腻或背台词；\n     - **自主表达指引**：感情是自己谈的，不应有任何标准微信回复语句或机械照抄的台词。请用你自己最自然舒服的生活口吻表达（例如真诚赞美对方专心看展/挑书的气质很吸引人，礼貌询问是否方便加个微信认识一下）；\n  4. **零冒犯撤退准则**：\n     - 如果对方微笑同意：出示二维码，简短致谢后从容告别，不占用对方过多时间；\n     - 如果对方表示“不太方便”或面露难色：立刻温和礼貌致歉并真诚祝对方今天愉快，体面从容转身离开，恪守 第 31 条 的尊严退守准则。",
           "redlines": "- 鬼鬼祟祟一路尾随跟踪；\n  - 对方明确拒绝后依然穷追不舍、逼问“为什么不行/给个面子”；\n  - 语言轻浮低俗，把人当做狩猎目标。",
           "boundaries": "",
           "source": "Perry A et al. (2013). Neuropsychologia. https://doi.org/10.1016/j.neuropsychologia.2013.07.014"
@@ -828,7 +874,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 初次见面通过率与彼此舒适度显著提升；\n  - 杜绝因用力过猛或油腻说教引发的瞬间下头；\n  - 高效筛选出三观与沟通模式同频的靠谱伴侣。",
           "evidence": "A",
           "academic": "- **相亲面对面决策影响因素追踪**：Eastwick PW, & Finkel EJ (2008). *Sex differences in mate preferences revisited: Do people know what they initially desire in a romantic partner?* Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.94.2.245 （对 163 名参与者的速配相亲与现实选择追踪：参与者事前宣称的理想伴侣标准（包括收入、财富、身高等），与其面对面交互后的真实选择相关系数仅为 r=0.08（几乎不具预测力）；而现场面对面所展现出的“情绪稳定性、真诚沟通与知觉舒适度”对后续再次约会的预测力高达 r=0.53，p<0.001）。\n  - **第一印象说教反噬**：Leary MR et al. (1994). *Self-presentation and the promotion of positive interaction*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.67.4.664 （自夸与说教式展示导致对方产生强烈的厌恶与自恋归因）。",
-          "actions": "1. **仪表整洁稳重**：利落的发型、修剪整齐的指甲、干净合身的纯色衣着，杜绝奇装异服或过于严肃的推销员式西装；\n  2. **场地挑选**：桌距宽松、背景音乐柔和的咖啡馆或茶饮空间，方便平静交谈，周边最好有适合漫步的公园或街区；\n  3. **聊天边界把控**：\n     - 聚焦于生活方式、兴趣爱好、周末休闲、旅行与成长见解；\n     - 绝不在初次见面审问对方家庭房产、具体年薪、过往情史或生育规划；\n  4. **饭后收尾与反馈**：\n     - 散步或交谈 1-1.5 小时后主动礼貌收尾；\n     - 确认对方安全到家后发一条礼貌消息；若彼此互动热络则继续推进，若态度疏离则体面释怀，绝不纠缠质问。",
+          "actions": "1. **仪表整洁稳重**：利落的发型、修剪整齐的指甲、干净合身的纯色衣着，杜绝奇装异服或过于严肃的推销员式西装；\n  2. **场地挑选**：桌距宽松、背景音乐柔和的咖啡馆或茶饮空间，方便平静交谈，周边最好有适合漫步的公园或街区；\n  3. **聊天边界把控**：\n     - 聚焦于生活方式、兴趣爱好、周末休闲、旅行与成长见解，落地践行 第 14 条 与 第 15 条 的双向倾听与三维联想接话；\n     - 绝不在初次见面审问对方家庭房产、具体年薪、过往情史或生育规划；场地选择优先参考 第 23 条 的红榜舒适空间；\n  4. **饭后收尾与反馈**：\n     - 散步或交谈 1-1.5 小时后主动礼貌收尾；\n     - 确认对方安全到家后发一条礼貌消息；若彼此互动热络则继续推进，若态度疏离则体面释怀，绝不纠缠质问。",
           "redlines": "- 一落座就开启面试盘问模式：“你年薪多少？父母有没有退休金？什么时候考虑结婚？”；\n  - 疯狂吹嘘自己的财富人脉、大放厥词贬低女性或发表极端观点；\n  - 抢话、打断对方发言，全场进行个人演讲。",
           "boundaries": "",
           "source": "Eastwick PW, Finkel EJ (2008). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.94.2.245"
@@ -839,7 +885,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "sec": 4,
       "title": "聊天思维与话题拓展",
       "full_title": "04-聊天思维与话题拓展",
-      "intro": "线上沟通不是为了“用话术操控人心”，而是为了**建立深度的相互了解与情感连接**。绝大多数聊天冷场并非缺乏话题，而是由于陷入了“单向连续盘问”、“自我感动长篇小作文”以及“缺乏共情倾听与联想能力”。本章提供系统化的高情商沟通工具。",
+      "intro": "> **最高守则：感情是自己谈的，不应有任何标准微信回复语句。**  \n> 线上沟通绝不是为了“背诵套路台词”，更不是为了“用话术操控人心”，而是为了**建立深度的相互了解与真实的情感连接**。任何试图依赖“万能回复模板”的行为，都在抹杀你独特的真实个性，让交往充满悬浮感与欺瞒。  \n> 绝大多数聊天冷场并非缺乏话题，而是由于陷入了“单向连续盘问”、“自我感动长篇小作文”以及“缺乏共情倾听与联想能力”。本章提供的是**沟通心智透镜与底层共情模型**，请用你平日最舒适、最自然的生活语言去真诚表达。",
       "entries": [
         {
           "id": 14,
@@ -859,7 +905,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 聊天氛围轻松自在，对方回复意愿显著提升；\n  - 规避因信息过载与压迫感导致的下头与疏离；\n  - 建立平等、平衡的双向互动节奏。",
           "evidence": "A",
           "academic": "- **哈佛大学对话提问机制实证**：Huang K, Yeomans M, Brooks AW, Minson J, & Gino F (2017). *It Doesn't Hurt to Ask: Question-Asking Increases Liking*. Journal of Personality and Social Psychology. https://doi.org/10.1037/pspi0000089 （对 3 组线上相亲及人际交流对话（N>2000）的量化文本分析表明：倾听式的跟进提问（Follow-up questions）能显著提高人际好感度（Cohen's d=0.42），但缺乏个人状态分享的连续离散盘问（连续提问 >2 次），会引发受试者强烈的被审问焦虑，好感度降低 35%）。\n  - **信息量不对称与退缩反应**：Burgoon JK et al. (1995). *Interpersonal Adaptation: Dyadic Interaction Patterns*. 剑桥大学出版社。（言语输出篇幅极度不平衡（>3:1）时，处于低输出方的退缩概率高达 78%）。",
-          "actions": "1. **留白原则**：单条消息简练克制（30 字以内），给对方留出思考和回应的呼吸空间；\n  2. **提问与分享 1:1 配比**：每次提出一个问题前，先主动分享一句自己的观察或状态。例如不说“你喜欢看什么电影？”，而说“最近看完一部悬疑电影后劲特别大，你平时会看这类型吗？”；\n  3. **主动体面退场**：当对方明显回复简短、在忙碌或话题告一段落时，主动结束当期对话（“你先专心忙，回头再聊”），绝不硬聊尬聊。",
+          "actions": "1. **留白原则**：单条消息简练克制（30 字以内），给对方留出思考和回应的呼吸空间；消除连续追问后，通过 第 15 条 的三维联想接话展开话题；\n  2. **提问与分享 1:1 配比**：每次提出一个问题前，先主动分享一句自己的观察或状态。例如不说“你喜欢看什么电影？”，而说“最近看完一部悬疑电影后劲特别大，你平时会看这类型吗？”；\n  3. **主动体面退场**：当对方明显回复简短、在忙碌或话题告一段落时，主动结束当期对话，绝不硬聊尬聊；若对方出现持续冰冷或情绪过载，坚决执行 第 30 条 的战略性留白与冷静期。",
           "redlines": "- 查户口式夺命连环问：“下班了吗？吃的什么？好吃吗？跟谁一起吃的？”；\n  - 对方只回了一个字，自己发了整整三大屏长篇独白表达爱意与委屈。",
           "boundaries": "",
           "source": "Huang K et al. (2017). J Pers Soc Psychol. https://doi.org/10.1037/pspi0000089"
@@ -882,7 +928,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 永远告别“不知道回什么好”的僵局；\n  - 对方能深刻感知到你是在认真倾听她，而非自说自话；\n  - 自然将枯燥的事实汇报转化为鲜活生动的情绪共鸣。",
           "evidence": "A",
           "academic": "- **概念网络激活理论**：Collins AM, & Loftus EF (1975). *A spreading-activation theory of semantic processing*. Psychological Review. https://doi.org/10.1037/0033-295X.82.6.407 （人类语义网络并非孤立存储，当一个概念（如“茶馆”）被激活时，激活能量会自然沿节点向周围联想网络（静心、中式美学、下午茶、慢节奏）扩散，反应时间在 200 毫秒内即可完成）。\n  - **即兴倾听与好感度**：Weger H et al. (2014). *The Relative Effectiveness of Active Listening in Initial Interactions*. International Journal of Listening. https://doi.org/10.1080/10904018.2013.811269 （积极抓取对方信息并进行即兴反思反馈（Paraphrasing），相比单纯赞同，使倾听者的共情评分提升 46%，p<0.01）。",
-          "actions": "1. **关键词法（Keyword Extraction）**：\n     - 对方：“我和同事在市中心那家新开的茶馆喝茶聊天呢”；\n     - 提取【茶馆】：“听起来挺静心的，最近这种新中式茶馆很火，环境值得专程去一趟吗？”；\n     - 提取【同事】：“看来你们团队氛围蛮融洽的，周五下午还能一起出来透透气”；\n  2. **联想法（Associative Analogy）**：\n     - 对方：“今天连续开了五个小时的跨国会议，整个人都快石化了”；\n     - 联想：电量耗尽、需要充能；\n     - 回应：“感觉你的精神电量已经跌破 5% 进入低电量模式了，今晚绝对得吃顿大餐犒劳一下”；\n  3. **感受评价法（Atmosphere Reflection）**：\n     - 倾听对方分享经历后，用温暖共情的语言回应：“隔着屏幕都能感受到你当时那种松了一口气的轻松感”。",
+          "actions": "1. **关键词法（Keyword Extraction）**：\n     - 对方：“我和同事在市中心那家新开的茶馆喝茶聊天呢”；\n     - 提取【茶馆】：“听起来挺静心的，最近这种新中式茶馆很火，环境值得专程去一趟吗？”；\n     - 提取【同事】：“看来你们团队氛围蛮融洽的，周五下午还能一起出来透透气”；\n  2. **联想法（Associative Analogy）**：\n     - 对方：“今天连续开了五个小时的跨国会议，整个人都快石化了”；\n     - 联想：电量耗尽、需要充能；\n     - 回应：“感觉你的精神电量已经跌破 5% 进入低电量模式了，今晚绝对得吃顿大餐犒劳一下”；\n  3. **感受评价法（Atmosphere Reflection）**：\n     - 倾听对方分享经历后，用温暖共情的语言回应感受本身，与 第 14 条 的提问与分享配比紧密呼应；在长期相处中，三维倾听更是化解 第 27 条 批评与冷战的关键武器。",
           "redlines": "把对方当作辩论赛对手，挑字眼反驳、好为人师、或者强行科普大道理。",
           "boundaries": "",
           "source": "Weger H et al. (2014). Int J Listen. https://doi.org/10.1080/10904018.2013.811269"
@@ -905,7 +951,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 开场回复率大幅攀升；\n  - 彻底摆脱流水线群发工具人的廉价感；\n  - 让对方感受到被真正关注与尊重的细腻温暖。",
           "evidence": "A",
           "academic": "- **定制化沟通与回复率实证**：Dillard JP, & Pfau M (2002). *The persuasion handbook: Developments in theory and practice*. Sage Publications.（个性化定制信息相比模板化群发信息的注意捕获率提升 3.4 倍，心理反感度下降 72%）。\n  - **社会知觉中的细致关注**：Reis HT, Clark MS, & Holmes JG (2004). *Perceived partner responsiveness as an organizing construct in the study of intimacy and closeness*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.87.6.861 （能够敏锐捕捉对方细微生活线索并给予响应（Responsiveness）的交往者，被知觉为“高情商与高共情”的概率高出 63%）。",
-          "actions": "1. **细节捕捉切入**：\n     - 看到对方朋友圈发了烘焙照片；\n     - 开场：“刚看到你烤的司康，上色看起来相当专业，感觉你平时挺擅长料理的？”；\n  2. **共同记忆唤醒**：\n     - “刚刚在路上听到某首歌/路过某家店，突然想起你上次推荐的那件事，试了一下果然很棒”；\n  3. **轻量求助法则**：\n     - “记得你之前提过对胶片相机/某座城市很熟悉，正好朋友在问我，想找你取个经”。",
+          "actions": "1. **细节捕捉切入**：\n     - 看到对方朋友圈发了烘焙照片；\n     - 开场：“刚看到你烤的司康，上色看起来相当专业，感觉你平时挺擅长料理的？”；\n  2. **共同记忆唤醒**：\n     - “刚刚在路上听到某首歌/路过某家店，突然想起你上次推荐的那件事，试了一下果然很棒”；\n  3. **轻量求助法则**：\n     - 结合对方熟悉的特长轻量请教。切入后若对方未及时回复切勿连环催促，恪守 第 5 条 的给予价值心态与 第 14 条 的克制原则；建立良好互动后，适时过渡到 第 17 条 的适度自我暴露。",
           "redlines": "- 每天打卡式的“早安”、“午安”、“晚安睡了吗”；\n  - 低俗或油腻的挑逗开场（“嗨美女，在干嘛呢”）。",
           "boundaries": "",
           "source": "Reis HT et al. (2004). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.87.6.861"
@@ -928,7 +974,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 建立深层的心灵连接与情感共鸣（Rapport）；\n  - 引导对方也愿意对你敞开心扉，分享她的真实内心；\n  - 塑造立体、真实、有血有肉的人格魅力。",
           "evidence": "A",
           "academic": "- **阿伦森经典“36个亲密问题”实验**：Aron A, Melinat E, Aron EN, Vallone RD, & Bator RJ (1997). *The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings*. Personality and Social Psychology Bulletin. https://doi.org/10.1177/0146167297234003 （著名的亲密感生成实验：成对陌生受试者通过对等、渐进式的深度个人暴露（包括成长挫折、价值观脆弱点等），在仅 45 分钟内测得的人际亲密感和互信评分，达到了普通人群日常交往数月乃至一年的均值水平，后续甚至有受试者步入婚姻）。\n  - **自我暴露互惠效应**：Collins NL, & Miller LC (1994). *Self-disclosure and liking: a meta-analytic review*. Psychological Bulletin. https://doi.org/10.1037/0033-2909.116.3.457 （大样本元分析（涵盖 94 项研究）：适度、诚实的自我暴露与被喜欢程度存在极其稳固的正相关，综合相关系数 r=0.39）。",
-          "actions": "1. **关于坚持与成长的故事**：分享一段自己如何走出迷茫、攻克一个艰难挑战的真实心路，传递你对待生活的韧性与责任感；\n  2. **关于原则与善意的故事**：分享一次在面对利益抉择时坚持底线、或是善待他人/动物的小插曲，展现你的同理心与道德底线；\n  3. **适度展现脆弱**：承认自己也有不擅长的事、也有过笨拙的过往，真实的凡人远比装模作样的全能偶像更具亲和力；\n  4. **遵循对等节奏**：自我暴露必须循序渐进，根据对方的敞开程度逐步加深，切忌初次见面就倾诉所有的陈年创伤。",
+          "actions": "1. **关于坚持与成长的故事**：分享一段自己如何走出迷茫、攻克一个艰难挑战的真实心路，传递你对待生活的韧性与责任感；\n  2. **关于原则与善意的故事**：分享一次在面对利益抉择时坚持底线、或是善待他人/动物的小插曲，展现你的同理心与道德底线；\n  3. **适度展现脆弱**：承认自己也有不擅长的事、也有过笨拙的过往，真实的凡人远比装模作样的全能偶像更具亲和力，这也是化解长期相处中 第 27 条 筑墙冷战的深层良药；\n  4. **遵循对等节奏**：自我暴露必须严格遵循 第 1 条 的关系递进洋葱模型，根据对方的敞开程度逐步加深，切忌初识阶段就倾诉所有陈年创伤，更要与 第 24 条 的身体边界感知保持同频。",
           "redlines": "- 把自我暴露演变成无休止的负能量倾倒与向对方索取同情；\n  - 刚认识就痛陈前任有多糟糕，抱怨原生家庭有多不幸（严重越界）。",
           "boundaries": "",
           "source": "Aron A et al. (1997). Pers Soc Psychol Bull. https://doi.org/10.1177/0146167297234003"
@@ -959,7 +1005,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底摆脱沉闷死板的交谈氛围；\n  - 营造轻松愉快的互动气场，展现松弛的自信心；\n  - 激发两人之间独有的默契与嬉笑打闹的情感张力。",
           "evidence": "A",
           "academic": "- **幽默风格与亲密关系纵向实证**：Martin RA, Puhlik-Doris P, Larsen G, Gray J, & Weir K (2003). *Individual differences in uses of humor and their relation to psychological well-being: Development of the Humor Styles Questionnaire*. Journal of Research in Personality. https://doi.org/10.1016/S0092-6566(02)00534-2 （对 1195 名受试者的心理量表分析：亲和型幽默（Affiliative humor）与自励型幽默对两性吸引力和关系满意度具有显著正向预测（r=0.48，p<0.001）；而老式 PUA 倡导的贬抑/讽刺型幽默（Aggressive humor）会直接诱发伴侣的心理防御与信任破裂，呈极强负相关 r=-0.39）。\n  - **笑声与人际亲密神经机制**：Dunbar RI et al. (2012). *Social laughter is correlated with an elevated pain threshold*. Proceedings of the Royal Society B: Biological Sciences. https://doi.org/10.1098/rspb.2011.2128 （共同欢笑能显著促进内源性阿片肽（Endorphins）释放，人际信任度提升 38%）。",
-          "actions": "1. **善意调侃的安全边界**：只能调侃无伤大雅的可爱生活细节（如爱赖床、爱吃甜食、走路像企鹅、偶尔迷糊）；\n  2. **绝对禁区**：严禁拿对方的外貌身材特征、家庭背景、学业工作挫折开玩笑；\n  3. **自嘲与赞美结合**：\n     - “今天这套穿搭选得很有法式风情……不过站你旁边我感觉自己像个保镖，看来我得把背挺直一点了”；\n  4. **双向感知**：一旦察觉对方对某个调侃感到不适，立刻真诚道歉并大方修正，展现成熟的同理心。",
+          "actions": "1. **善意调侃的安全边界**：只能调侃无伤大雅的可爱生活细节（如爱赖床、爱吃甜食、走路像企鹅、偶尔迷糊）；\n  2. **绝对禁区**：严禁拿对方的外貌身材特征、家庭背景、学业工作挫折开玩笑；\n  3. **自嘲与赞美结合**：\n     - 真诚赞美对方的穿搭或审美，配合恰到好处的幽默自嘲，坚守 第 4 条 的心理边界，绝不搞贬低打压；\n  4. **双向感知**：一旦察觉对方对某个调侃感到不适，立刻真诚道歉并大方修正。在长期相处中，温和幽默是维系 第 27 条 5:1 黄金互动比率的核心动力。",
           "redlines": "- 奉行老旧 PUA 的恶意打压（Negging），为了打压对方自尊故意挑刺挑毛病（极度下头且属于精神毒素）；\n  - 低俗下流的双关黄色笑话。",
           "boundaries": "",
           "source": "Martin RA et al. (2003). J Res Pers. https://doi.org/10.1016/S0092-6566(02)00534-2"
@@ -982,7 +1028,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 顺利通过深层信任筛选；\n  - 展现极其罕见的高情绪稳定性（Emotional Stability）；\n  - 将原本带有防御性的质问，转化为加深彼此信任的绝佳契机。",
           "evidence": "A",
           "academic": "- **成人依恋防御与情绪容纳实验**：Campbell L, Simpson JA, Boldry J, & Kashy DA (2005). *Perceptions of conflict and support in romantic relationships: The role of attachment anxiety*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.88.3.510 （对 107 对情侣的每日日记追踪研究：具有依恋焦虑的伴侣在面对不确定性时会本能启动防御性言语试探；当面对试探时，另一方若表现出非防御性倾听与清晰保证，伴侣的焦虑水平在 24 小时内下降 41%，信任度提升 33%）。\n  - **情绪稳定性与伴侣评价**：Botwin MD, Buss DM, & Shackelford TK (1997). *Personality and mate preferences: Five factors in mate selection and marital satisfaction*. Journal of Personality. https://doi.org/10.1111/j.1467-6494.1997.tb00531.x （大五人格中，情绪稳定性（低神经质）是预测伴侣长期安全感的最强核心指标，r=0.58）。",
-          "actions": "1. **破除自证陷阱**：不要像被审讯一样慌张解释“我真的没有，我很老实的”，过度自证反而显得心虚；\n  2. **从容幽默 + 真诚定心丸**：\n     - 对方：“你平时是不是很会哄女孩子开心？”；\n     - 回应：“哈哈，在遇到让我真正觉得特别的人之前，我平时在大部分人眼里其实是个话不多的工科直男。但遇到你，确实想让你开心一点”；\n  3. **共情背后的担忧**：\n     - “能理解你可能会觉得我口才不错，但我对待感情是极其认真和传统的，时间会证明这一点”。",
+          "actions": "1. **破除自证陷阱**：不要像被审讯一样慌张解释“我真的没有，我很老实的”，过度自证反而显得心虚；\n  2. **从容定力 + 真诚定心丸**：\n     - 识别对方试探背后对未知的依恋焦虑，真诚袒露自身对感情的认真态度（联动 第 17 条 自我暴露），从容不慌乱的心态直接根植于 第 1 条 与 第 3 条 的独立自我价值；\n  3. **共情背后的担忧**：\n     - 理解对方的审慎，用长期的言行一致给予对方安全感，而非仓皇自证或巧言令色。",
           "redlines": "- 气急败坏反问：“你凭什么怀疑我？你把我当什么人？”；\n  - 满嘴跑火车搞所谓的“海王话术”（“是啊，我这片海域就缺你这只鱼”——极其油腻）。",
           "boundaries": "",
           "source": "Campbell L et al. (2005). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.88.3.510"
@@ -1005,7 +1051,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 明确双方的关系走向，避免在纯友谊区无止境内耗；\n  - 给予对方被珍视、被欣赏的情感滋养；\n  - 建立双向确认的浪漫默契。",
           "evidence": "A",
           "academic": "- **互惠喜欢效应（Reciprocal Liking）实验**：Ditto PH, & Griffin JA (1993). *The value of uniqueness: Self-esteem and the evaluation of flattering versus critical feedback*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.65.6.1153 （社会心理学经典实验：当受试者确切获悉一名高价值异性对自己表达了真诚且独特的欣赏时，受试者对该异性的好感度和回馈吸引力几率跃升 65%，这一效应在女性受试者中尤为显著）。\n  - **调情风格与关系结果**：Hall JA, & Xing C (2015). *The Verbal and Nonverbal Correlates of the Five Flirting Styles*. Journal of Nonverbal Behavior. https://doi.org/10.1007/s10919-015-0211-x （对 5 种调情风格的比较分析表明：以真诚与尊重为核心的调情风格（Sincere flirting style），促成高质量恋爱关系的成功率比传统轻浮或游戏型调情高出 2.8 倍）。",
-          "actions": "1. **专注细节的赞美**：不仅夸容貌，更夸对方的性格特质、做事态度或独特的审美见解（“我很欣赏你对待工作时那种专注冷静的眼神”）；\n  2. **情境化未来畅想**：\n     - 聊到某个音乐会或美食：“如果下次能跟你一起去听现场，那感觉一定比一个人去好上十倍”；\n  3. **观察反馈与知进退**：\n     - 表达好感后，敏锐观察对方是害羞接受、还是客套退缩；\n     - 对方接受则继续增进感情，对方退缩则放慢节奏，绝不强行施压。",
+          "actions": "1. **专注细节的赞美**：不仅夸容貌，更夸对方的性格特质、做事态度或独特的审美见解（“我很欣赏你对待工作时那种专注冷静的眼神”）；\n  2. **情境化未来畅想**：\n     - 聊到某个音乐会或美食，真诚表达希望与对方共同体验的心愿，为 第 21 条 的线下约会预期对齐埋下伏笔；\n  3. **观察反馈与知进退**：\n     - 表达好感后，敏锐观察对方是害羞接受还是客套退缩；对方接受则继续增进感情，对方退缩则放慢节奏，肢体推进绝不跨越 第 24 条 的知情同意红线。",
           "redlines": "- 带有强烈性暗示或身体冒犯的轻浮言论；\n  - 强行索求反馈（“我都这么夸你了，你对我什么感觉？”）。",
           "boundaries": "",
           "source": "Hall JA, Xing C (2015). J Nonverbal Behav. https://doi.org/10.1007/s10919-015-0211-x"
@@ -1059,7 +1105,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 极大加深彼此的情境记忆厚度与心理亲密感；\n  - 打破单一面对面静态坐姿带来的对话枯竭与身体紧绷；\n  - 为两人提供自然并肩漫步、共同探索城市的动态互动机会。",
           "evidence": "A",
           "academic": "- **峰终定律与情境记忆实验**：Kahneman D, Fredrickson BL, Schreiber CA, & Redelmeier DA (1993). *When More Pain Is Preferred to Less: Adding a Better End*. Psychological Science. https://doi.org/10.1111/j.1467-9280.1993.tb00589.x （诺贝尔奖得主丹尼尔·卡尼曼的经典实验：人类对一段体验的回忆并不取决于持续时长，而取决于高潮时刻（峰值）和结束时刻（结尾）的感受；场景转场能将单次约会的情感峰值点增加 2.3 倍）。\n  - **情境依存记忆理论**：Godden DR, & Baddeley AD (1975). *Context-dependent memory in two natural environments: on land and underwater*. British Journal of Psychology. https://doi.org/10.1111/j.2044-8295.1975.tb01468.x （不同物理环境的切换能创造多重情境线索（Contextual cues），使对共同经历的记忆提取效率提高 35%）。",
-          "actions": "1. **黄金动线设计（静动结合）**：\n     - **节点一（破冰热身）**：半开放式安静咖啡馆或茶饮店（停留 30-45 分钟，轻松交流近况，消除初见生疏）；\n     - **节点二（互动体验）**：美术馆、手作工坊、特色旧书店或潮玩展（身体处于漫步状态，有共同的外部话题焦点）；\n     - **节点三（深度交流与回味）**：环境柔和、桌距宽松的特色餐馆或林荫道漫步；\n  2. **温和主导但不强加意志**：\n     - 主导提议：“附近拐角有一家特别有格调的文创店/面包坊，正好走过去看看，消消食”；\n     - 敏锐关注对方的体能：“累不累？如果高跟鞋走得不舒服，我们随时找个长椅坐下歇会儿”。",
+          "actions": "1. **黄金动线设计（静动结合）**：\n     - **节点一（破冰热身）**：半开放式安静咖啡馆或茶饮店（环境选择参考 第 23 条，消除初见生疏）；\n     - **节点二（互动体验）**：美术馆、手作工坊、特色旧书店或潮玩展（身体处于漫步状态，有共同外部话题焦点）；\n     - **节点三（深度交流与回味）**：环境柔和的特色餐馆或林荫道漫步，漫步中自然感知身体距离，恪守 第 24 条 的知情同意准则；\n  2. **温和主导但不强加意志**：\n     - 主导提议：“附近拐角有一家特别有格调的文创店/面包坊，正好走过去看看，消消食”；\n     - 敏锐关注对方的体能：“累不累？如果高跟鞋走得不舒服，我们随时找个长椅坐下歇会儿”。",
           "redlines": "- 约会前完全不做任何规划，站在十字路口反复问对方“现在去哪、你想吃啥”；\n  - 安排长距离频繁打车转场，把大部分时间浪费在拥堵和赶路上。",
           "boundaries": "",
           "source": "Kahneman D et al. (1993). Psychol Sci. https://doi.org/10.1111/j.1467-9280.1993.tb00589.x"
@@ -1082,7 +1128,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 营造松弛、安全、不紧绷的对话环境；\n  - 促进非言语肢体语言的自然交流与目光接触；\n  - 避免因环境嘈杂混乱引发的听觉疲劳与情绪烦躁。",
           "evidence": "A",
           "academic": "- **环境心理学照度与亲密度实验**：Gifford R (2007). *Environmental Psychology: Principles and Practice*. Optimal Books.（环境照明照度（Lux）与背景噪声（dB）对社交焦虑具有强决定性：过高噪音（>70 dB）促使人体交感神经应激活跃、人际耐受力下降 45%；而暖色柔和光源（2700K-3000K）配合 <55 dB 的低噪音，使个体的瞳孔散大与非言语目光接触频率增加 60%）。\n  - **自然环境与皮质醇减压**：Ulrich RS et al. (1991). *Stress recovery during exposure to natural and urban environments*. Journal of Environmental Psychology. https://doi.org/10.1016/S0272-4944(05)80184-7 （户外绿植与漫步场景在 20 分钟内显著降低唾液皮质醇水平）。",
-          "actions": "1. **优质红榜场所**：\n     - **光线柔和的特色轻食/咖啡馆**：沙发舒适、桌距宽敞，便于放松交谈；\n     - **双向沉浸式互动体验**：DIY 陶艺、烘焙工坊、保龄球、猫咪咖啡馆（共同动手完成一件小事，天然打破尴尬）；\n     - **环境清幽的步行街区/公园湖畔**：晚风与自然绿意能够显著促进催产素分泌，降低皮质醇压力水平；\n  2. **避坑黑榜场所**：\n     - **传统电影院（初见大忌）**：入场坐两小时无法沟通，看完直接离场，毫无深层了解；\n     - **嘈杂火锅店/喧闹大排档**：说话必须大喊，环境油烟味重，完全无法进行细腻温情的情感交流；\n     - **密闭无人的私人空间（严重避忌）**：在未确立深厚信任前，把对方带到私人影院或家中，会瞬间触发对方强烈的安全警戒。",
+          "actions": "1. **优质红榜场所**：\n     - **光线柔和的特色轻食/咖啡馆**：沙发舒适、桌距宽敞，便于放松交谈；\n     - **双向沉浸式互动体验**：DIY 陶艺、烘焙工坊、保龄球、猫咪咖啡馆（共同动手完成一件小事，天然打破尴尬）；\n     - **环境清幽的步行街区/公园湖畔**：晚风与自然绿意能够显著促进催产素分泌，降低皮质醇压力水平；\n  2. **避坑黑榜场所**：\n     - **传统电影院（初见大忌）**：入场坐两小时无法沟通，看完直接离场，毫无深层了解；\n     - **嘈杂火锅店/喧闹大排档**：说话必须大喊，环境油烟味重，无法进行细腻情感交流；\n     - **密闭无人的私人空间（严重避忌）**：在未确立深厚信任前，带对方去私人影院或家中会触发强烈安全警戒，必须严格配合 第 21 条 的活动预期对齐和 第 22 条 的动线规划。",
           "redlines": "- 第一次见面就强行拉女生去私人密闭空间；\n  - 挑选消费极高、规矩森严、双方都觉得束手束脚的高档正式宴会厅。",
           "boundaries": "",
           "source": "Ulrich RS et al. (1991). J Environ Psychol. https://doi.org/10.1016/S0272-4944(05)80184-7"
@@ -1105,7 +1151,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底规避给对方带来任何不适、冒犯与心理阴影；\n  - 树立成熟自持、高度尊重女性的君子人格；\n  - 让每一次身体接触都建立在真心渴望与双向奔赴的甜蜜基石上。",
           "evidence": "A",
           "academic": "- **性心理学知情同意实证**：Jozkowski KN, Peterson ZD, Sanders SA, Dennis B, & Reece M (2014). *Gender Differences in How Intimate Partners Communicate and Interpret Consent to Sexual Activity*. Journal of Sex Research. https://doi.org/10.1080/00224499.2013.792328 （对 370 名大学生的实证调查：具备明确言语或非言语肯定知情同意（Affirmative Consent）的肢体亲密，双方的主观心理舒适度与信任度高出 54%，极大消除误解与心理应激创伤）。\n  - **身体接触与催产素神经机制**：Ditzen B et al. (2007). *Effects of different kinds of couple interaction on cortisol and heart rate responses to stress in women*. Psychoneuroendocrinology. https://doi.org/10.1016/j.psyneuen.2007.03.011 （在自愿、舒适前提下的温柔牵手与拥抱，使女性皮质醇水平下降 32%，下丘脑催产素释放显著提高）。",
-          "actions": "1. **第一阶段：社交安全距离脱敏**：\n     - 并肩走路时的适度靠拢、过马路时提醒看车的体贴提醒、递水或拉开车门时的礼貌细节；\n  2. **第二阶段：自然情感流动下的牵手**：\n     - 在漫步谈心、气氛甜蜜微醺、目光深情对视时，伸出手微笑着询问或轻轻触碰对方手背：“可以牵你的手吗？”（真诚的询问绝非不解风情，而是最极致的教养与尊重）；\n     - 若对方害羞把手递给你：温柔握住；\n     - 若对方有些犹豫或把手插进口袋：微笑着继续并排漫步，毫无尴尬或怨气；\n  3. **绝对知情同意法则**：\n     - 对方的身体属于她自己，任何身体亲密都必须建立在双方都感到完全舒适与自愿的前提下；\n     - 永远尊重“不”（No means No），任何退缩和犹豫都代表当前节奏过快，必须主动后退一步。",
+          "actions": "1. **第一阶段：社交安全距离脱敏**：\n     - 并肩走路时的适度靠拢、过马路时提醒看车的体贴提醒、递水或拉开车门时的礼貌细节；\n  2. **第二阶段：自然情感流动下的牵手**：\n     - 在漫步谈心、气氛甜蜜微醺、目光深情对视时，伸出手微笑着询问或轻轻触碰对方手背：“可以牵你的手吗？”（真诚的询问绝非不解风情，而是最极致的教养与尊重）；\n     - 若对方害羞把手递给你：温柔握住；\n     - 若对方有些犹豫或把手插进口袋：微笑着继续并排漫步，毫无尴尬或怨气；\n  3. **绝对知情同意法则**：\n     - 严格遵循 第 1 条 的关系递进洋葱模型，任何越界都会彻底摧毁信任；\n     - 对方的身体属于她自己，任何身体亲密都必须建立在双方完全自愿与知情同意前提下；\n     - 永远尊重“不”（No means No），任何退缩和犹豫都代表当前节奏过快，必须主动后退一步；强迫与骚扰直接触犯 第 37 条 与 第 39 条 所规制的人身侵权红线。",
           "redlines": "- 奉行老式 PUA 所谓的“强吻硬抱、不依不饶强行牵手”等实质性性骚扰行为；\n  - 对方表现出抗拒后，道德绑架或冷脸生气。",
           "boundaries": "",
           "source": "Jozkowski KN et al. (2014). J Sex Res. https://doi.org/10.1080/00224499.2013.792328"
@@ -1136,7 +1182,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 终身保持两性吸引力的保鲜度，抗拒享乐适应（Hedonic Adaptation）引发的审美疲劳；\n  - 避免将生活重心全部压在对方身上，消除窒息的分离焦虑与控制欲；\n  - 维持健康亲密关系的最佳形态：两个独立完整的圆相遇，共同滚向远方。",
           "evidence": "A",
           "academic": "- **自我扩展模型与共同活动干预实验**：Aron A, Norman CC, Aron EN, McKenna C, & Heyman RE (2000). *Couples' shared participation in novel and challenging activities and experienced relationship quality*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.78.2.273 （对 60 对长期伴侣的实验研究：共同参与新奇且具轻度挑战性的活动（如户外攀岩、学习新语言、共同旅行）的一组，其神经多巴胺奖赏回路重新激活，关系质量评分显著高于仅参与日常世俗活动的一组（效应量 Cohen's d=0.57，p<0.001））。\n  - **享乐适应机制**：Frederick S, & Loewenstein G (1999). *Hedonic adaptation*. 罗素·塞奇基金会。（静态无变化的事物，人类中枢神经会在 3-6 个月内产生感官适应并降低多巴胺敏感度达 70%）。",
-          "actions": "1. **形象与健康底线**：即使同居或结婚，坚持规律体能训练、干净穿搭与个人卫生，这不仅是给外界看，更是对伴侣与对自我的敬意；\n  2. **保有独立的精神角落**：保留自己的深耕爱好、志同道合的朋友圈与职业野心，不要求双方 24 小时粘在一起；\n  3. **不定期重启「约会之夜」（Date Night）**：每两周安排一次完全脱离柴米油盐琐事的二人约会，穿戴整齐、专注交流，重温恋爱初期的仪式感。",
+          "actions": "1. **形象与健康底线**：即使同居或结婚，坚持规律体能训练与个人卫生（践行 第 3 条 的自我价值成长），这不仅是给外界看，更是对伴侣与对自我的敬意；\n  2. **保有独立的精神角落**：保留深耕爱好与独立朋友圈，共同探索新奇挑战活动，为长久相处注入源泉，积极抵御 第 27 条 的情感耗竭；\n  3. **不定期重启「约会之夜」（Date Night）**：每两周安排一次完全脱离柴米油盐琐事的二人约会，穿戴整齐、专注交流，重温恋爱初期的仪式感。",
           "redlines": "- 一恋爱就完全丢掉自我，要求对方报备每分每秒；\n  - 放弃对个人身材、卫生和精神追求的底线要求，彻底化身为家庭中消极怠惰的室友。",
           "boundaries": "",
           "source": "Aron A et al. (2000). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.78.2.273"
@@ -1159,7 +1205,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底规避“供养者被抛弃”或“单方面情绪崩溃”的悲剧；\n  - 大幅提升双方关系的抗风险能力与情感粘性；\n  - 建立彼此平等的“亲密战友”信任契约。",
           "evidence": "A",
           "academic": "- **亲密关系投资模型（Investment Model）经典实验**：Rusbult CE (1980). *Commitment and satisfaction in romantic associations: A test of the investment model*. Journal of Experimental Social Psychology. https://doi.org/10.1016/0022-1031(80)90007-4 （对 171 名伴侣的长达数月跟踪：双向投资规模（包括共享的朋友圈、时间、财务付出与共同记忆）对关系承诺（Commitment）和稳定性的预测解释率高达 R²=0.62，p<0.001。单向过度付出的关系中，知觉不公感在 12 个月内引发分手的几率高达 73%）。\n  - **社会交换与互惠公平**：Walster E, Berscheid E, & Walster GW (1973). *New directions in equity research*. J Pers Soc Psychol. https://doi.org/10.1037/h0033967 （在极度不公平的关系中，过度受益方产生内疚与轻视，过度受损方产生怨恨，双方满意度均降至冰点）。",
-          "actions": "1. **家务与日常事务共担**：共同分工合作（如一个做饭另一个洗碗），在分工协作中增进生活默契；\n  2. **健康的财务默契**：倡导互相体贴的收支互动（你出大头她出小头，或轮流负责日常出行与大件购置），不把伴侣当作无底线的提款机；\n  3. **积极反馈强化**：对伴侣为你做的每一件微小付出，真诚表达感谢与欣赏（“今天辛苦你帮我挑好衬衫，感觉一天都顺心了”），让付出得到情感滋养。",
+          "actions": "1. **家务与日常事务共担**：共同分工合作（如一个做饭另一个洗碗），在分工协作中增进生活默契；\n  2. **健康的财务默契**：倡导互相体贴的收支互动，守住 第 4 条 的个人心理边界，不把伴侣当作无底线的提款机；若涉及谈婚论嫁或重大资金往来，必须联动 第 33 条 借贷定性、第 34 条 彩礼规范与 第 35 条 购房出资协议；\n  3. **积极反馈强化**：对伴侣为你做的每一件微小付出，真诚表达感谢与欣赏，让付出得到情感滋养。",
           "redlines": "- “真男人就该无条件全包所有开销，女生只管索取”的毒鸡汤单向透支；\n  - 账目算到分毫必争的对立式记账（斤斤计较演变为冷酷对抗）。",
           "boundaries": "",
           "source": "Rusbult CE (1980). J Exp Soc Psychol. https://doi.org/10.1016/0022-1031(80)90007-4"
@@ -1182,7 +1228,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 终结恶意冷暴力与人身攻击对亲密关系带来的不可逆结构性破坏；\n  - 培养成年人级别的高阶冲突解决能力；\n  - 将每次争吵转化为更加了解彼此底线与需求的契机。",
           "evidence": "A",
           "academic": "- **戈特曼实验室 14 年婚姻破裂预测研究**：Gottman JM, & Levenson RW (1992). *Marital processes predictive of later dissolution: An approach for investigating mechanisms of change*. Journal of Family Psychology. https://doi.org/10.1037/0893-3200.6.2.221 （对 73 对夫妇长达 14 年的实验室实时录像、心率监测与语言代码分析：观察新婚夫妇在 15 分钟冲突交谈中出现的“末日四骑士”（批评、蔑视、辩解、筑墙冷战），其预测后续离婚的准确率高达惊人的 93.6%！其中【蔑视】是最强烈的单一毒性指标，危害程度最大）。\n  - **5:1 黄金互动比例法则**：Gottman JM (1994). *What Predicts Divorce? The Relationship Between Marital Processes and Marital Outcomes*. Lawrence Erlbaum.（在面对矛盾分歧时，长久稳定的健康夫妻其积极互动（幽默、倾听、肯定）与消极互动（抱怨、抗议）的比率稳定在 5:1 以上；而走向破裂的夫妻该比率跌至 0.8:1 以下）。",
-          "actions": "1. **末日四骑士及其解毒剂**：\n     - **批评（Attack Person）➔ 解毒：温和表达感受与具体需要**（不说“你从来不在乎我”，改说“你刚才迟到让我感到有点被忽视，我需要被提前通知”）；\n     - **蔑视（Contempt/翻白眼）➔ 解毒：建立欣赏与感恩文化**（严禁冷嘲热讽与挖苦）；\n     - **防卫辩解（Defensiveness）➔ 解毒：承担自己的部分责任**（坦然承认自己的疏忽）；\n     - **筑墙冷战（Stonewalling）➔ 解毒：生理自我抚慰与暂停**（心率超过 100 次/分时，提出暂停 20 分钟平复交感神经，但保证 1 小时内返回沟通）；\n  2. **睡前清零原则**：当天产生的分歧就事论事解决，绝不带着怨气入眠，复盘时站在同一个阵营：“是我们俩一起打败这个问题，而不是我打败你”。",
+          "actions": "1. **末日四骑士及其解毒剂**：\n     - **批评（Attack Person）➔ 解毒：温和表达感受与具体需要**，联动 第 15 条 的感受共鸣；\n     - **蔑视（Contempt/翻白眼）➔ 解毒：建立欣赏与感恩文化**（严禁冷嘲热讽与挖苦）；\n     - **防卫辩解（Defensiveness）➔ 解毒：承担自己的部分责任**（坦然承认自己的疏忽）；\n     - **筑墙冷战（Stonewalling）➔ 解毒：生理自我抚慰与暂停**（心率超过 100 次/分时，提出暂停 20 分钟平复交感神经，机制与 第 30 条 的战略性留白异曲同工）；\n  2. **睡前清零与安全底线**：当天产生的分歧就事论事解决；若冲突恶化为肢体攻击或人身威胁，必须立刻中断争吵撤离，坚决启动 第 37 条 的人身安全保护令防线。",
           "redlines": "- 争吵时动辄提“分手/离婚”作为控制筹码；\n  - 连续拉黑微信、电话关机数天玩失踪（严重情感虐待）。",
           "boundaries": "",
           "source": "Gottman JM, Levenson RW (1992). J Fam Psychol. https://doi.org/10.1037/0893-3200.6.2.221"
@@ -1205,7 +1251,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底规避两性关系中最具毁灭性的“双边父母角力与恶性对抗”；\n  - 建立坚不可摧的夫妻信任核心同盟，消除被伴侣背后插刀的背叛感；\n  - 引导两家父母学会尊重成年子女的独立生活，建立健康的代际交往距离。",
           "evidence": "A",
           "academic": "- **鲍文家庭系统理论（Bowen Family Systems Theory）实证**：Skowron EA, & Friedlander ML (1998). *The Differentiation of Self Inventory: Development and initial validation*. Journal of Counseling Psychology. https://doi.org/10.1037/0022-0167.45.3.235 （对长期婚恋群体的心理分化度追踪：个体在面对原生家庭干预时的“自我分化度（Differentiation of Self）”与婚姻满意度呈极其显著正相关（r=0.48, p<0.001）。未能与父母完成心理断乳（即处于“情感纠缠/融合”状态）的个体，其婚姻在 3 年内因婆媳/翁婿矛盾破裂的几率高达普通伴侣的 3.4 倍）。\n  - **法定夫妻独立地位依据**：《中华人民共和国民法典》第一千零四十三条（夫妻应当互相忠实、互相尊重、互相关爱；家庭成员应当尊老爱幼、互相帮助，维护平等、和睦、文明的婚姻家庭关系）及第一千零五十五条（夫妻双方都有参加生产、工作、学习和社会活动的自由，一方不得对另一方加以限制或者干涉）。",
-          "actions": "1. **谁的父母谁去沟通**：男方父母有意见，男方出面沟通安抚；女方父母有要求，女方出面协商定夺。严禁让伴侣直接与对方父母起正面冲突；\n  2. **信息防火墙原则**：两人关起门来的小摩擦、偶发性口角，坚决不向各自父母诉苦倒苦水。父母会代入血缘偏袒，留下不可磨灭的敌意印记；\n  3. **小家庭经济主权独立**：凡涉及大额财产赠与、借贷或购房出资，必须以书面协议明确性质，防止长辈以“出资人”身份随意剥夺新家庭的决策自主权。",
+          "actions": "1. **谁的父母谁去沟通**：男方父母有意见，男方出面沟通安抚；女方父母有要求，女方出面协商定夺。严禁让伴侣直接与对方父母起正面冲突；\n  2. **信息防火墙原则**：两人关起门来的小摩擦、偶发性口角，坚决不向各自父母诉苦倒苦水。父母会代入血缘偏袒，留下不可磨灭的敌意印记；\n  3. **小家庭经济主权独立**：伴侣第一序位是化解 第 34 条 彩礼争执与 第 35 条 父母购房出资争议的心理定盘星；凡涉及代际大额财产出资或借贷，必须严格依照 第 33 条 与 第 35 条 签署书面留痕协议，防止长辈以“出资人”身份剥夺新家庭决策权。",
           "redlines": "- 典型的“妈宝男/扶弟魔”行为：长辈一施压立刻牺牲伴侣利益，要求伴侣无底线隐忍让步；\n  - 吵架后立刻跑回娘家/婆家告状，把两个人的私密分歧激化为两个家族的恶性争斗。",
           "boundaries": "",
           "source": "Skowron EA, Friedlander ML (1998). J Couns Psychol. https://doi.org/10.1037/0022-0167.45.3.235 & 民法典第 1043 条"
@@ -1228,7 +1274,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 极大降低由物理隔离、多巴胺衰退引发的情感疏离与相互猜忌；\n  - 提前筛选出是否有共同携手走向现实生活的长期意愿；\n  - 为漫长异地生活设立明确的精神灯塔与倒计时心理支撑。",
           "evidence": "A",
           "academic": "- **异地恋存续与重聚追踪研究**：Stafford L, & Merolla AJ (2007). *Idealization, reunions, and stability in long-distance dating relationships*. Journal of Social and Personal Relationships. https://doi.org/10.1177/0265407507072578 （对 200 余对异地伴侣的纵向跟踪研究：具备明确且不可逾越的“同城结束期（Sunset Clause）”的伴侣，重聚并最终结婚的几率高达 71.3%；而处于“无限期异地”状态的情侣，在 12 个月内的分手率高达 68.2%，且异地期间理想化幻想破灭导致的重聚即分手效应极显著（p<0.01））。\n  - **媒体丰富度理论（Media Richness Theory）实证**：Daft RL, & Lengel RH (1986). *Organizational information requirements, media richness and structural design*. Management Science.（纯文字微信沟通属于最低信息丰富度媒介，缺乏语调、面部微表情与肢体语言，误读率高出面对面或视频沟通 4.6 倍。每日 15-30 分钟的高质量视频连线能补充 80% 以上的情感非语言线索）。",
-          "actions": "1. **设定终结倒计时（Sunset Clause）**：双方必须在异地开始 3 个月内，共同确定一个清晰的时间节点（如“后年 6 月你毕业我调岗，我们在同一个城市生活”），没有倒计时的异地恋是慢性自杀；\n  2. **固定沟通契约与透明日程**：约定每天固定 15-30 分钟的视频连线，互相分享日常琐碎（哪怕只是开着视频各自看书做饭），降低“失联恐慌”；\n  3. **物理见面周期与财务共担**：原则上异地见面周期不应超过 4-6 周；差旅费用由双方健康共担，轮流奔赴对方所在的城市，避免单方长期劳累与经济透支。",
+          "actions": "1. **设定终结倒计时（Sunset Clause）**：双方必须在异地开始 3 个月内，共同确定一个清晰的时间节点，没有倒计时的异地恋是慢性自杀；若发现任何一方无限期推诿且缺乏共同奔赴意愿，依据 第 32 条 及时止损；日常维系严格贯彻 第 26 条 的双向投入原则；\n  2. **固定沟通契约与透明日程**：约定每天固定 15-30 分钟的视频连线，互相分享日常琐碎（哪怕只是开着视频各自看书做饭），降低“失联恐慌”；\n  3. **物理见面周期与财务共担**：原则上异地见面周期不应超过 4-6 周；差旅费用由双方健康共担，轮流奔赴对方所在的城市，避免单方长期劳累与经济透支。",
           "redlines": "- “走一步看一步吧”：从来不讨论何时结束异地，拖延对方数年青春；\n  - 异地期间动辄冷暴力断联数天，诱发对方灾难化猜忌。",
           "boundaries": "",
           "source": "Stafford L, Merolla AJ (2007). J Soc Pers Relat. https://doi.org/10.1177/0265407507072578"
@@ -1259,7 +1305,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 立即刹住因急迫逼迫导致的彻底拉黑与反感；\n  - 给对方留出消化情绪、摆脱压迫感的安全心理距离；\n  - 重新找回个人的情绪重心与尊严基线。",
           "evidence": "A",
           "academic": "- **心理抗拒理论（Psychological Reactance）实证**：Dillard JP, & Shen L (2005). *On the nature of reactance and its role in persuasive health communication*. Communication Monographs. https://doi.org/10.1080/03637750500111815 （当个体的心理空间或选择自由感知到强烈压迫与逼迫时，愤怒和反驳防御情绪会激增 2.7 倍；实验表明，主动抽身撤出并提供 5-7 天的完整留白（Psychological Space），能使抗拒心理自然消退 68%）。\n  - **情感反刍与冷却周期**：Nolen-Hoeksema S (2000). *The role of rumination in depressive disorders and mixed anxiety/depressive symptoms*. Journal of Abnormal Psychology. https://doi.org/10.1037/0021-843X.109.3.504 （连续追问会延长并恶化对方的负面认知反刍；及时的沉默是阻断负面螺旋的最优解）。",
-          "actions": "1. **立刻按下暂停键**：觉察到对方回复极度勉强或单字敷衍后，切断连环发问，礼貌收尾后主动停止当期私聊；\n  2. **留白冷静期（5-7 天）**：在这期间不主动发起聊天，不发阴阳怪气的感伤动态，正常投入工作、运动与社交；\n  3. **轻量无压重新连接**：冷静期后，绝口不提上次的尴尬或追问“为什么不理我”，以一个与个人感情完全无关的第三方生活趣闻或公共话题轻量切入。",
+          "actions": "1. **立刻按下暂停键**：觉察到对方回复勉强或敷衍后，切断连环发问，克制小作文冲动，严格遵守 第 14 条 的留白原则；\n  2. **留白冷静期（5-7 天）**：在这期间不主动发起聊天，不发阴阳怪气动态，正常投入现实生活与工作；\n  3. **轻量无压重新连接**：冷静期后，绝口不提上次的尴尬，可借鉴 第 16 条 的第三方生活线索或轻量求助切入；若降温后对方依然冷淡毫无回应，坦然执行 第 32 条 的果断止损。",
           "redlines": "- 深夜发整屏长篇小作文反思道歉（“对不起，我只是太在乎你，你能原谅我吗……”——极其窒息）；\n  - 连环电话轰炸，甚至在对方住所或公司门口围追堵截。",
           "boundaries": "",
           "source": "Dillard JP, Shen L (2005). Commun Monogr. https://doi.org/10.1080/03637750500111815"
@@ -1282,7 +1328,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 瞬间拆除对方竖起的避嫌防备高墙；\n  - 维护自身高尊严、通透、体面的人格底色；\n  - 避免因追求不成导致彼此社会关系彻底决裂。",
           "evidence": "A",
           "academic": "- **认知失调与自我肯定实验**：Steele CM (1988). *The psychology of self-affirmation: Sustaining the integrity of the self*. Advances in Experimental Social Psychology. https://doi.org/10.1016/S0065-2601(08)60229-4 （自我肯定理论实验表明：面对拒绝时展现高自尊、不纠缠且尊重对方意愿的个体，其“人格完整度与道德成熟度”评价显著上升，不仅能有效消除拒绝方的愧疚应激防御，并在长期内保留高达 64% 的良性后续交往窗口）。\n  - **追逐-逃避动力学机制**：Christensen A, & Heavey CL (1990). *Gender and social structure in the demand/withdraw pattern of marital conflict*. J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.59.1.73 （一方施压索求关系确认时，另一方的逃避退缩几率高达 84%；主动停止施压能立刻阻断该死循环）。",
-          "actions": "1. **体面回应模板**：\n     > “完全理解你的感受，感情确实勉强不来，之前是我节奏有些急促了，给你带来了压力很抱歉。我们就当个聊得来的普通朋友挺好，祝你一切顺心。”\n  2. **收回特殊待遇**：\n     - 停止一切超越普通朋友界限的接送、送礼或情绪随叫随到；\n     - 恢复平等的泛泛之交标准，不怨恨、不卑微、不当免费劳工；\n  3. **专注自我迭代**：将注意力收回自身，在未来的生活轨迹中成为更成熟、更有吸引力的自己。",
+          "actions": "1. **体面接纳的态度原则与心智框架（非固定台词）**：\n     - **【真实表达警示】**：切勿将以下思路当成必须一字不差照抄的标准台词。感情必须由当事人用自己的声音去谈。关键在于传达出“理解与尊重对方意愿、坦然接纳当前节奏、不纠缠不抱怨”的内在从容，请用你自己的语气和相处风格自然表达；\n     - **心智内核**：坦然承认节奏错配，尊重对方选择，卸下对方心理包袱，打破 第 1 条 过早表白的尴尬死循环；\n  2. **收回特殊待遇**：\n     - 守住 第 4 条 的自尊底线，停止一切超越普通朋友界限的特殊待遇与随叫随到；\n     - 恢复平等的泛泛之交标准，不怨恨、不卑微、不当免费劳工；\n  3. **专注自我迭代**：将注意力收回自身成长，重回 第 2 条 的成长型心智轨道。",
           "redlines": "- 痛苦质问：“我到底哪点不如他？”、“我都为你付出这么多了，你为什么不能给我一次机会？”（情绪绑架）；\n  - 恼羞成怒反唇相讥，在朋友圈公开阴阳怪气辱骂对方。",
           "boundaries": "",
           "source": "Christensen A, Heavey CL (1990). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.59.1.73"
@@ -1305,7 +1351,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 做最后一次低阻力尝试，不留遗憾；\n  - 战胜沉没成本谬误（Sunk Cost Fallacy），避免在无希望的关系里耗费数年青春；\n  - 为真正值得相伴的同频伴侣腾出生命空间。",
           "evidence": "A",
           "academic": "- **富兰克林效应经典社会心理学实验**：Jecker J, & Landy D (1969). *Decreasing a liking for a person who has done one a favor*. Human Relations. https://doi.org/10.1177/001872676902200407 （著名人际吸引实验：被请求提供轻微个人帮助（微小求助）的受试者，相比被直接示好或赠礼的受试者，对请求者的人际好感度显著提高（p<0.01）。心理机制在于受试者需要合理化自身提供帮助的行为：“我帮助他，一定是因为他是一个不错的人”）。\n  - **沉没成本谬误与决策心理学**：Arkes HR, & Blumer C (1985). *The psychology of sunk cost*. Organizational Behavior and Human Decision Processes. https://doi.org/10.1016/0749-5978(85)90049-4 （人类在感知到前期投入的时间、精力无法收回时，倾向于追加非理性投入；在亲密关系中，无法克服沉没成本会使个体的抑郁与心理耗竭发生率提高 3.1 倍。理智止损是维护终身心理健康的最强指标）。",
-          "actions": "1. **无压力求助破冰**：\n     - “记得你之前去过某地/做过某领域项目，我正好有个事情想请教一下你的建议，方便指点一下吗？”；\n  2. **见好就收原则**：\n     - 对方若友好回复，答谢后主动结束本轮对话，不打持久战；\n  3. **果断止损法则（终极解毒剂）**：\n     - 若对方已读不回，或回复极度冰冷（“不清楚/不知道”）；\n     - 彻底停止任何主动联系，默默在心底画上句号；\n     - 懂得放手是一个成年人最成熟的慈悲。",
+          "actions": "1. **无压力求助破冰**：\n     - “记得你之前去过某地/做过某领域项目，我正好有个事情想请教一下你的建议，方便指点一下吗？”；\n  2. **见好就收原则**：\n     - 对方若友好回复，答谢后主动结束本轮对话，不打持久战；\n  3. **果断止损法则（终极解毒剂）**：\n     - 若对方已读不回，或回复极度冰冷，依据 第 6 条 的丰足心智果断放手；\n     - 彻底停止任何主动联系，默默在心底画上句号，避免深陷不健康的沉没成本泥潭；\n     - 懂得放手是一个成年人最成熟的慈悲，重回 第 1 条 与 第 3 条 的自我建设轨道。",
           "redlines": "- 纠缠几年不放，对方已经开始新生活依然深陷单相思不可自拔；\n  - 试图通过自我伤害、自暴自弃来博取对方的同情与关注。",
           "boundaries": "",
           "source": "Jecker J, Landy D (1969). Hum Relat. https://doi.org/10.1177/001872676902200407"
@@ -1336,7 +1382,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底规避恋爱分手后被“卷款跑路”却因证据不足败诉的人财两空；\n  - 依法保护个人婚前合法财产所有权；\n  - 维护平等健康的交往金钱观，杜绝把恋爱当提款机的恶意寄生。",
           "evidence": "A",
           "academic": "- **法定裁判规则**：《中华人民共和国民法典》第六百五十七条（赠与合同）、第六百六十七条（借款合同）及最高人民法院《关于审理民间借贷案件适用法律若干问题的规定》第十六条。\n  - **司法大数据统计**：中国裁判文书网近年涉婚恋民间借贷纠纷裁判文书大数据显示：凡金额包含“520、1314、999”或无任何借条、还款承诺的纯转账记录，原告主张返还的败诉率高达 89.4%；而具备明确借款合意聊天记录（对方承认借款）与非特殊金额转账凭证的案件，胜诉支持率达 92.1%。",
-          "actions": "1. **特殊金额的定性**：520、1314、节日小红包等，在法律推定上属于表达爱意的“无偿赠与”，一旦转出即所有权转移，除非附解除条件否则一律不可撤销；\n  2. **大额资助与借款转账三要素**：\n     - **整数转账**：坚决走银行卡或微信转账整数（如 5000、20000），切忌凑特殊谐音；\n     - **备注明确**：转账附言写明“暂借款/急用周转款”；\n     - **文字留痕确认**：转账后在微信补发一句：“这是转你周转的 2 万元，你先救急，周转开了再还我就行”，并引导对方回复“收到/好/谢谢”等确认合意的信息；\n  3. **聊天记录常态化备份**：涉及借贷确认的关键对话，定期备份至微信电脑端或导出存档，防止日后被单向拉黑删除导致举证困难。",
+          "actions": "1. **特殊金额的定性**：520、1314、节日小红包等，在法律推定上属于表达爱意的“无偿赠与”，一旦转出即所有权转移，除非附解除条件否则一律不可撤销；\n  2. **民间借贷合意法定三要素（客观留痕清单）**：\n     - **要素一·借贷合意形成凭据**：在微信或书面中明确体现借款与归还意思表示（如明确提及“借款、急用周转、何时还款”），并有对方确认回复；\n     - **要素二·款项实际交付凭证**：坚决走银行卡转账整数（如 5000、20000），切忌凑特殊谐音；转账附言必须客观备注“借款/资金周转”，绝不可随意附带恋爱昵称；\n     - **要素三·还款期限与法定利息约定**：大额款项明确约定还款日期；年利率约定不得超过合同成立时一年期 LPR 的 4 倍；\n  3. **证据备份与跨领域联动**：关键转账流水与对话导出存档；若涉及结婚合资买房，严格衔接 第 35 条 的出资协议；涉及非日常生活需要的大额对外举债，联动 第 36 条 的共债共签防线；健康的财务往来与 第 26 条 的双向互惠理念深度契合。",
           "redlines": "- 恋爱期间为了充面子，大额借钱给对方甚至帮对方贷款，没有任何文字凭据（纯口头借款）；\n  - 用现金直接交付大额钱款且无任何收条。",
           "boundaries": "",
           "source": "最高人民法院关于审理民间借贷案件适用法律若干问题的规定 & 民法典第 657/667 条"
@@ -1359,7 +1405,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 依法防范“闪婚闪离卷走天价彩礼”的情感诈骗与经济陷阱；\n  - 明确双方财产权益，避免因非理性质疑引发两家恶性肢体冲突；\n  - 引导婚俗回归理性真诚，消除物质沉重负担。",
           "evidence": "A",
           "academic": "- **最新司法解释**：最高人民法院《关于审理涉彩礼纠纷案件适用法律若干问题的规定》（法释〔2024〕1号）第二条至第六条。\n  - **法定返还三原则**：符合下列法定情形的，原告请求返还彩礼，人民法院依法予以支持：\n    1. 双方未办理结婚登记手续的；\n    2. 双方办理结婚登记手续但确未共同生活的；\n    3. 婚前给付并导致给付人生活困难的（后两项以双方离婚为条件）。\n  - **实务折抵规则**：法院裁判时综合考虑共同生活时间长短（如生活超过一定年限）、是否孕育子女、彩礼实际花费（如办酒席开销）、嫁妆情况等确定返还比例。",
-          "actions": "1. **走银行流水留痕**：彩礼、聘金坚决通过本人银行卡向对方本人或对方直系亲属账户转账，备注“订婚彩礼”，切忌提着大包现金无凭无据交付；\n  2. **区分“日常消费”与“彩礼”**：婚约协商期间，价值较小的日常走亲访友礼品、吃饭娱乐开销属于自愿情谊消费，不属于彩礼范畴，无法请求返还；\n  3. **共同生活时间考量**：若未登记结婚但已同居生活，同居时间越长、有孕育子女情形的，法院判决返还的比例会相应调减。",
+          "actions": "1. **走银行流水留痕（区分情谊消费与彩礼）**：彩礼给付坚决通过本人银行卡转账至对方或直系亲属账户，严格备注“订婚彩礼”，与 第 33 条 资金转账规范一致；日常走亲访友礼品、吃饭消费属于一般赠与，无法主张返还；\n  2. **最新司法实践要点（法释〔2024〕1号及民法典婚姻家庭编解释二精神）**：法院综合考量双方共同生活时间长短、是否办理结婚登记、是否孕育子女、彩礼实际使用（如置办共同嫁妆家具）、双方过错程度等确定返还比例；\n  3. **防范家庭过度干涉**：彩礼协商若产生激烈对立，警惕原生家庭过度干涉（参见 第 28 条 的伴侣第一序位原则），坚决避免两家演变为恶性肢体冲突。",
           "redlines": "- 未领证即掏空全家积蓄举债支付数十万现金彩礼，对方悔婚后自认倒霉不去法院主张权利；\n  - 发生纠纷后采取非法拘禁、围堵娘家等违法犯罪手段强索。",
           "boundaries": "",
           "source": "最高人民法院法释〔2024〕1号司法解释"
@@ -1382,7 +1428,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底规避倾尽两代人积蓄买房、离婚时却因权属模糊遭遇重大财产分割损失；\n  - 建立透明健康的家庭财务合作规则；\n  - 为双方还贷贡献提供无可争议的法律依据。",
           "evidence": "A",
           "academic": "- **法定法条**：《中华人民共和国民法典》第一千零六十二条、第一千零六十三条及最高人民法院《关于适用〈中华人民共和国民法典〉婚姻家庭编的解释（一）》第七十六条至第七十八条。\n  - **补偿计算权威公式**：离婚时共同还贷及增值补偿款计算公式：  \n    $$补偿款 = \\frac{共同还贷部分（含本息）}{房屋总成本（购房款+总利息）} \\times 离婚时房屋现值 \\div 2$$",
-          "actions": "1. **一方父母全额出资**：若婚前由一方父母出全资为子女购房，产权登记在该出资子女名下，法律明确认定为该子女的个人婚前财产；\n  2. **婚前一方付首付 + 婚后共同还贷**：\n     - 首付资金务必通过购房者本人银行账户划拨至开发商监管账户，留存全套原始转账凭证；\n     - 婚后夫妻双方的工资均属夫妻共同财产，即便用一人流水还贷，法律亦推定为共同还贷；\n  3. **恋爱期间合资购房协议（关键避坑）**：\n     - 若未领证前双方共同出首付购房，房产证若只写一人名字，另一方必须签署《共同出资协议》，并保留实际转账流水，否则日后房产登记人翻脸可能被视为“借款”或“无偿赠与”。",
+          "actions": "1. **一方父母全额出资**：若婚前由一方父母出全资为子女购房，产权登记在该出资子女名下，法律明确认定为该子女的个人婚前财产；\n  2. **婚前合资买房/父母出资出资备忘五要素（客观核对清单）**：\n     - **要素一·出资账户主体明确**：首付款必须由出资方本人银行账户划转至监管账户，留存原始转账凭证与合同，杜绝第三方代付；\n     - **要素二·转账附言客观规范**：父母资助或合资出资转账备注清晰标明性质（如“购房出资款/借款”），联动 第 33 条；\n     - **要素三·产权登记按份共有**：未领证合资购房，若登记在双方名下，必须在不动产权证上载明各自出资的共有份额比例（而非笼统的共同共有）；\n     - **要素四·书面出资备忘签署**：若房产证只登记一人名字，双方必须签署书面《共同购房出资协议》，明晰出资性质与退出机制，严守 第 28 条 的小家庭独立主权；\n     - **要素五·婚后共同还贷台账分离**：婚后工资均属夫妻共同财产，留存还贷台账与增值计算依据；\n  3. **债务风险隔离**：合资购房贷款恪守 第 36 条 的共债共签底线，防止房产被私人高风险债务牵连拍卖。",
           "redlines": "- 婚前自己掏全额首付买房，为了表忠心草率在不动产证上加上恋爱对象名字（加名即视为赠与一半份额，离婚时按共同财产分割）；\n  - 婚前出资不留流水凭证，全走现金或第三方账户代付。",
           "boundaries": "",
           "source": "民法典婚姻家庭编解释（一）第七十八条"
@@ -1405,7 +1451,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 筑牢家庭债务防火墙，防止被伴侣的非理性债务连带破产、列入失信被执行人黑名单；\n  - 保护未成年子女与自身的基础生存财产安全。",
           "evidence": "A",
           "academic": "- **民法典共债共签制度**：《中华人民共和国民法典》第一千零六十四条（夫妻共同债务认定标准）。\n  - **举证责任分配**：夫妻一方在婚姻关系存续期间以个人名义超出家庭日常生活需要所负的债务，债权人主张属于夫妻共同债务的，举证责任在债权人（债权人必须举证证明该笔债务用于了夫妻共同生活、共同生产经营或者基于夫妻双方共同意思表示）。",
-          "actions": "1. **恪守三不签底线**：\n     - 坚决不在伴侣的企业大额借款、民间借贷合同中的“共同借款人”、“连带担保人”栏签字；\n     - 坚决不出借自己的身份证、银行卡给伴侣作为贷款账户；\n  2. **知情同意与日常支出分界**：\n     - 属于共同债务的：用于买菜、交物业费、孩子交学费等日常小额家庭支出；\n     - 不属于共同债务的：数额明显超出普通日常消费（如几十万借款）且未流入家庭共同账户的；\n  3. **账户独立性维护**：若发现伴侣沾染赌博、炒币、高杠杆投机恶习，立刻将个人工资账户与家庭公共开销账户解绑，保留工资流水未用于偿还其私人债务的证据链。",
+          "actions": "1. **恪守三不签底线**：\n     - 坚决不在伴侣的企业大额借款、民间借贷合同中的“共同借款人”、“连带担保人”栏签字；\n     - 坚决不出借自己的身份证、银行卡给伴侣作为贷款账户；\n  2. **知情同意与日常支出分界**：\n     - 属于共同债务的：用于日常小额家庭衣食住行、子女教育等开销；\n     - 不属于共同债务的：明显超出家庭日常消费（如大额民间借贷、企业经营巨债）且未签字、未进入家庭账户的款项，债权人必须负举证责任（民法典第 1064 条）；\n  3. **账户独立与依法退场**：若发现伴侣涉赌、高杠杆投机且屡教不改，守住 第 4 条 个人边界，立即进行财务隔离；严重危及人身财产安全时，依法果断退场（第 32 条、第 37 条）。",
           "redlines": "- 碍于夫妻情面，在来路不明的大额借条或空白担保合同上草率签名（一旦签名，即便借款分文没花在你身上，也必须承担连带还款责任）；\n  - 帮伴侣刷脸认证网贷 App。",
           "boundaries": "",
           "source": "中华人民共和国民法典第一千零六十四条"
@@ -1428,7 +1474,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 获得国家司法强制力保护，违法违反保护令者直接面临司法拘留甚至刑事判刑；\n  - 斩断家暴“施暴-忏悔-再次施暴”的恐怖循环；\n  - 在后续离婚诉讼中，作为主张损害赔偿和争取子女抚养权的核心压倒性证据。",
           "evidence": "A",
           "academic": "- **法定法规**：《中华人民共和国反家庭暴力法》第十五条至第三十二条、最高人民法院《关于办理人身安全保护令案件适用法律若干问题的规定》（法释〔2022〕19号）。\n  - **裁定时效**：人民法院受理申请后，应当在 72 小时内作出人身安全保护令；情况紧急的，应当在 24 小时内作出。被申请人违反保护令构成犯罪的，依法追究刑事责任；尚不构成犯罪的，处以一千元以下罚款、十五日以下拘留。",
-          "actions": "1. **家暴法定六大证据链清单**：\n     - **第一：110 报警记录**（要求公安机关出具《报警受案回执单》或《家庭暴力告诫书》）；\n     - **第二：医院伤情诊断与病历**（注明致伤原因，拍下创伤彩照）；\n     - **第三：伤情鉴定意见书**（达到轻微伤或轻伤的法定法医鉴定）；\n     - **第四：现场录音录像、监控视频**；\n     - **第五：含有威胁恐吓言论的微信聊天记录、通话录音**；\n     - **第六：居委会、妇联的求助化解记录或目击证人证言**；\n  2. **安全撤离第一原则**：遭受暴力威胁时，人身安全高于一切财物，立刻跑出房屋前往公共人多区域或直接前往派出所，切忌在封闭密室内与失控伴侣硬碰硬。",
+          "actions": "1. **家暴法定六大证据链清单（客观取证规范）**：\n     - **第一：110 报警记录**（公安机关出具的《报警受案回执单》或《家庭暴力告诫书》）；\n     - **第二：医院伤情诊断与病历**（病历本注明外力致伤原因，留存创伤彩照）；\n     - **第三：法定伤情鉴定意见书**（法医伤情鉴定，达轻微伤可行政拘留，轻伤及以上涉嫌故意伤害罪）；\n     - **第四：现场录音录像与监控视频**；\n     - **第五：包含威胁恐吓言论的聊天记录、通话录音与短信**；\n     - **第六：居委会、妇联、反家暴庇护所求助登记记录或证人证言**；\n  2. **24/72小时人身安全保护令申请与安全撤离**：凭上述证据直接向法院申请保护令（法释〔2022〕19号），紧急情况法院24小时内必须裁定；家暴零容忍，彻底超越 第 4 条 的心理边界，不听信施暴者悔过谎言，坚决安全撤离。",
           "redlines": "- 相信施暴者的“痛哭下跪与扇耳光道歉保证”，放弃报警和验伤（家暴只有零次和无数次）；\n  - 忍气吞声当家丑不可外扬，导致没有任何官方书面取证记录。",
           "boundaries": "",
           "source": "中华人民共和国反家庭暴力法 & 法释〔2022〕19号"
@@ -1451,7 +1497,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 捍卫自身的重大知情权与生命健康权；\n  - 依法撤销受欺诈婚姻，避免背负“离异”身份痕迹；\n  - 请求过错方承担精神与物质损害赔偿。",
           "evidence": "A",
           "academic": "- **民法典法定撤销条款**：《中华人民共和国民法典》第一千零五十三条：一方患有重大疾病的，应当在结婚登记前如实告知另一方；不如实告知的，另一方可以向人民法院请求撤销婚姻。\n  - **重大除斥期间规则**：请求撤销婚姻的，应当自“知道或者应当知道撤销事由之日起一年内”提出。该一年期间为不变期间，不适用诉讼时效中止、中断或者延长的规定。逾期提出，法院坚决不予受理，受害方只能走繁琐且漫长的普通离婚诉讼。",
-          "actions": "1. **婚前主动体检与婚检**：\n     - 前往正规妇幼保健院或三甲医院完成婚前医学检查（包含遗传病、传染病筛查）；\n     - 坦诚互换体检报告，真诚透明是婚姻的第一道安全屏障；\n  2. **发现瞒报后的黄金取证**：\n     - 若婚后发现伴侣在结婚登记前就已确诊重大疾病且故意隐瞒；\n     - 立即固定其婚前确诊病历、购药记录或自认录音；\n     - **必须在知道之日起 365 天内立案**向法院提起撤销婚姻之诉，切勿犹豫拖延。",
+          "actions": "1. **婚前主动体检与婚检**：\n     - 前往正规妇幼保健院或三甲医院完成婚前医学检查（包含遗传病、传染病筛查）；\n     - 坦诚互换体检报告，真诚透明是婚姻的第一道安全屏障；\n  2. **发现瞒报后的黄金取证与一年除斥期间**：\n     - 若婚后发现伴侣在结婚登记前故意隐瞒重大疾病（如严重精神障碍、重症传染病等）；\n     - 依法固定其婚前就诊病历、购药流水、医保记录或对话录音；\n     - **法律刚性底线**：必须在知道事由之日起 365 天内向法院立案起诉撤销婚姻（民法典第 1053 条），该除斥期间不可中断或顺延；婚前充分沟通可联动 第 17 条 自我暴露与 第 39 条 生育健康对齐。",
           "redlines": "- 发现对方婚前瞒报重病后，只顾吵架冷战拖延超过一年，错失撤销婚姻的不变除斥期间；\n  - 迷信“对方爱我就会对我负责”，拒绝做任何婚前医学体检。",
           "boundaries": "",
           "source": "中华人民共和国民法典第一千零五十三条"
@@ -1474,7 +1520,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底规避婚后因“一方坚决丁克、另一方必须生娃”导致的毁灭性婚姻解体；\n  - 杜绝非意愿妊娠（意外怀孕流产）对女性身体与心理健康造成的严重不可逆创伤；\n  - 确立两性在生育健康上的对等责任与相互尊重伦理。",
           "evidence": "A",
           "academic": "- **身体权与知情同意法定依据**：《中华人民共和国民法典》第一千零零四条（自然人享有健康权，其身心健康受法律保护）、第一千零零七条（禁止以任何形式买卖人体细胞、人体组织、人体器官、遗体）及《中华人民共和国妇女权益保障法》第三十二条（妇女有按照国家有关规定生育子女的权利，也有不生育的自由）。\n  - **非意愿妊娠与生殖健康实证研究**：Guttmacher Institute (2020). *Unintended Pregnancy and Abortion Worldwide*. WHO 公共卫生报告。（因避孕责任缺失导致的非意愿妊娠，不仅流产后感染与继发不孕风险升高 4.2 倍，更是诱发伴侣间相互推诿、精神暴力与迅速解体的高危核心因子（r=0.51, p<0.001））。",
-          "actions": "1. **婚前“生育三问”前置对齐**：\n     - 是否要孩子？（如果一方坚决丁克，切忌幻想“结了婚对方就会改主意”）；\n     - 育儿分工与财务预期如何？（教育投入预期、主要照料者责任如何平衡）；\n     - 若遭遇生理不育问题，双方对试管/领养的接受度与底线是什么；\n  2. **避孕责任双向对等**：\n     - 未做好迎接新生命准备前，严格采取男用安全套等科学双重防护；\n     - 严禁将紧急避孕药（大剂量激素）作为常规避孕手段长期转嫁给伴侣身体；\n  3. **突发非意愿妊娠的救济底线**：\n     - 一旦发生意外，男方必须承担全部医疗开销、营养照护与情绪陪伴责任，严禁推诿失联。",
+          "actions": "1. **婚前生育意愿对齐客观清单**：\n     - **意愿共识**：要不要孩子？（丁克与否，切忌幻想婚后妥协）；\n     - **时间表与抚育分工**：预计何时生育、主要照料与经济抚育责任如何分担；\n     - **医学与生理底线**：若遇生育困难，对医学辅助的接受底线；婚前检查深度联动 第 38 条；避孕责任双向对等，严格遵守 第 24 条 的身体知情同意原则；\n  2. **避孕责任双向对等**：\n     - 未做好迎接新生命准备前，严格采取男用安全套等科学双重防护；\n     - 严禁将紧急避孕药（大剂量激素）作为常规避孕手段长期转嫁给伴侣身体；\n  3. **突发非意愿妊娠的救济底线**：\n     - 一旦发生意外，男方必须承担全部医疗开销、营养照护与情绪陪伴责任，严禁推诿失联。",
           "redlines": "- 婚前信誓旦旦同意丁克，婚后受父母压力突然反悔逼迫生育；\n  - 发生意外怀孕后单方面拉黑删除、逃避抚养与医疗责任（引发人身损害赔偿民事侵权）。",
           "boundaries": "",
           "source": "民法典第 1004 条 & 妇女权益保障法第 32 条 & WHO (2020) 生殖健康指引"
@@ -1497,7 +1543,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
           "benefits": "- 彻底防范因感情纠葛导致丢掉工作、名誉扫地甚至陷入性骚扰指控的毁灭性职业危机；\n  - 维护职业专业度与雇佣合规边界；\n  - 建立恋爱与事业互不干扰的成熟防御机制。",
           "evidence": "A",
           "academic": "- **组织行为学与职场恋情实证**：Pierce CA, & Aguinis H (2003). *Romantic relationships in organizations: A test of a model of formation and impact on workplace behaviors*. Journal of Applied Psychology. https://doi.org/10.1037/0021-9010.88.5.811 （对 400 余家企事业单位调查：存在上下级权力从属关系的职场恋爱，在业绩考评、晋升公信力上的团队冲突发生率高达 84%；恋情破裂后至少一方因敌对工作环境被迫离职的概率高达 62%）。\n  - **反性骚扰与保密法定红线**：《中华人民共和国民法典》第一千零一十条（机关、企业、学校等单位应当采取合理的预防、受理投诉、调查处置等措施，防止和制止利用职权、从属关系等实施性骚扰）及《民法典》第一千零三十二条（隐私权与个人信息保护）。",
-          "actions": "1. **权力从属关系绝对回避**：若产生感情的双方存在直接上下级审批、考评或财务关联，其中一方必须主动申请转岗、调线或申报利益冲突，消除公私不分隐患；\n  2. **职场“隐身协议”**：在工作场所一律使用规范商务称谓，严禁利用公司公共资源与工作沟通软件传递私密信息；\n  3. **分手后的“竞业与保密”契约**：无论分手如何痛苦，严格坚守个人职业操守，不得向第三方泄露前任的私密聊天记录、身体隐私或商业机密，否则构成侵犯隐私权与名誉权。",
+          "actions": "1. **权力从属关系绝对回避**：若产生感情的双方存在直接上下级审批、考评或财务关联，其中一方必须主动申请转岗、调线或申报利益冲突，消除公私不分隐患；\n  2. **职场“隐身协议”**：在工作场所一律使用规范商务称谓，严禁利用公司公共资源与工作沟通软件传递私密信息；\n  3. **分手后的体面保密契约**：无论分手如何痛苦，严守职业底线与民法典第 1032 条隐私权防线，绝不散布私密信息；体面从容退场，与 第 31 条 的尊严退守理念一脉相承。",
           "redlines": "- 利用主管、领导职权暗示或强迫下属发展亲密关系（直接触犯民法典第 1010 条性骚扰责任，严重者触犯刑法强制猥亵罪）；\n  - 分手后在公司大群发小作文、张贴大字报报复抹黑对方（侵犯名誉权并面临辞退开除）。",
           "boundaries": "",
           "source": "民法典第 1010/1032 条 & Pierce CA, Aguinis H (2003). J Appl Psychol. https://doi.org/10.1037/0021-9010.88.5.811"
@@ -1524,7 +1570,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底规避 90% 以上年轻人的典型死因「未吸引先表白」（过早表白被拒率高达 80% 以上，造成不可逆的社交防御）；\n  - 维持双向对等的权力平衡，避免因单向过早暴露强烈需求感导致知觉价值贬损；\n  - 明确知道当前双方的舒适区边界，知进退、有分寸。",
       "evidence": "A",
       "academic": "- **经典理论**：Altman I, & Taylor DA (1973). *Social Penetration: The Development of Interpersonal Relationships*. Holt, Rinehart & Winston. 人际关系深化的“洋葱模型”表明，关系必须遵循由表层（外周特征）向核心（脆弱价值观）逐步渗透的规律。强行跳跃阶段会触发强烈的心理侵犯感与排斥防御。\n  - **实证追踪**：Hall JA (2019). *How many hours does it take to make a friend?* Journal of Social and Personal Relationships. https://doi.org/10.1177/0265407518761225 （对 467 名成年人的纵向跟踪研究：从浅层认识发展为好友平均需要投入约 50 小时的互动，成为挚友需要约 200 小时。缺乏足够时长与阶段沉淀的强行亲密，关系破裂率高出 3.2 倍）。",
-      "actions": "1. **初识阶段**：仅完成基本信息交换，核心是建立“安全、正常、无侵害性”的初始印象；\n  2. **熟悉阶段**：双方放下手机能记住彼此 2-3 个核心特质，日常寒暄自然轻松；\n  3. **吸引阶段（重中之重）**：展示真实的专业胜任力、审美格调、情绪稳定性与生活热爱，让彼此产生由衷的好奇与倾慕；\n  4. **追求与确认**：在明确感知到对方好感信号后，真诚表达排他性的偏爱与责任担当；\n  5. **亲密阶段**：身心自然契合、深层情感共鸣与知情同意下的肢体接触；\n  6. **长期相处**：生活方式磨合、相处契约与双向承诺。",
+      "actions": "1. **初识阶段**：仅完成基本信息交换，核心是建立“安全、正常、无侵害性”的初始印象，日常沟通严格遵守 第 14 条 的留白与戒除连续盘问原则；\n  2. **熟悉阶段**：双方放下手机能记住彼此 2-3 个核心特质，日常寒暄自然轻松；\n  3. **吸引阶段（重中之重）**：展示真实的专业胜任力、审美格调、情绪稳定性与生活热爱，让彼此产生由衷的好奇与倾慕；\n  4. **追求与确认**：在明确感知到对方好感信号后，真诚表达排他性的偏爱与责任担当；若发生过早表白造成尴尬，参见 第 31 条 的体面降维与尊严退守；\n  5. **亲密阶段**：身心自然契合、深层情感共鸣，肢体接触必须严格恪守 第 24 条 的知情同意边界；\n  6. **长期相处**：生活方式磨合、相处契约与双向承诺，全面迈入长期相处经营。",
       "redlines": "- 刚认识几天、对方态度尚平淡时突然送昂贵贵重礼物或当众点蜡烛表白（道德绑架式求爱）；\n  - 企图绕过了解与吸引阶段，以“约吗”或轻浮肢体接触直奔肉体。",
       "boundaries": "部分高冲动型人格或极高匹配度的天降情侣可能在短时间内迅速升温，但该情况属于统计学长尾分布（<5%），不适用于普遍性亲密关系建立。",
       "source": "Hall JA (2019). J Soc Pers Relat. https://doi.org/10.1177/0265407518761225"
@@ -1547,7 +1593,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 消除对异性冷淡和拒绝的灾难化恐惧；\n  - 大幅缩短遭遇挫折后的内耗周期（从消沉数周缩短为从容复盘）；\n  - 建立终身自主升级外在仪表、沟通共情与社交能力的动力源泉。",
       "evidence": "A",
       "academic": "- **经典实验**：Dweck CS, & Leggett EL (1988). *A social-cognitive approach to motivation and personality*. Psychological Review. https://doi.org/10.1037/0033-295X.95.2.256 （成长型思维模式个体在遭遇挫败时，多巴胺回路激励其寻找解决方案，而固定型思维个体皮质醇激增陷入习得性无助）。\n  - **亲密关系纵向实证**：Knee CR (1998). *Implicit theories of relationships: What are they, what do they predict, and why do they matter?* Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.74.2.360 （跟踪大学情侣发现：持有“成长信念（Growth belief）”的个体在面对交往初期挫折和拒绝时，关系修复率显著高出 38%，灾难化心理反刍显著降低，r=0.45）。",
-      "actions": "1. **脱敏阶段性笨拙**：在刚开始学习形象管理、主动破冰与倾听共情时，笨拙与卡壳是正常的学习曲线；\n  2. **归因客观化**：对方没回消息，可能正在开会、情绪低落或单纯忙碌，不要自动脑补“她讨厌我、我太差劲了”；\n  3. **复盘而非自贬**：每次交流遇冷，客观记录是开场白过于生硬？连续发问制造了压迫？还是缺乏共同语言？针对性调优即可。",
+      "actions": "1. **脱敏阶段性笨拙**：在刚开始学习形象管理、主动破冰与倾听共情时，笨拙与卡壳是正常的学习曲线；\n  2. **归因客观化**：对方没回消息，可能正在开会、情绪低落或单纯忙碌，不要自动脑补“她讨厌我、我太差劲了”；\n  3. **复盘而非自贬**：交流遇冷并不代表彻底失败，复盘时可结合 第 15 条 的倾听联想接话；若遇态度骤冷，参考 第 30 条 进行战略性降温与心理留白；面对彻底无法调和的关系，依据 第 32 条 及时止损。",
       "redlines": "把所有恋爱不顺归咎于单一宿命借口（“因为我穷/我不帅”），陷入习得性无助与网络仇恨情绪。",
       "boundaries": "成长型思维强调个人技能的进化，但不能替代对客观不可调和的客观现实（如不可逾越的地理异地、极端价值观冲突）的清醒评估。",
       "source": "Knee CR (1998). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.74.2.360"
@@ -1570,7 +1616,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 告别卑微讨好：明白单纯“对她好、当仆人”无法产生性吸引与人格尊重；\n  - 告别浮夸油腻：明白单纯炫富、吹嘘背景只会招致提防与虚荣，无法建立深层心灵依恋。",
       "evidence": "A",
       "academic": "- **跨文化大样本实证**：Buss DM (1989). *Sex differences in human mate preferences: Evolutionary hypotheses tested in 37 cultures*. Behavioral and Brain Sciences. https://doi.org/10.1017/S0140525X00023992 （覆盖全球 37 个文化、33 个国家、N=10,047 名受试者的大规模跨文化研究：全世界女性普遍在长期伴侣选择中对“良好财务前景/进取心”（生存资源，r=0.68）与“可靠成熟性格/情绪稳定性”（情绪安全，平均评分 2.69/3.00）表现出极其一致的双核偏好）。\n  - **知觉安全感实验**：Simpson JA et al. (1992). *Support oriented behavior in romantic partners: An experimental study*. J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.62.3.434 （在面对外部压力情境时，能提供有效情绪抚慰与安全感的伴侣，其性吸引力与承诺度评分提升 43%）。",
-      "actions": "1. **做优秀的自我建设者**：搞好学业事业、保持体能自律、拥有深耕的爱好，散发“我的生活本身就很精彩”的从容感；\n  2. **做成熟的情绪提供者**：在具备自我价值的同时，善于倾听、共情、恪守承诺，给予伴侣情绪稳定感。",
+      "actions": "1. **做优秀的自我建设者**：搞好学业事业、保持体能自律、拥有深耕的爱好，外在形象建设可参考 第 7 条 与 第 8 条，散发“我的生活本身就很精彩”的从容感；\n  2. **做成熟的情绪提供者**：在具备自我价值的同时，善于倾听、共情、恪守承诺，给予伴侣情绪稳定感，具体落地联动 第 19 条 的安全感给予与 第 21 条 的约会预期对齐。",
       "redlines": "- 只有讨好没有自我（无底线老好人/备胎）；\n  - 只有炫耀没有温度（自恋型人格、漠视伴侣感受）。",
       "boundaries": "",
       "source": "Buss DM (1989). Behav Brain Sci. https://doi.org/10.1017/S0140525X00023992"
@@ -1593,7 +1639,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底规避被当作“情绪垃圾桶”或“单向供养者”的被动深渊；\n  - 维持高自尊人格的性吸引力（可得性过高会导致吸引力骤降）；\n  - 高效筛选出心智成熟、懂得相互尊重的高质量伴侣。",
       "evidence": "A",
       "academic": "- **边界与心理健康**：Blais RK et al. (2014). *Relationship boundaries and interpersonal functioning in romantic couples*. Journal of Family Psychology. https://doi.org/10.1037/a0036611 （对 214 对伴侣的追踪研究：具备清晰清晰个人边界（Clear Differentiation of Self）的个体，其亲密关系破裂率低 42%，知觉抑郁降低 31%，在冲突中的情绪调节能力显著提高）。\n  - **过度可得性贬值模型**：Worchel S et al. (1975). *Effects of supply and demand on ratings of object value*. J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.32.5.906 （稀缺性与可得性实验：无条件唾手可得的人或物，其主观价值评分下降 35-50%）。",
-      "actions": "1. **核心底线清单**：\n     - 永远不放弃个人职业成长与身心健康来盲目取悦他人；\n     - 坚持平等真诚的沟通，绝不容忍无端辱骂、当众贬低与恶意试探；\n     - 彼此珍惜则加倍付出，一旦触碰道德红线或遭遇持续冷暴力，果断止损；\n  2. **温和而坚定（Gentle yet Firm）**：表达边界时不带情绪攻击，就事论事表明自己的原则与感受。",
+      "actions": "1. **核心底线清单**：\n     - 永远不放弃个人职业成长与身心健康来盲目取悦他人，日常互动遵循 第 14 条 的平衡节奏；\n     - 坚持平等真诚的沟通，绝不容忍无端辱骂、当众贬低与恶意试探，面对长期冲突运用 第 27 条 的四骑士解毒剂；\n     - 彼此珍惜则加倍付出，一旦触碰道德红线或遭遇身体威胁，绝不妥协，坚决启动 第 37 条 的人身安全保护令防线；\n  2. **温和而坚定（Gentle yet Firm）**：表达边界时不带情绪攻击，就事论事表明自己的原则与感受。",
       "redlines": "为了害怕失去对方，在原则问题上一退再退，甚至为对方的不当行为主动寻找借口。",
       "boundaries": "",
       "source": "Blais RK et al. (2014). J Fam Psychol. https://doi.org/10.1037/a0036611"
@@ -1616,7 +1662,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 对方与你交流毫无压力，主动回复与分享的意愿大幅提高；\n  - 树立充满正能量、生活充实、热爱当下的积极人格；\n  - 彻底消除如审讯般的查户口式聊天沉闷感。",
       "evidence": "A",
       "academic": "- **积极情绪拓展理论**：Fredrickson BL (2001). *The role of positive emotions in positive psychology: The broaden-and-build theory of positive emotions*. American Psychologist. https://doi.org/10.1037/0003-066X.56.3.218 （积极情绪微光体验能将人际注意范围与亲社会行为提升 2.4 倍，促使双方产生长期的“共振联结”）。\n  - **提问模式实验**：Huang K et al. (2017). *It Doesn't Hurt to Ask: Question-Asking Increases Liking*. J Pers Soc Psychol. https://doi.org/10.1037/pspi0000089 （对速配相亲与在线沟通的大样本分析：倾听式后续提问能增加好感度 d=0.42，但缺乏自我状态分享的离散式连环发问，会引发受试者明显的焦虑与被审视感，好感度降低 35%）。",
-      "actions": "1. **提供情绪价值**：幽默化解尴尬、真诚认可对方的闪光点、遇到低谷时提供无评判的倾听；\n  2. **提供信息与审美价值**：分享近期读到的有趣洞见、城市里值得探索的新角落、动听的音乐；\n  3. **改变提问方式**：把审问式的“你在干嘛”，转换为“今天路过书店看到一本插画，瞬间想到你可能会喜欢”。",
+      "actions": "1. **提供情绪价值**：幽默化解尴尬、真诚认可对方的闪光点、遇到低谷时提供无评判的倾听，具体实战心法详见 第 14 条 与 第 15 条；\n  2. **提供信息与审美价值**：分享近期读到的有趣洞见、城市里值得探索的新角落、动听的音乐；\n  3. **改变提问方式**：把审问式的“你在干嘛”，转换为具体生活观察的分享，并在长期相处中融入 第 26 条 的双向互惠投资模型。",
       "redlines": "- 连续追踪提问；\n  - 对方短时间未回消息时，追问“怎么不理我了？你是不是在忙别的？我做错什么了吗？”。",
       "boundaries": "",
       "source": "Huang K et al. (2017). J Pers Soc Psychol. https://doi.org/10.1037/pspi0000089"
@@ -1639,7 +1685,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 消除因单点执念引发的极度紧张与过度分析（Overthinking）；\n  - 散发自在松弛的成熟气场（过度匮乏感与饥渴感是吸引力最大的杀手）；\n  - 保持双向选择的理性，避免在一棵树上盲目自我感动。",
       "evidence": "A",
       "academic": "- **稀缺心态带宽损耗实验**：Shah AK, Mullainathan S, Shafir E (2012). *Some consequences of having too little*. Science. https://doi.org/10.1126/science.1222426 （对稀缺心态的实验研究表明：处于情感或资源过度稀缺焦虑中的个体，前额叶执行功能显著受损，认知带宽（Bandwidth）缩水相当于失去 13 点 IQ，导致冲动、灾难化决策增加 37%）。\n  - **选择架构与依恋焦虑**：Hazan C, Shaver P (1987). *Romantic love conceptualized as an attachment process*. J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.52.3.511 （具有焦虑依恋特征的个体在单一目标上产生强迫性固着，被遗弃恐惧增加 2.8 倍，极易导致窒息式控制行为）。",
-      "actions": "1. **破除宿命幻想**：世界上不存在唯一的“灵魂伴侣”，好的关系是两个成熟个体通过后天长期的真诚磨合共同铸就的；\n  2. **扩展生活与社交基数**：把精力投入到工作、健身、多元朋友聚会中，不把一个人的微小反应作为生活的全部支点；\n  3. **尊重对方的选择权**：若尝试沟通后发现彼此三观或节奏严重不合，大方送上祝福并体面转身。",
+      "actions": "1. **破除宿命幻想**：世界上不存在唯一的“灵魂伴侣”，好的关系是两个成熟个体通过后天长期的真诚磨合共同铸就的；\n  2. **扩展生活与社交基数**：把精力投入到工作、健身、多元朋友聚会中，不把一个人的微小反应作为生活的全部支点；\n  3. **尊重对方的选择权与止损魄力**：若尝试沟通后发现对方持续冰冷或三观严重不合，依据 第 32 条 克服沉没成本果断止损；同时在深度交往中保持清醒，严格防范 第 36 条 的共同债务风险与 第 38 条 的重大疾病欺瞒。",
       "redlines": "加好友第一天就翻遍对方数年前的朋友圈逐字分析，对对方的一举一动产生过度解读与控制欲。",
       "boundaries": "",
       "source": "Shah AK et al. (2012). Science. https://doi.org/10.1126/science.1222426"
@@ -1662,7 +1708,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 视觉清爽感与精神面貌即刻提升；\n  - 彻底规避邋遢、油腻、缺乏自我照顾能力的负面初印象；\n  - 增强面对面的社交自信与从容感。",
       "evidence": "A",
       "academic": "- **100毫秒面部知觉实验**：Willis J, & Todorov A (2006). *First Impressions: Making Up Your Mind After a 100-Ms Exposure to a Face*. Psychological Science. https://doi.org/10.1111/j.1467-9280.2006.01750.x （对 245 名受试者的实验表明：仅需 100 毫秒（0.1 秒）的面部特征曝光，大脑即已完成对一个人吸引力、可信度与能力的稳定判断，判定相关系数高达 r=0.73，后续更长时间的观察仅强化初次判断，极少发生逆转）。\n  - **面部毛发与整洁度评价**：Dixson BJ, & Brooks RC (2013). *The role of facial hair in women's perceptions of men's attractiveness, health, masculinity and parenting abilities*. Evolution and Human Behavior. https://doi.org/10.1016/j.evolhumbehav.2013.02.003 （对 351 名女性和 177 名异性恋男性的测试表明：修剪整洁无杂毛的面容在“健康度与可信赖度”评分中居于最高档 p<0.001，而未经打理的凌乱胡茬评分垫底）。",
-      "actions": "1. **发型固定法**：沟通时明确以“修饰脸型、容易日常打理”为首要原则；理发完毕后请理发师传授简单的吹风与定型技巧，手机留存前后左右角度作为日后修剪标准；\n  2. **眉毛修剪**：眉周杂毛容易让人显得倦怠杂乱，修出清晰眉峰即可，切忌画过浓过假的一字眉；\n  3. **面部卫生细节**：保持皮肤水油平衡，修剪露出的鼻毛，保持口气清新（常备口腔喷雾或无糖薄荷糖）。",
+      "actions": "1. **发型固定法**：沟通时明确以“修饰脸型、容易日常打理”为首要原则；理发完毕后请理发师传授简单的吹风与定型技巧，手机留存前后左右角度作为日后修剪标准。干净利落的面容是 第 3 条 自我价值硬实力的基础体现，为 第 13 条 的相亲初见和 第 22 条 的线下约会提供良好起点；\n  2. **眉毛修剪**：眉周杂毛容易让人显得倦怠杂乱，修出清晰眉峰即可，切忌画过浓过假的一字眉；\n  3. **面部卫生细节**：保持皮肤水油平衡，修剪露出的鼻毛，保持口气清新（常备口腔喷雾或无糖薄荷糖）。",
       "redlines": "头发长达数月不理导致两侧炸毛、后颈碎发散乱；留稀疏不齐、未经打理的胡渣冒充成熟；口臭、牙黄、指甲缝带有污垢。",
       "boundaries": "",
       "source": "Willis J, Todorov A (2006). Psychol Sci. https://doi.org/10.1111/j.1467-9280.2006.01750.x"
@@ -1685,7 +1731,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 零容错率：极简经典款永远不会过时，亦不会给人浮夸感；\n  - 传递出稳重、干净、克制且有品位的人格特质；\n  - 规避因奇装异服在初次见面引发的审美偏见与不适。",
       "evidence": "A",
       "academic": "- **认知流畅度与审美偏好实验**：Reber R, Schwarz N, & Winkielman P (2004). *Processing fluency and aesthetic pleasure: Is beauty in the perceiver's processing experience?* Personality and Social Psychology Review. https://doi.org/10.1207/s15327957pspr0804_3 （审美心理学实验：视觉复杂度低、对称度高、对比协调的极简图案在人脑视觉皮层的加工流畅度（Processing Fluency）显著高出 28%，能直接触发无意识的积极情绪与美感认可）。\n  - **服饰合身度对能力评价的影响**：Howlett N et al. (2013). *The influence of clothing on first impressions: Rapid and positive responses to minor changes in male attire*. Journal of Fashion Marketing and Management. https://doi.org/10.1108/13612021311305164 （在仅曝光 3-5 秒的情况下，合身剪裁基础装扮相比不合身服饰，使男性的专业度与个人好感度评分显著提高，Cohen's d=0.48）。",
-      "actions": "1. **经典色系基调**：以黑、白、中灰、藏蓝、卡其色为主，避免荧光色与大面积花哨印花；\n  2. **合身大于品牌**：衣服肩线准确、下摆长短适中，裤长以轻微触碰鞋面为宜，严禁裤腿拖地或紧绷；\n  3. **鞋靴整洁度**：鞋子是判断一个人生活细节的关键窗口。常备干净小白鞋、德训鞋或质感麂皮休闲鞋，定期擦拭清洁；\n  4. **体态管理**：站姿与坐姿保持肩部自然舒展、沉肩挺胸，挺拔的体态在视觉上比昂贵的服饰更显自信。",
+      "actions": "1. **经典色系基调**：以黑、白、中灰、藏蓝、卡其色为主，避免荧光色与大面积花哨印花，与 第 23 条 约会场所的环境色调和谐呼应；\n  2. **合身大于品牌**：衣服肩线准确、下摆长短适中，裤长以轻微触碰鞋面为宜，严禁裤腿拖地或紧绷；\n  3. **鞋靴整洁度**：鞋子是判断一个人生活细节的关键窗口。常备干净小白鞋、德训鞋或质感麂皮休闲鞋，定期擦拭清洁；\n  4. **体态管理**：站姿与坐姿保持肩部自然舒展、沉肩挺胸，在初识阶段（第 1 条）建立干净端庄的信任感。",
       "redlines": "- 穿着带有巨大烫金 Logo 的山寨名牌、紧身豆豆鞋或带有攻击性图案的服饰；\n  - 衣服领口洗至松垮变形、起球严重或充满褶皱；\n  - 衣物散发汗酸味或刺鼻烟味。",
       "boundaries": "",
       "source": "Reber R et al. (2004). Pers Soc Psychol Rev. https://doi.org/10.1207/s15327957pspr0804_3"
@@ -1708,7 +1754,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 新好友通过率与主动互动意愿提升数倍；\n  - 为后续日常交流提供天然的话题连接点与共同喜好线索；\n  - 消除线上沟通初期的神秘感防备与信任隔阂。",
       "evidence": "A",
       "academic": "- **网络自我呈现与约会成功追踪**：Ellison NB, Heino R, & Gibbs J (2006). *Managing impressions online: Self-presentation processes in the online dating environment*. Journal of Computer-Mediated Communication. https://doi.org/10.1111/j.1083-6101.2006.00020.x （对 334 名在线交往用户的深入追踪：在展示面中呈现“真实自我（Real Self）与现实锚定细节”的用户，其线下转化的约会满意度比过度美化虚构人设的用户高出 2.1 倍，见面后的心理落差率降低 47%）。\n  - **社交线索与信任建构**：Toma CL, & Hancock JT (2012). *What lies beneath: The linguistic traces of deception in online dating profiles*. Journal of Communication. https://doi.org/10.1111/j.1460-2466.2011.01619.x （虚假或过度包装的主页会无意识显露防御性语言线索，显著降低高情商受试者的信任评级）。",
-      "actions": "1. **昵称设计**：简单好记的名字、拼音或英文名，杜绝奇奇怪怪的火星文、各种微商前缀符号；\n  2. **头像选择**：自然光线下拍摄的开朗生活照、与宠物互动、或是能看清五官的半身照（神态放松、目光真诚），杜绝死板证件照或模糊网图；\n  3. **背景墙设定**：展现审美品位的一幅宽幅摄影、自驾路上的一抹余晖、或是喜欢的建筑/艺术设计；\n  4. **个性签名**：保持留白或简短的一句人生理念，不写矫揉造作的伤感情话；\n  5. **发圈节奏**：每周 1-2 条，图文以 3-6 张高清实拍为主，文案真实风趣，分享当下真实生活。",
+      "actions": "1. **昵称设计**：简单好记的名字、拼音或英文名，杜绝奇奇怪怪的火星文、各种微商前缀符号；\n  2. **头像选择**：自然光线下拍摄的开朗生活照、与宠物互动、或是能看清五官的半身照（神态放松、目光真诚），杜绝死板证件照或模糊网图；\n  3. **背景墙设定**：展现审美品位的一幅宽幅摄影、自驾路上的一抹余晖、或是喜欢的建筑/艺术设计；\n  4. **个性签名**：保持留白或简短的一句人生理念，不写矫揉造作的伤感情话；\n  5. **发圈节奏**：每周 1-2 条，图文以 3-6 张高清实拍为主，文案真实风趣，分享当下真实生活。真实的主页为日常破冰（第 11 条）和高情商开场白（第 16 条）提供最自然的切入线索。",
       "redlines": "- 头像使用网图假装自己、低质二次元动漫图、或过度磨皮失真的大头自拍；\n  - 朋友圈全是转发的心灵鸡汤、负能量牢骚发泄或纯业务广告刷屏；\n  - 刻意三天可见且空无一物，给新朋友制造极大的距离感与社交防备。",
       "boundaries": "",
       "source": "Ellison NB et al. (2006). J Comput-Mediat Comm. https://doi.org/10.1111/j.1083-6101.2006.00020.x"
@@ -1754,7 +1800,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 筛选掉只想在软件里刷存在感或不诚实的人；\n  - 避免在第三方平台上沉没大量时间却无法沉淀真实连接；\n  - 展现坦荡、真诚、不遮遮掩掩的沟通态度。",
       "evidence": "A",
       "academic": "- **网络约会大规模荟萃分析**：Finkel EJ, Eastwick PW, Karney BR, Reis HT, & Sprecher S (2012). *Online Dating: A Critical Analysis From the Perspective of Psychological Science*. Psychological Science in the Public Interest. https://doi.org/10.1177/1529100612436522 （心理科学学会权威长篇报告：纯文本或低丰富度网络平台超过 2-3 周不转入现实/多模态交互，个体会基于有限信息过度脑补“完美投射”，导致在线下首次见面时心理幻灭感陡增 60% 以上）。\n  - **媒介丰富度与信任建立**：Daft RL, & Lengel RH (1986). *Organizational information requirements, media richness and structural design*. Management Science. https://doi.org/10.1287/mnsc.32.5.554 （迁移至包含朋友圈、语音等多模态媒介，能显著降低人际模糊性，信任建立速度提升 40%）。",
-      "actions": "1. **资料真实多元**：2 张清晰面部生活照 + 1 张全身照 + 2 张真实爱好/旅行实拍（体现审美与生活气息）；\n  2. **个人简介精炼具体**：写具体的喜好（如“喜欢手冲咖啡/马拉松跑者/周末爱去二手书店”），而非空泛的标签；\n  3. **顺理成章转微信**：\n     - 当双方在某一个共同话题产生共鸣时，顺水推舟：“平时这边消息提醒不太及时，要是方便的话我们微信聊吧，回头把那家店的地址推给你”。",
+      "actions": "1. **资料真实多元**：2 张清晰面部生活照 + 1 张全身照 + 2 张真实爱好/旅行实拍（体现审美与生活气息）；\n  2. **个人简介精炼具体**：写具体的喜好（如“喜欢手冲咖啡/马拉松跑者/周末爱去二手书店”），而非空泛的标签；\n  3. **顺理成章转微信**：\n     - 当双方在某一个共同话题产生共鸣时，顺水推舟：“平时这边消息提醒不太及时，要是方便的话我们微信聊吧，回头把那家店的地址推给你”。移行至微信后，开启日常交流严格遵循 第 14 条 的聊天节奏，切勿陷入查户口模式，朋友圈互动可参考 第 16 条 的开场白设计。",
       "redlines": "- 使用虚假网图冒充高富帅/白富美，一见面彻底见光死；\n  - 加了好友后在社交软件上打卡式早安晚安聊一个月都不推进现实接触。",
       "boundaries": "",
       "source": "Finkel EJ et al. (2012). Psychol Sci Public Interest. https://doi.org/10.1177/1529100612436522"
@@ -1777,7 +1823,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底战胜面对心仪异性时的羞怯心理（暴露脱敏训练）；\n  - 现实中建立的连接真实感和信任基础远高于纯网络交友；\n  - 展现出极其宝贵的真诚、果断与对他人边界的深刻尊重。",
       "evidence": "A",
       "academic": "- **社交距离与神经防御机制**：Perry A et al. (2013). *Intrapersonal distance: The role of the amygdala and emotional empathy*. Neuropsychologia. https://doi.org/10.1016/j.neuropsychologia.2013.07.014 （人际空间 fMRI 脑成像实验：陌生人侵入 1 米以内的亲密空间（Intimate Space）会直接引发杏仁核（Amygdala）防御性激活与皮质醇激增 p<0.01；而保持 1-1.2 米的礼貌社交距离能使受试者保持前额叶平静理性评估）。\n  - **认知暴露疗法效果**：Heimberg RG et al. (1998). *Cognitive behavioral group therapy vs phenelzine therapy for social phobia: 12-week outcome, 6-month follow-up, and 24-month follow-up*. Archives of General Psychiatry. https://doi.org/10.1001/archpsyc.55.12.1133 （通过主动脱敏暴露，行为抑制与社交恐惧反应在 4-6 周内显著下降，效应量 d=0.82）。",
-      "actions": "1. **三秒决断律**：在萌生想要认识对方的念头后，在 3 秒内迈步上前。一旦犹豫超过 3 秒，大脑会迅速被恐惧防御机制接管，产生无限内耗借口；\n  2. **物理界限规范**：绝对不要从背后惊吓对方；始终站在侧前方 45 度角，保持一米以上的安全距离，双手自然放松，目光温和真诚；\n  3. **坦荡尊重的话术模板**：\n     > “你好打扰一下，刚才看到你专心看展/挑书的样子感觉气质特别好，犹豫了一下还是想过来打个招呼，如果方便的话可以加个微信认识一下吗？”\n  4. **零冒犯撤退准则**：\n     - 如果对方微笑同意：出示二维码，简短致谢后从容告别，不占用对方过多时间；\n     - 如果对方表示“不太方便”或面露难色：立刻温和微笑道歉：“完全理解，冒昧打扰了，祝你今天过得愉快！”，体面转身离开。",
+      "actions": "1. **三秒决断律**：在萌生想要认识对方的念头后，在 3 秒内迈步上前。一旦犹豫超过 3 秒，大脑会迅速被恐惧防御机制接管，产生无限内耗借口；\n  2. **物理界限规范**：绝对不要从背后惊吓对方；始终站在侧前方 45 度角，保持一米以上的安全距离，双手自然放松，目光温和真诚；\n  3. **核心态度与真实表达原则（拒绝套路台词）**：\n     - **心智内核**：坦荡、礼貌、尊重对方空间。核心意图是“真诚欣赏对方专注当下的气质”，并“赋予对方完全平等的拒绝权利”，切勿油腻或背台词；\n     - **自主表达指引**：感情是自己谈的，不应有任何标准微信回复语句或机械照抄的台词。请用你自己最自然舒服的生活口吻表达（例如真诚赞美对方专心看展/挑书的气质很吸引人，礼貌询问是否方便加个微信认识一下）；\n  4. **零冒犯撤退准则**：\n     - 如果对方微笑同意：出示二维码，简短致谢后从容告别，不占用对方过多时间；\n     - 如果对方表示“不太方便”或面露难色：立刻温和礼貌致歉并真诚祝对方今天愉快，体面从容转身离开，恪守 第 31 条 的尊严退守准则。",
       "redlines": "- 鬼鬼祟祟一路尾随跟踪；\n  - 对方明确拒绝后依然穷追不舍、逼问“为什么不行/给个面子”；\n  - 语言轻浮低俗，把人当做狩猎目标。",
       "boundaries": "",
       "source": "Perry A et al. (2013). Neuropsychologia. https://doi.org/10.1016/j.neuropsychologia.2013.07.014"
@@ -1800,7 +1846,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 初次见面通过率与彼此舒适度显著提升；\n  - 杜绝因用力过猛或油腻说教引发的瞬间下头；\n  - 高效筛选出三观与沟通模式同频的靠谱伴侣。",
       "evidence": "A",
       "academic": "- **相亲面对面决策影响因素追踪**：Eastwick PW, & Finkel EJ (2008). *Sex differences in mate preferences revisited: Do people know what they initially desire in a romantic partner?* Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.94.2.245 （对 163 名参与者的速配相亲与现实选择追踪：参与者事前宣称的理想伴侣标准（包括收入、财富、身高等），与其面对面交互后的真实选择相关系数仅为 r=0.08（几乎不具预测力）；而现场面对面所展现出的“情绪稳定性、真诚沟通与知觉舒适度”对后续再次约会的预测力高达 r=0.53，p<0.001）。\n  - **第一印象说教反噬**：Leary MR et al. (1994). *Self-presentation and the promotion of positive interaction*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.67.4.664 （自夸与说教式展示导致对方产生强烈的厌恶与自恋归因）。",
-      "actions": "1. **仪表整洁稳重**：利落的发型、修剪整齐的指甲、干净合身的纯色衣着，杜绝奇装异服或过于严肃的推销员式西装；\n  2. **场地挑选**：桌距宽松、背景音乐柔和的咖啡馆或茶饮空间，方便平静交谈，周边最好有适合漫步的公园或街区；\n  3. **聊天边界把控**：\n     - 聚焦于生活方式、兴趣爱好、周末休闲、旅行与成长见解；\n     - 绝不在初次见面审问对方家庭房产、具体年薪、过往情史或生育规划；\n  4. **饭后收尾与反馈**：\n     - 散步或交谈 1-1.5 小时后主动礼貌收尾；\n     - 确认对方安全到家后发一条礼貌消息；若彼此互动热络则继续推进，若态度疏离则体面释怀，绝不纠缠质问。",
+      "actions": "1. **仪表整洁稳重**：利落的发型、修剪整齐的指甲、干净合身的纯色衣着，杜绝奇装异服或过于严肃的推销员式西装；\n  2. **场地挑选**：桌距宽松、背景音乐柔和的咖啡馆或茶饮空间，方便平静交谈，周边最好有适合漫步的公园或街区；\n  3. **聊天边界把控**：\n     - 聚焦于生活方式、兴趣爱好、周末休闲、旅行与成长见解，落地践行 第 14 条 与 第 15 条 的双向倾听与三维联想接话；\n     - 绝不在初次见面审问对方家庭房产、具体年薪、过往情史或生育规划；场地选择优先参考 第 23 条 的红榜舒适空间；\n  4. **饭后收尾与反馈**：\n     - 散步或交谈 1-1.5 小时后主动礼貌收尾；\n     - 确认对方安全到家后发一条礼貌消息；若彼此互动热络则继续推进，若态度疏离则体面释怀，绝不纠缠质问。",
       "redlines": "- 一落座就开启面试盘问模式：“你年薪多少？父母有没有退休金？什么时候考虑结婚？”；\n  - 疯狂吹嘘自己的财富人脉、大放厥词贬低女性或发表极端观点；\n  - 抢话、打断对方发言，全场进行个人演讲。",
       "boundaries": "",
       "source": "Eastwick PW, Finkel EJ (2008). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.94.2.245"
@@ -1823,7 +1869,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 聊天氛围轻松自在，对方回复意愿显著提升；\n  - 规避因信息过载与压迫感导致的下头与疏离；\n  - 建立平等、平衡的双向互动节奏。",
       "evidence": "A",
       "academic": "- **哈佛大学对话提问机制实证**：Huang K, Yeomans M, Brooks AW, Minson J, & Gino F (2017). *It Doesn't Hurt to Ask: Question-Asking Increases Liking*. Journal of Personality and Social Psychology. https://doi.org/10.1037/pspi0000089 （对 3 组线上相亲及人际交流对话（N>2000）的量化文本分析表明：倾听式的跟进提问（Follow-up questions）能显著提高人际好感度（Cohen's d=0.42），但缺乏个人状态分享的连续离散盘问（连续提问 >2 次），会引发受试者强烈的被审问焦虑，好感度降低 35%）。\n  - **信息量不对称与退缩反应**：Burgoon JK et al. (1995). *Interpersonal Adaptation: Dyadic Interaction Patterns*. 剑桥大学出版社。（言语输出篇幅极度不平衡（>3:1）时，处于低输出方的退缩概率高达 78%）。",
-      "actions": "1. **留白原则**：单条消息简练克制（30 字以内），给对方留出思考和回应的呼吸空间；\n  2. **提问与分享 1:1 配比**：每次提出一个问题前，先主动分享一句自己的观察或状态。例如不说“你喜欢看什么电影？”，而说“最近看完一部悬疑电影后劲特别大，你平时会看这类型吗？”；\n  3. **主动体面退场**：当对方明显回复简短、在忙碌或话题告一段落时，主动结束当期对话（“你先专心忙，回头再聊”），绝不硬聊尬聊。",
+      "actions": "1. **留白原则**：单条消息简练克制（30 字以内），给对方留出思考和回应的呼吸空间；消除连续追问后，通过 第 15 条 的三维联想接话展开话题；\n  2. **提问与分享 1:1 配比**：每次提出一个问题前，先主动分享一句自己的观察或状态。例如不说“你喜欢看什么电影？”，而说“最近看完一部悬疑电影后劲特别大，你平时会看这类型吗？”；\n  3. **主动体面退场**：当对方明显回复简短、在忙碌或话题告一段落时，主动结束当期对话，绝不硬聊尬聊；若对方出现持续冰冷或情绪过载，坚决执行 第 30 条 的战略性留白与冷静期。",
       "redlines": "- 查户口式夺命连环问：“下班了吗？吃的什么？好吃吗？跟谁一起吃的？”；\n  - 对方只回了一个字，自己发了整整三大屏长篇独白表达爱意与委屈。",
       "boundaries": "",
       "source": "Huang K et al. (2017). J Pers Soc Psychol. https://doi.org/10.1037/pspi0000089"
@@ -1846,7 +1892,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 永远告别“不知道回什么好”的僵局；\n  - 对方能深刻感知到你是在认真倾听她，而非自说自话；\n  - 自然将枯燥的事实汇报转化为鲜活生动的情绪共鸣。",
       "evidence": "A",
       "academic": "- **概念网络激活理论**：Collins AM, & Loftus EF (1975). *A spreading-activation theory of semantic processing*. Psychological Review. https://doi.org/10.1037/0033-295X.82.6.407 （人类语义网络并非孤立存储，当一个概念（如“茶馆”）被激活时，激活能量会自然沿节点向周围联想网络（静心、中式美学、下午茶、慢节奏）扩散，反应时间在 200 毫秒内即可完成）。\n  - **即兴倾听与好感度**：Weger H et al. (2014). *The Relative Effectiveness of Active Listening in Initial Interactions*. International Journal of Listening. https://doi.org/10.1080/10904018.2013.811269 （积极抓取对方信息并进行即兴反思反馈（Paraphrasing），相比单纯赞同，使倾听者的共情评分提升 46%，p<0.01）。",
-      "actions": "1. **关键词法（Keyword Extraction）**：\n     - 对方：“我和同事在市中心那家新开的茶馆喝茶聊天呢”；\n     - 提取【茶馆】：“听起来挺静心的，最近这种新中式茶馆很火，环境值得专程去一趟吗？”；\n     - 提取【同事】：“看来你们团队氛围蛮融洽的，周五下午还能一起出来透透气”；\n  2. **联想法（Associative Analogy）**：\n     - 对方：“今天连续开了五个小时的跨国会议，整个人都快石化了”；\n     - 联想：电量耗尽、需要充能；\n     - 回应：“感觉你的精神电量已经跌破 5% 进入低电量模式了，今晚绝对得吃顿大餐犒劳一下”；\n  3. **感受评价法（Atmosphere Reflection）**：\n     - 倾听对方分享经历后，用温暖共情的语言回应：“隔着屏幕都能感受到你当时那种松了一口气的轻松感”。",
+      "actions": "1. **关键词法（Keyword Extraction）**：\n     - 对方：“我和同事在市中心那家新开的茶馆喝茶聊天呢”；\n     - 提取【茶馆】：“听起来挺静心的，最近这种新中式茶馆很火，环境值得专程去一趟吗？”；\n     - 提取【同事】：“看来你们团队氛围蛮融洽的，周五下午还能一起出来透透气”；\n  2. **联想法（Associative Analogy）**：\n     - 对方：“今天连续开了五个小时的跨国会议，整个人都快石化了”；\n     - 联想：电量耗尽、需要充能；\n     - 回应：“感觉你的精神电量已经跌破 5% 进入低电量模式了，今晚绝对得吃顿大餐犒劳一下”；\n  3. **感受评价法（Atmosphere Reflection）**：\n     - 倾听对方分享经历后，用温暖共情的语言回应感受本身，与 第 14 条 的提问与分享配比紧密呼应；在长期相处中，三维倾听更是化解 第 27 条 批评与冷战的关键武器。",
       "redlines": "把对方当作辩论赛对手，挑字眼反驳、好为人师、或者强行科普大道理。",
       "boundaries": "",
       "source": "Weger H et al. (2014). Int J Listen. https://doi.org/10.1080/10904018.2013.811269"
@@ -1869,7 +1915,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 开场回复率大幅攀升；\n  - 彻底摆脱流水线群发工具人的廉价感；\n  - 让对方感受到被真正关注与尊重的细腻温暖。",
       "evidence": "A",
       "academic": "- **定制化沟通与回复率实证**：Dillard JP, & Pfau M (2002). *The persuasion handbook: Developments in theory and practice*. Sage Publications.（个性化定制信息相比模板化群发信息的注意捕获率提升 3.4 倍，心理反感度下降 72%）。\n  - **社会知觉中的细致关注**：Reis HT, Clark MS, & Holmes JG (2004). *Perceived partner responsiveness as an organizing construct in the study of intimacy and closeness*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.87.6.861 （能够敏锐捕捉对方细微生活线索并给予响应（Responsiveness）的交往者，被知觉为“高情商与高共情”的概率高出 63%）。",
-      "actions": "1. **细节捕捉切入**：\n     - 看到对方朋友圈发了烘焙照片；\n     - 开场：“刚看到你烤的司康，上色看起来相当专业，感觉你平时挺擅长料理的？”；\n  2. **共同记忆唤醒**：\n     - “刚刚在路上听到某首歌/路过某家店，突然想起你上次推荐的那件事，试了一下果然很棒”；\n  3. **轻量求助法则**：\n     - “记得你之前提过对胶片相机/某座城市很熟悉，正好朋友在问我，想找你取个经”。",
+      "actions": "1. **细节捕捉切入**：\n     - 看到对方朋友圈发了烘焙照片；\n     - 开场：“刚看到你烤的司康，上色看起来相当专业，感觉你平时挺擅长料理的？”；\n  2. **共同记忆唤醒**：\n     - “刚刚在路上听到某首歌/路过某家店，突然想起你上次推荐的那件事，试了一下果然很棒”；\n  3. **轻量求助法则**：\n     - 结合对方熟悉的特长轻量请教。切入后若对方未及时回复切勿连环催促，恪守 第 5 条 的给予价值心态与 第 14 条 的克制原则；建立良好互动后，适时过渡到 第 17 条 的适度自我暴露。",
       "redlines": "- 每天打卡式的“早安”、“午安”、“晚安睡了吗”；\n  - 低俗或油腻的挑逗开场（“嗨美女，在干嘛呢”）。",
       "boundaries": "",
       "source": "Reis HT et al. (2004). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.87.6.861"
@@ -1892,7 +1938,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 建立深层的心灵连接与情感共鸣（Rapport）；\n  - 引导对方也愿意对你敞开心扉，分享她的真实内心；\n  - 塑造立体、真实、有血有肉的人格魅力。",
       "evidence": "A",
       "academic": "- **阿伦森经典“36个亲密问题”实验**：Aron A, Melinat E, Aron EN, Vallone RD, & Bator RJ (1997). *The Experimental Generation of Interpersonal Closeness: A Procedure and Some Preliminary Findings*. Personality and Social Psychology Bulletin. https://doi.org/10.1177/0146167297234003 （著名的亲密感生成实验：成对陌生受试者通过对等、渐进式的深度个人暴露（包括成长挫折、价值观脆弱点等），在仅 45 分钟内测得的人际亲密感和互信评分，达到了普通人群日常交往数月乃至一年的均值水平，后续甚至有受试者步入婚姻）。\n  - **自我暴露互惠效应**：Collins NL, & Miller LC (1994). *Self-disclosure and liking: a meta-analytic review*. Psychological Bulletin. https://doi.org/10.1037/0033-2909.116.3.457 （大样本元分析（涵盖 94 项研究）：适度、诚实的自我暴露与被喜欢程度存在极其稳固的正相关，综合相关系数 r=0.39）。",
-      "actions": "1. **关于坚持与成长的故事**：分享一段自己如何走出迷茫、攻克一个艰难挑战的真实心路，传递你对待生活的韧性与责任感；\n  2. **关于原则与善意的故事**：分享一次在面对利益抉择时坚持底线、或是善待他人/动物的小插曲，展现你的同理心与道德底线；\n  3. **适度展现脆弱**：承认自己也有不擅长的事、也有过笨拙的过往，真实的凡人远比装模作样的全能偶像更具亲和力；\n  4. **遵循对等节奏**：自我暴露必须循序渐进，根据对方的敞开程度逐步加深，切忌初次见面就倾诉所有的陈年创伤。",
+      "actions": "1. **关于坚持与成长的故事**：分享一段自己如何走出迷茫、攻克一个艰难挑战的真实心路，传递你对待生活的韧性与责任感；\n  2. **关于原则与善意的故事**：分享一次在面对利益抉择时坚持底线、或是善待他人/动物的小插曲，展现你的同理心与道德底线；\n  3. **适度展现脆弱**：承认自己也有不擅长的事、也有过笨拙的过往，真实的凡人远比装模作样的全能偶像更具亲和力，这也是化解长期相处中 第 27 条 筑墙冷战的深层良药；\n  4. **遵循对等节奏**：自我暴露必须严格遵循 第 1 条 的关系递进洋葱模型，根据对方的敞开程度逐步加深，切忌初识阶段就倾诉所有陈年创伤，更要与 第 24 条 的身体边界感知保持同频。",
       "redlines": "- 把自我暴露演变成无休止的负能量倾倒与向对方索取同情；\n  - 刚认识就痛陈前任有多糟糕，抱怨原生家庭有多不幸（严重越界）。",
       "boundaries": "",
       "source": "Aron A et al. (1997). Pers Soc Psychol Bull. https://doi.org/10.1177/0146167297234003"
@@ -1915,7 +1961,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底摆脱沉闷死板的交谈氛围；\n  - 营造轻松愉快的互动气场，展现松弛的自信心；\n  - 激发两人之间独有的默契与嬉笑打闹的情感张力。",
       "evidence": "A",
       "academic": "- **幽默风格与亲密关系纵向实证**：Martin RA, Puhlik-Doris P, Larsen G, Gray J, & Weir K (2003). *Individual differences in uses of humor and their relation to psychological well-being: Development of the Humor Styles Questionnaire*. Journal of Research in Personality. https://doi.org/10.1016/S0092-6566(02)00534-2 （对 1195 名受试者的心理量表分析：亲和型幽默（Affiliative humor）与自励型幽默对两性吸引力和关系满意度具有显著正向预测（r=0.48，p<0.001）；而老式 PUA 倡导的贬抑/讽刺型幽默（Aggressive humor）会直接诱发伴侣的心理防御与信任破裂，呈极强负相关 r=-0.39）。\n  - **笑声与人际亲密神经机制**：Dunbar RI et al. (2012). *Social laughter is correlated with an elevated pain threshold*. Proceedings of the Royal Society B: Biological Sciences. https://doi.org/10.1098/rspb.2011.2128 （共同欢笑能显著促进内源性阿片肽（Endorphins）释放，人际信任度提升 38%）。",
-      "actions": "1. **善意调侃的安全边界**：只能调侃无伤大雅的可爱生活细节（如爱赖床、爱吃甜食、走路像企鹅、偶尔迷糊）；\n  2. **绝对禁区**：严禁拿对方的外貌身材特征、家庭背景、学业工作挫折开玩笑；\n  3. **自嘲与赞美结合**：\n     - “今天这套穿搭选得很有法式风情……不过站你旁边我感觉自己像个保镖，看来我得把背挺直一点了”；\n  4. **双向感知**：一旦察觉对方对某个调侃感到不适，立刻真诚道歉并大方修正，展现成熟的同理心。",
+      "actions": "1. **善意调侃的安全边界**：只能调侃无伤大雅的可爱生活细节（如爱赖床、爱吃甜食、走路像企鹅、偶尔迷糊）；\n  2. **绝对禁区**：严禁拿对方的外貌身材特征、家庭背景、学业工作挫折开玩笑；\n  3. **自嘲与赞美结合**：\n     - 真诚赞美对方的穿搭或审美，配合恰到好处的幽默自嘲，坚守 第 4 条 的心理边界，绝不搞贬低打压；\n  4. **双向感知**：一旦察觉对方对某个调侃感到不适，立刻真诚道歉并大方修正。在长期相处中，温和幽默是维系 第 27 条 5:1 黄金互动比率的核心动力。",
       "redlines": "- 奉行老旧 PUA 的恶意打压（Negging），为了打压对方自尊故意挑刺挑毛病（极度下头且属于精神毒素）；\n  - 低俗下流的双关黄色笑话。",
       "boundaries": "",
       "source": "Martin RA et al. (2003). J Res Pers. https://doi.org/10.1016/S0092-6566(02)00534-2"
@@ -1938,7 +1984,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 顺利通过深层信任筛选；\n  - 展现极其罕见的高情绪稳定性（Emotional Stability）；\n  - 将原本带有防御性的质问，转化为加深彼此信任的绝佳契机。",
       "evidence": "A",
       "academic": "- **成人依恋防御与情绪容纳实验**：Campbell L, Simpson JA, Boldry J, & Kashy DA (2005). *Perceptions of conflict and support in romantic relationships: The role of attachment anxiety*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.88.3.510 （对 107 对情侣的每日日记追踪研究：具有依恋焦虑的伴侣在面对不确定性时会本能启动防御性言语试探；当面对试探时，另一方若表现出非防御性倾听与清晰保证，伴侣的焦虑水平在 24 小时内下降 41%，信任度提升 33%）。\n  - **情绪稳定性与伴侣评价**：Botwin MD, Buss DM, & Shackelford TK (1997). *Personality and mate preferences: Five factors in mate selection and marital satisfaction*. Journal of Personality. https://doi.org/10.1111/j.1467-6494.1997.tb00531.x （大五人格中，情绪稳定性（低神经质）是预测伴侣长期安全感的最强核心指标，r=0.58）。",
-      "actions": "1. **破除自证陷阱**：不要像被审讯一样慌张解释“我真的没有，我很老实的”，过度自证反而显得心虚；\n  2. **从容幽默 + 真诚定心丸**：\n     - 对方：“你平时是不是很会哄女孩子开心？”；\n     - 回应：“哈哈，在遇到让我真正觉得特别的人之前，我平时在大部分人眼里其实是个话不多的工科直男。但遇到你，确实想让你开心一点”；\n  3. **共情背后的担忧**：\n     - “能理解你可能会觉得我口才不错，但我对待感情是极其认真和传统的，时间会证明这一点”。",
+      "actions": "1. **破除自证陷阱**：不要像被审讯一样慌张解释“我真的没有，我很老实的”，过度自证反而显得心虚；\n  2. **从容定力 + 真诚定心丸**：\n     - 识别对方试探背后对未知的依恋焦虑，真诚袒露自身对感情的认真态度（联动 第 17 条 自我暴露），从容不慌乱的心态直接根植于 第 1 条 与 第 3 条 的独立自我价值；\n  3. **共情背后的担忧**：\n     - 理解对方的审慎，用长期的言行一致给予对方安全感，而非仓皇自证或巧言令色。",
       "redlines": "- 气急败坏反问：“你凭什么怀疑我？你把我当什么人？”；\n  - 满嘴跑火车搞所谓的“海王话术”（“是啊，我这片海域就缺你这只鱼”——极其油腻）。",
       "boundaries": "",
       "source": "Campbell L et al. (2005). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.88.3.510"
@@ -1961,7 +2007,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 明确双方的关系走向，避免在纯友谊区无止境内耗；\n  - 给予对方被珍视、被欣赏的情感滋养；\n  - 建立双向确认的浪漫默契。",
       "evidence": "A",
       "academic": "- **互惠喜欢效应（Reciprocal Liking）实验**：Ditto PH, & Griffin JA (1993). *The value of uniqueness: Self-esteem and the evaluation of flattering versus critical feedback*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.65.6.1153 （社会心理学经典实验：当受试者确切获悉一名高价值异性对自己表达了真诚且独特的欣赏时，受试者对该异性的好感度和回馈吸引力几率跃升 65%，这一效应在女性受试者中尤为显著）。\n  - **调情风格与关系结果**：Hall JA, & Xing C (2015). *The Verbal and Nonverbal Correlates of the Five Flirting Styles*. Journal of Nonverbal Behavior. https://doi.org/10.1007/s10919-015-0211-x （对 5 种调情风格的比较分析表明：以真诚与尊重为核心的调情风格（Sincere flirting style），促成高质量恋爱关系的成功率比传统轻浮或游戏型调情高出 2.8 倍）。",
-      "actions": "1. **专注细节的赞美**：不仅夸容貌，更夸对方的性格特质、做事态度或独特的审美见解（“我很欣赏你对待工作时那种专注冷静的眼神”）；\n  2. **情境化未来畅想**：\n     - 聊到某个音乐会或美食：“如果下次能跟你一起去听现场，那感觉一定比一个人去好上十倍”；\n  3. **观察反馈与知进退**：\n     - 表达好感后，敏锐观察对方是害羞接受、还是客套退缩；\n     - 对方接受则继续增进感情，对方退缩则放慢节奏，绝不强行施压。",
+      "actions": "1. **专注细节的赞美**：不仅夸容貌，更夸对方的性格特质、做事态度或独特的审美见解（“我很欣赏你对待工作时那种专注冷静的眼神”）；\n  2. **情境化未来畅想**：\n     - 聊到某个音乐会或美食，真诚表达希望与对方共同体验的心愿，为 第 21 条 的线下约会预期对齐埋下伏笔；\n  3. **观察反馈与知进退**：\n     - 表达好感后，敏锐观察对方是害羞接受还是客套退缩；对方接受则继续增进感情，对方退缩则放慢节奏，肢体推进绝不跨越 第 24 条 的知情同意红线。",
       "redlines": "- 带有强烈性暗示或身体冒犯的轻浮言论；\n  - 强行索求反馈（“我都这么夸你了，你对我什么感觉？”）。",
       "boundaries": "",
       "source": "Hall JA, Xing C (2015). J Nonverbal Behav. https://doi.org/10.1007/s10919-015-0211-x"
@@ -2007,7 +2053,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 极大加深彼此的情境记忆厚度与心理亲密感；\n  - 打破单一面对面静态坐姿带来的对话枯竭与身体紧绷；\n  - 为两人提供自然并肩漫步、共同探索城市的动态互动机会。",
       "evidence": "A",
       "academic": "- **峰终定律与情境记忆实验**：Kahneman D, Fredrickson BL, Schreiber CA, & Redelmeier DA (1993). *When More Pain Is Preferred to Less: Adding a Better End*. Psychological Science. https://doi.org/10.1111/j.1467-9280.1993.tb00589.x （诺贝尔奖得主丹尼尔·卡尼曼的经典实验：人类对一段体验的回忆并不取决于持续时长，而取决于高潮时刻（峰值）和结束时刻（结尾）的感受；场景转场能将单次约会的情感峰值点增加 2.3 倍）。\n  - **情境依存记忆理论**：Godden DR, & Baddeley AD (1975). *Context-dependent memory in two natural environments: on land and underwater*. British Journal of Psychology. https://doi.org/10.1111/j.2044-8295.1975.tb01468.x （不同物理环境的切换能创造多重情境线索（Contextual cues），使对共同经历的记忆提取效率提高 35%）。",
-      "actions": "1. **黄金动线设计（静动结合）**：\n     - **节点一（破冰热身）**：半开放式安静咖啡馆或茶饮店（停留 30-45 分钟，轻松交流近况，消除初见生疏）；\n     - **节点二（互动体验）**：美术馆、手作工坊、特色旧书店或潮玩展（身体处于漫步状态，有共同的外部话题焦点）；\n     - **节点三（深度交流与回味）**：环境柔和、桌距宽松的特色餐馆或林荫道漫步；\n  2. **温和主导但不强加意志**：\n     - 主导提议：“附近拐角有一家特别有格调的文创店/面包坊，正好走过去看看，消消食”；\n     - 敏锐关注对方的体能：“累不累？如果高跟鞋走得不舒服，我们随时找个长椅坐下歇会儿”。",
+      "actions": "1. **黄金动线设计（静动结合）**：\n     - **节点一（破冰热身）**：半开放式安静咖啡馆或茶饮店（环境选择参考 第 23 条，消除初见生疏）；\n     - **节点二（互动体验）**：美术馆、手作工坊、特色旧书店或潮玩展（身体处于漫步状态，有共同外部话题焦点）；\n     - **节点三（深度交流与回味）**：环境柔和的特色餐馆或林荫道漫步，漫步中自然感知身体距离，恪守 第 24 条 的知情同意准则；\n  2. **温和主导但不强加意志**：\n     - 主导提议：“附近拐角有一家特别有格调的文创店/面包坊，正好走过去看看，消消食”；\n     - 敏锐关注对方的体能：“累不累？如果高跟鞋走得不舒服，我们随时找个长椅坐下歇会儿”。",
       "redlines": "- 约会前完全不做任何规划，站在十字路口反复问对方“现在去哪、你想吃啥”；\n  - 安排长距离频繁打车转场，把大部分时间浪费在拥堵和赶路上。",
       "boundaries": "",
       "source": "Kahneman D et al. (1993). Psychol Sci. https://doi.org/10.1111/j.1467-9280.1993.tb00589.x"
@@ -2030,7 +2076,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 营造松弛、安全、不紧绷的对话环境；\n  - 促进非言语肢体语言的自然交流与目光接触；\n  - 避免因环境嘈杂混乱引发的听觉疲劳与情绪烦躁。",
       "evidence": "A",
       "academic": "- **环境心理学照度与亲密度实验**：Gifford R (2007). *Environmental Psychology: Principles and Practice*. Optimal Books.（环境照明照度（Lux）与背景噪声（dB）对社交焦虑具有强决定性：过高噪音（>70 dB）促使人体交感神经应激活跃、人际耐受力下降 45%；而暖色柔和光源（2700K-3000K）配合 <55 dB 的低噪音，使个体的瞳孔散大与非言语目光接触频率增加 60%）。\n  - **自然环境与皮质醇减压**：Ulrich RS et al. (1991). *Stress recovery during exposure to natural and urban environments*. Journal of Environmental Psychology. https://doi.org/10.1016/S0272-4944(05)80184-7 （户外绿植与漫步场景在 20 分钟内显著降低唾液皮质醇水平）。",
-      "actions": "1. **优质红榜场所**：\n     - **光线柔和的特色轻食/咖啡馆**：沙发舒适、桌距宽敞，便于放松交谈；\n     - **双向沉浸式互动体验**：DIY 陶艺、烘焙工坊、保龄球、猫咪咖啡馆（共同动手完成一件小事，天然打破尴尬）；\n     - **环境清幽的步行街区/公园湖畔**：晚风与自然绿意能够显著促进催产素分泌，降低皮质醇压力水平；\n  2. **避坑黑榜场所**：\n     - **传统电影院（初见大忌）**：入场坐两小时无法沟通，看完直接离场，毫无深层了解；\n     - **嘈杂火锅店/喧闹大排档**：说话必须大喊，环境油烟味重，完全无法进行细腻温情的情感交流；\n     - **密闭无人的私人空间（严重避忌）**：在未确立深厚信任前，把对方带到私人影院或家中，会瞬间触发对方强烈的安全警戒。",
+      "actions": "1. **优质红榜场所**：\n     - **光线柔和的特色轻食/咖啡馆**：沙发舒适、桌距宽敞，便于放松交谈；\n     - **双向沉浸式互动体验**：DIY 陶艺、烘焙工坊、保龄球、猫咪咖啡馆（共同动手完成一件小事，天然打破尴尬）；\n     - **环境清幽的步行街区/公园湖畔**：晚风与自然绿意能够显著促进催产素分泌，降低皮质醇压力水平；\n  2. **避坑黑榜场所**：\n     - **传统电影院（初见大忌）**：入场坐两小时无法沟通，看完直接离场，毫无深层了解；\n     - **嘈杂火锅店/喧闹大排档**：说话必须大喊，环境油烟味重，无法进行细腻情感交流；\n     - **密闭无人的私人空间（严重避忌）**：在未确立深厚信任前，带对方去私人影院或家中会触发强烈安全警戒，必须严格配合 第 21 条 的活动预期对齐和 第 22 条 的动线规划。",
       "redlines": "- 第一次见面就强行拉女生去私人密闭空间；\n  - 挑选消费极高、规矩森严、双方都觉得束手束脚的高档正式宴会厅。",
       "boundaries": "",
       "source": "Ulrich RS et al. (1991). J Environ Psychol. https://doi.org/10.1016/S0272-4944(05)80184-7"
@@ -2053,7 +2099,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底规避给对方带来任何不适、冒犯与心理阴影；\n  - 树立成熟自持、高度尊重女性的君子人格；\n  - 让每一次身体接触都建立在真心渴望与双向奔赴的甜蜜基石上。",
       "evidence": "A",
       "academic": "- **性心理学知情同意实证**：Jozkowski KN, Peterson ZD, Sanders SA, Dennis B, & Reece M (2014). *Gender Differences in How Intimate Partners Communicate and Interpret Consent to Sexual Activity*. Journal of Sex Research. https://doi.org/10.1080/00224499.2013.792328 （对 370 名大学生的实证调查：具备明确言语或非言语肯定知情同意（Affirmative Consent）的肢体亲密，双方的主观心理舒适度与信任度高出 54%，极大消除误解与心理应激创伤）。\n  - **身体接触与催产素神经机制**：Ditzen B et al. (2007). *Effects of different kinds of couple interaction on cortisol and heart rate responses to stress in women*. Psychoneuroendocrinology. https://doi.org/10.1016/j.psyneuen.2007.03.011 （在自愿、舒适前提下的温柔牵手与拥抱，使女性皮质醇水平下降 32%，下丘脑催产素释放显著提高）。",
-      "actions": "1. **第一阶段：社交安全距离脱敏**：\n     - 并肩走路时的适度靠拢、过马路时提醒看车的体贴提醒、递水或拉开车门时的礼貌细节；\n  2. **第二阶段：自然情感流动下的牵手**：\n     - 在漫步谈心、气氛甜蜜微醺、目光深情对视时，伸出手微笑着询问或轻轻触碰对方手背：“可以牵你的手吗？”（真诚的询问绝非不解风情，而是最极致的教养与尊重）；\n     - 若对方害羞把手递给你：温柔握住；\n     - 若对方有些犹豫或把手插进口袋：微笑着继续并排漫步，毫无尴尬或怨气；\n  3. **绝对知情同意法则**：\n     - 对方的身体属于她自己，任何身体亲密都必须建立在双方都感到完全舒适与自愿的前提下；\n     - 永远尊重“不”（No means No），任何退缩和犹豫都代表当前节奏过快，必须主动后退一步。",
+      "actions": "1. **第一阶段：社交安全距离脱敏**：\n     - 并肩走路时的适度靠拢、过马路时提醒看车的体贴提醒、递水或拉开车门时的礼貌细节；\n  2. **第二阶段：自然情感流动下的牵手**：\n     - 在漫步谈心、气氛甜蜜微醺、目光深情对视时，伸出手微笑着询问或轻轻触碰对方手背：“可以牵你的手吗？”（真诚的询问绝非不解风情，而是最极致的教养与尊重）；\n     - 若对方害羞把手递给你：温柔握住；\n     - 若对方有些犹豫或把手插进口袋：微笑着继续并排漫步，毫无尴尬或怨气；\n  3. **绝对知情同意法则**：\n     - 严格遵循 第 1 条 的关系递进洋葱模型，任何越界都会彻底摧毁信任；\n     - 对方的身体属于她自己，任何身体亲密都必须建立在双方完全自愿与知情同意前提下；\n     - 永远尊重“不”（No means No），任何退缩和犹豫都代表当前节奏过快，必须主动后退一步；强迫与骚扰直接触犯 第 37 条 与 第 39 条 所规制的人身侵权红线。",
       "redlines": "- 奉行老式 PUA 所谓的“强吻硬抱、不依不饶强行牵手”等实质性性骚扰行为；\n  - 对方表现出抗拒后，道德绑架或冷脸生气。",
       "boundaries": "",
       "source": "Jozkowski KN et al. (2014). J Sex Res. https://doi.org/10.1080/00224499.2013.792328"
@@ -2076,7 +2122,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 终身保持两性吸引力的保鲜度，抗拒享乐适应（Hedonic Adaptation）引发的审美疲劳；\n  - 避免将生活重心全部压在对方身上，消除窒息的分离焦虑与控制欲；\n  - 维持健康亲密关系的最佳形态：两个独立完整的圆相遇，共同滚向远方。",
       "evidence": "A",
       "academic": "- **自我扩展模型与共同活动干预实验**：Aron A, Norman CC, Aron EN, McKenna C, & Heyman RE (2000). *Couples' shared participation in novel and challenging activities and experienced relationship quality*. Journal of Personality and Social Psychology. https://doi.org/10.1037/0022-3514.78.2.273 （对 60 对长期伴侣的实验研究：共同参与新奇且具轻度挑战性的活动（如户外攀岩、学习新语言、共同旅行）的一组，其神经多巴胺奖赏回路重新激活，关系质量评分显著高于仅参与日常世俗活动的一组（效应量 Cohen's d=0.57，p<0.001））。\n  - **享乐适应机制**：Frederick S, & Loewenstein G (1999). *Hedonic adaptation*. 罗素·塞奇基金会。（静态无变化的事物，人类中枢神经会在 3-6 个月内产生感官适应并降低多巴胺敏感度达 70%）。",
-      "actions": "1. **形象与健康底线**：即使同居或结婚，坚持规律体能训练、干净穿搭与个人卫生，这不仅是给外界看，更是对伴侣与对自我的敬意；\n  2. **保有独立的精神角落**：保留自己的深耕爱好、志同道合的朋友圈与职业野心，不要求双方 24 小时粘在一起；\n  3. **不定期重启「约会之夜」（Date Night）**：每两周安排一次完全脱离柴米油盐琐事的二人约会，穿戴整齐、专注交流，重温恋爱初期的仪式感。",
+      "actions": "1. **形象与健康底线**：即使同居或结婚，坚持规律体能训练与个人卫生（践行 第 3 条 的自我价值成长），这不仅是给外界看，更是对伴侣与对自我的敬意；\n  2. **保有独立的精神角落**：保留深耕爱好与独立朋友圈，共同探索新奇挑战活动，为长久相处注入源泉，积极抵御 第 27 条 的情感耗竭；\n  3. **不定期重启「约会之夜」（Date Night）**：每两周安排一次完全脱离柴米油盐琐事的二人约会，穿戴整齐、专注交流，重温恋爱初期的仪式感。",
       "redlines": "- 一恋爱就完全丢掉自我，要求对方报备每分每秒；\n  - 放弃对个人身材、卫生和精神追求的底线要求，彻底化身为家庭中消极怠惰的室友。",
       "boundaries": "",
       "source": "Aron A et al. (2000). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.78.2.273"
@@ -2099,7 +2145,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底规避“供养者被抛弃”或“单方面情绪崩溃”的悲剧；\n  - 大幅提升双方关系的抗风险能力与情感粘性；\n  - 建立彼此平等的“亲密战友”信任契约。",
       "evidence": "A",
       "academic": "- **亲密关系投资模型（Investment Model）经典实验**：Rusbult CE (1980). *Commitment and satisfaction in romantic associations: A test of the investment model*. Journal of Experimental Social Psychology. https://doi.org/10.1016/0022-1031(80)90007-4 （对 171 名伴侣的长达数月跟踪：双向投资规模（包括共享的朋友圈、时间、财务付出与共同记忆）对关系承诺（Commitment）和稳定性的预测解释率高达 R²=0.62，p<0.001。单向过度付出的关系中，知觉不公感在 12 个月内引发分手的几率高达 73%）。\n  - **社会交换与互惠公平**：Walster E, Berscheid E, & Walster GW (1973). *New directions in equity research*. J Pers Soc Psychol. https://doi.org/10.1037/h0033967 （在极度不公平的关系中，过度受益方产生内疚与轻视，过度受损方产生怨恨，双方满意度均降至冰点）。",
-      "actions": "1. **家务与日常事务共担**：共同分工合作（如一个做饭另一个洗碗），在分工协作中增进生活默契；\n  2. **健康的财务默契**：倡导互相体贴的收支互动（你出大头她出小头，或轮流负责日常出行与大件购置），不把伴侣当作无底线的提款机；\n  3. **积极反馈强化**：对伴侣为你做的每一件微小付出，真诚表达感谢与欣赏（“今天辛苦你帮我挑好衬衫，感觉一天都顺心了”），让付出得到情感滋养。",
+      "actions": "1. **家务与日常事务共担**：共同分工合作（如一个做饭另一个洗碗），在分工协作中增进生活默契；\n  2. **健康的财务默契**：倡导互相体贴的收支互动，守住 第 4 条 的个人心理边界，不把伴侣当作无底线的提款机；若涉及谈婚论嫁或重大资金往来，必须联动 第 33 条 借贷定性、第 34 条 彩礼规范与 第 35 条 购房出资协议；\n  3. **积极反馈强化**：对伴侣为你做的每一件微小付出，真诚表达感谢与欣赏，让付出得到情感滋养。",
       "redlines": "- “真男人就该无条件全包所有开销，女生只管索取”的毒鸡汤单向透支；\n  - 账目算到分毫必争的对立式记账（斤斤计较演变为冷酷对抗）。",
       "boundaries": "",
       "source": "Rusbult CE (1980). J Exp Soc Psychol. https://doi.org/10.1016/0022-1031(80)90007-4"
@@ -2122,7 +2168,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 终结恶意冷暴力与人身攻击对亲密关系带来的不可逆结构性破坏；\n  - 培养成年人级别的高阶冲突解决能力；\n  - 将每次争吵转化为更加了解彼此底线与需求的契机。",
       "evidence": "A",
       "academic": "- **戈特曼实验室 14 年婚姻破裂预测研究**：Gottman JM, & Levenson RW (1992). *Marital processes predictive of later dissolution: An approach for investigating mechanisms of change*. Journal of Family Psychology. https://doi.org/10.1037/0893-3200.6.2.221 （对 73 对夫妇长达 14 年的实验室实时录像、心率监测与语言代码分析：观察新婚夫妇在 15 分钟冲突交谈中出现的“末日四骑士”（批评、蔑视、辩解、筑墙冷战），其预测后续离婚的准确率高达惊人的 93.6%！其中【蔑视】是最强烈的单一毒性指标，危害程度最大）。\n  - **5:1 黄金互动比例法则**：Gottman JM (1994). *What Predicts Divorce? The Relationship Between Marital Processes and Marital Outcomes*. Lawrence Erlbaum.（在面对矛盾分歧时，长久稳定的健康夫妻其积极互动（幽默、倾听、肯定）与消极互动（抱怨、抗议）的比率稳定在 5:1 以上；而走向破裂的夫妻该比率跌至 0.8:1 以下）。",
-      "actions": "1. **末日四骑士及其解毒剂**：\n     - **批评（Attack Person）➔ 解毒：温和表达感受与具体需要**（不说“你从来不在乎我”，改说“你刚才迟到让我感到有点被忽视，我需要被提前通知”）；\n     - **蔑视（Contempt/翻白眼）➔ 解毒：建立欣赏与感恩文化**（严禁冷嘲热讽与挖苦）；\n     - **防卫辩解（Defensiveness）➔ 解毒：承担自己的部分责任**（坦然承认自己的疏忽）；\n     - **筑墙冷战（Stonewalling）➔ 解毒：生理自我抚慰与暂停**（心率超过 100 次/分时，提出暂停 20 分钟平复交感神经，但保证 1 小时内返回沟通）；\n  2. **睡前清零原则**：当天产生的分歧就事论事解决，绝不带着怨气入眠，复盘时站在同一个阵营：“是我们俩一起打败这个问题，而不是我打败你”。",
+      "actions": "1. **末日四骑士及其解毒剂**：\n     - **批评（Attack Person）➔ 解毒：温和表达感受与具体需要**，联动 第 15 条 的感受共鸣；\n     - **蔑视（Contempt/翻白眼）➔ 解毒：建立欣赏与感恩文化**（严禁冷嘲热讽与挖苦）；\n     - **防卫辩解（Defensiveness）➔ 解毒：承担自己的部分责任**（坦然承认自己的疏忽）；\n     - **筑墙冷战（Stonewalling）➔ 解毒：生理自我抚慰与暂停**（心率超过 100 次/分时，提出暂停 20 分钟平复交感神经，机制与 第 30 条 的战略性留白异曲同工）；\n  2. **睡前清零与安全底线**：当天产生的分歧就事论事解决；若冲突恶化为肢体攻击或人身威胁，必须立刻中断争吵撤离，坚决启动 第 37 条 的人身安全保护令防线。",
       "redlines": "- 争吵时动辄提“分手/离婚”作为控制筹码；\n  - 连续拉黑微信、电话关机数天玩失踪（严重情感虐待）。",
       "boundaries": "",
       "source": "Gottman JM, Levenson RW (1992). J Fam Psychol. https://doi.org/10.1037/0893-3200.6.2.221"
@@ -2145,7 +2191,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底规避两性关系中最具毁灭性的“双边父母角力与恶性对抗”；\n  - 建立坚不可摧的夫妻信任核心同盟，消除被伴侣背后插刀的背叛感；\n  - 引导两家父母学会尊重成年子女的独立生活，建立健康的代际交往距离。",
       "evidence": "A",
       "academic": "- **鲍文家庭系统理论（Bowen Family Systems Theory）实证**：Skowron EA, & Friedlander ML (1998). *The Differentiation of Self Inventory: Development and initial validation*. Journal of Counseling Psychology. https://doi.org/10.1037/0022-0167.45.3.235 （对长期婚恋群体的心理分化度追踪：个体在面对原生家庭干预时的“自我分化度（Differentiation of Self）”与婚姻满意度呈极其显著正相关（r=0.48, p<0.001）。未能与父母完成心理断乳（即处于“情感纠缠/融合”状态）的个体，其婚姻在 3 年内因婆媳/翁婿矛盾破裂的几率高达普通伴侣的 3.4 倍）。\n  - **法定夫妻独立地位依据**：《中华人民共和国民法典》第一千零四十三条（夫妻应当互相忠实、互相尊重、互相关爱；家庭成员应当尊老爱幼、互相帮助，维护平等、和睦、文明的婚姻家庭关系）及第一千零五十五条（夫妻双方都有参加生产、工作、学习和社会活动的自由，一方不得对另一方加以限制或者干涉）。",
-      "actions": "1. **谁的父母谁去沟通**：男方父母有意见，男方出面沟通安抚；女方父母有要求，女方出面协商定夺。严禁让伴侣直接与对方父母起正面冲突；\n  2. **信息防火墙原则**：两人关起门来的小摩擦、偶发性口角，坚决不向各自父母诉苦倒苦水。父母会代入血缘偏袒，留下不可磨灭的敌意印记；\n  3. **小家庭经济主权独立**：凡涉及大额财产赠与、借贷或购房出资，必须以书面协议明确性质，防止长辈以“出资人”身份随意剥夺新家庭的决策自主权。",
+      "actions": "1. **谁的父母谁去沟通**：男方父母有意见，男方出面沟通安抚；女方父母有要求，女方出面协商定夺。严禁让伴侣直接与对方父母起正面冲突；\n  2. **信息防火墙原则**：两人关起门来的小摩擦、偶发性口角，坚决不向各自父母诉苦倒苦水。父母会代入血缘偏袒，留下不可磨灭的敌意印记；\n  3. **小家庭经济主权独立**：伴侣第一序位是化解 第 34 条 彩礼争执与 第 35 条 父母购房出资争议的心理定盘星；凡涉及代际大额财产出资或借贷，必须严格依照 第 33 条 与 第 35 条 签署书面留痕协议，防止长辈以“出资人”身份剥夺新家庭决策权。",
       "redlines": "- 典型的“妈宝男/扶弟魔”行为：长辈一施压立刻牺牲伴侣利益，要求伴侣无底线隐忍让步；\n  - 吵架后立刻跑回娘家/婆家告状，把两个人的私密分歧激化为两个家族的恶性争斗。",
       "boundaries": "",
       "source": "Skowron EA, Friedlander ML (1998). J Couns Psychol. https://doi.org/10.1037/0022-0167.45.3.235 & 民法典第 1043 条"
@@ -2168,7 +2214,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 极大降低由物理隔离、多巴胺衰退引发的情感疏离与相互猜忌；\n  - 提前筛选出是否有共同携手走向现实生活的长期意愿；\n  - 为漫长异地生活设立明确的精神灯塔与倒计时心理支撑。",
       "evidence": "A",
       "academic": "- **异地恋存续与重聚追踪研究**：Stafford L, & Merolla AJ (2007). *Idealization, reunions, and stability in long-distance dating relationships*. Journal of Social and Personal Relationships. https://doi.org/10.1177/0265407507072578 （对 200 余对异地伴侣的纵向跟踪研究：具备明确且不可逾越的“同城结束期（Sunset Clause）”的伴侣，重聚并最终结婚的几率高达 71.3%；而处于“无限期异地”状态的情侣，在 12 个月内的分手率高达 68.2%，且异地期间理想化幻想破灭导致的重聚即分手效应极显著（p<0.01））。\n  - **媒体丰富度理论（Media Richness Theory）实证**：Daft RL, & Lengel RH (1986). *Organizational information requirements, media richness and structural design*. Management Science.（纯文字微信沟通属于最低信息丰富度媒介，缺乏语调、面部微表情与肢体语言，误读率高出面对面或视频沟通 4.6 倍。每日 15-30 分钟的高质量视频连线能补充 80% 以上的情感非语言线索）。",
-      "actions": "1. **设定终结倒计时（Sunset Clause）**：双方必须在异地开始 3 个月内，共同确定一个清晰的时间节点（如“后年 6 月你毕业我调岗，我们在同一个城市生活”），没有倒计时的异地恋是慢性自杀；\n  2. **固定沟通契约与透明日程**：约定每天固定 15-30 分钟的视频连线，互相分享日常琐碎（哪怕只是开着视频各自看书做饭），降低“失联恐慌”；\n  3. **物理见面周期与财务共担**：原则上异地见面周期不应超过 4-6 周；差旅费用由双方健康共担，轮流奔赴对方所在的城市，避免单方长期劳累与经济透支。",
+      "actions": "1. **设定终结倒计时（Sunset Clause）**：双方必须在异地开始 3 个月内，共同确定一个清晰的时间节点，没有倒计时的异地恋是慢性自杀；若发现任何一方无限期推诿且缺乏共同奔赴意愿，依据 第 32 条 及时止损；日常维系严格贯彻 第 26 条 的双向投入原则；\n  2. **固定沟通契约与透明日程**：约定每天固定 15-30 分钟的视频连线，互相分享日常琐碎（哪怕只是开着视频各自看书做饭），降低“失联恐慌”；\n  3. **物理见面周期与财务共担**：原则上异地见面周期不应超过 4-6 周；差旅费用由双方健康共担，轮流奔赴对方所在的城市，避免单方长期劳累与经济透支。",
       "redlines": "- “走一步看一步吧”：从来不讨论何时结束异地，拖延对方数年青春；\n  - 异地期间动辄冷暴力断联数天，诱发对方灾难化猜忌。",
       "boundaries": "",
       "source": "Stafford L, Merolla AJ (2007). J Soc Pers Relat. https://doi.org/10.1177/0265407507072578"
@@ -2191,7 +2237,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 立即刹住因急迫逼迫导致的彻底拉黑与反感；\n  - 给对方留出消化情绪、摆脱压迫感的安全心理距离；\n  - 重新找回个人的情绪重心与尊严基线。",
       "evidence": "A",
       "academic": "- **心理抗拒理论（Psychological Reactance）实证**：Dillard JP, & Shen L (2005). *On the nature of reactance and its role in persuasive health communication*. Communication Monographs. https://doi.org/10.1080/03637750500111815 （当个体的心理空间或选择自由感知到强烈压迫与逼迫时，愤怒和反驳防御情绪会激增 2.7 倍；实验表明，主动抽身撤出并提供 5-7 天的完整留白（Psychological Space），能使抗拒心理自然消退 68%）。\n  - **情感反刍与冷却周期**：Nolen-Hoeksema S (2000). *The role of rumination in depressive disorders and mixed anxiety/depressive symptoms*. Journal of Abnormal Psychology. https://doi.org/10.1037/0021-843X.109.3.504 （连续追问会延长并恶化对方的负面认知反刍；及时的沉默是阻断负面螺旋的最优解）。",
-      "actions": "1. **立刻按下暂停键**：觉察到对方回复极度勉强或单字敷衍后，切断连环发问，礼貌收尾后主动停止当期私聊；\n  2. **留白冷静期（5-7 天）**：在这期间不主动发起聊天，不发阴阳怪气的感伤动态，正常投入工作、运动与社交；\n  3. **轻量无压重新连接**：冷静期后，绝口不提上次的尴尬或追问“为什么不理我”，以一个与个人感情完全无关的第三方生活趣闻或公共话题轻量切入。",
+      "actions": "1. **立刻按下暂停键**：觉察到对方回复勉强或敷衍后，切断连环发问，克制小作文冲动，严格遵守 第 14 条 的留白原则；\n  2. **留白冷静期（5-7 天）**：在这期间不主动发起聊天，不发阴阳怪气动态，正常投入现实生活与工作；\n  3. **轻量无压重新连接**：冷静期后，绝口不提上次的尴尬，可借鉴 第 16 条 的第三方生活线索或轻量求助切入；若降温后对方依然冷淡毫无回应，坦然执行 第 32 条 的果断止损。",
       "redlines": "- 深夜发整屏长篇小作文反思道歉（“对不起，我只是太在乎你，你能原谅我吗……”——极其窒息）；\n  - 连环电话轰炸，甚至在对方住所或公司门口围追堵截。",
       "boundaries": "",
       "source": "Dillard JP, Shen L (2005). Commun Monogr. https://doi.org/10.1080/03637750500111815"
@@ -2214,7 +2260,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 瞬间拆除对方竖起的避嫌防备高墙；\n  - 维护自身高尊严、通透、体面的人格底色；\n  - 避免因追求不成导致彼此社会关系彻底决裂。",
       "evidence": "A",
       "academic": "- **认知失调与自我肯定实验**：Steele CM (1988). *The psychology of self-affirmation: Sustaining the integrity of the self*. Advances in Experimental Social Psychology. https://doi.org/10.1016/S0065-2601(08)60229-4 （自我肯定理论实验表明：面对拒绝时展现高自尊、不纠缠且尊重对方意愿的个体，其“人格完整度与道德成熟度”评价显著上升，不仅能有效消除拒绝方的愧疚应激防御，并在长期内保留高达 64% 的良性后续交往窗口）。\n  - **追逐-逃避动力学机制**：Christensen A, & Heavey CL (1990). *Gender and social structure in the demand/withdraw pattern of marital conflict*. J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.59.1.73 （一方施压索求关系确认时，另一方的逃避退缩几率高达 84%；主动停止施压能立刻阻断该死循环）。",
-      "actions": "1. **体面回应模板**：\n     > “完全理解你的感受，感情确实勉强不来，之前是我节奏有些急促了，给你带来了压力很抱歉。我们就当个聊得来的普通朋友挺好，祝你一切顺心。”\n  2. **收回特殊待遇**：\n     - 停止一切超越普通朋友界限的接送、送礼或情绪随叫随到；\n     - 恢复平等的泛泛之交标准，不怨恨、不卑微、不当免费劳工；\n  3. **专注自我迭代**：将注意力收回自身，在未来的生活轨迹中成为更成熟、更有吸引力的自己。",
+      "actions": "1. **体面接纳的态度原则与心智框架（非固定台词）**：\n     - **【真实表达警示】**：切勿将以下思路当成必须一字不差照抄的标准台词。感情必须由当事人用自己的声音去谈。关键在于传达出“理解与尊重对方意愿、坦然接纳当前节奏、不纠缠不抱怨”的内在从容，请用你自己的语气和相处风格自然表达；\n     - **心智内核**：坦然承认节奏错配，尊重对方选择，卸下对方心理包袱，打破 第 1 条 过早表白的尴尬死循环；\n  2. **收回特殊待遇**：\n     - 守住 第 4 条 的自尊底线，停止一切超越普通朋友界限的特殊待遇与随叫随到；\n     - 恢复平等的泛泛之交标准，不怨恨、不卑微、不当免费劳工；\n  3. **专注自我迭代**：将注意力收回自身成长，重回 第 2 条 的成长型心智轨道。",
       "redlines": "- 痛苦质问：“我到底哪点不如他？”、“我都为你付出这么多了，你为什么不能给我一次机会？”（情绪绑架）；\n  - 恼羞成怒反唇相讥，在朋友圈公开阴阳怪气辱骂对方。",
       "boundaries": "",
       "source": "Christensen A, Heavey CL (1990). J Pers Soc Psychol. https://doi.org/10.1037/0022-3514.59.1.73"
@@ -2237,7 +2283,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 做最后一次低阻力尝试，不留遗憾；\n  - 战胜沉没成本谬误（Sunk Cost Fallacy），避免在无希望的关系里耗费数年青春；\n  - 为真正值得相伴的同频伴侣腾出生命空间。",
       "evidence": "A",
       "academic": "- **富兰克林效应经典社会心理学实验**：Jecker J, & Landy D (1969). *Decreasing a liking for a person who has done one a favor*. Human Relations. https://doi.org/10.1177/001872676902200407 （著名人际吸引实验：被请求提供轻微个人帮助（微小求助）的受试者，相比被直接示好或赠礼的受试者，对请求者的人际好感度显著提高（p<0.01）。心理机制在于受试者需要合理化自身提供帮助的行为：“我帮助他，一定是因为他是一个不错的人”）。\n  - **沉没成本谬误与决策心理学**：Arkes HR, & Blumer C (1985). *The psychology of sunk cost*. Organizational Behavior and Human Decision Processes. https://doi.org/10.1016/0749-5978(85)90049-4 （人类在感知到前期投入的时间、精力无法收回时，倾向于追加非理性投入；在亲密关系中，无法克服沉没成本会使个体的抑郁与心理耗竭发生率提高 3.1 倍。理智止损是维护终身心理健康的最强指标）。",
-      "actions": "1. **无压力求助破冰**：\n     - “记得你之前去过某地/做过某领域项目，我正好有个事情想请教一下你的建议，方便指点一下吗？”；\n  2. **见好就收原则**：\n     - 对方若友好回复，答谢后主动结束本轮对话，不打持久战；\n  3. **果断止损法则（终极解毒剂）**：\n     - 若对方已读不回，或回复极度冰冷（“不清楚/不知道”）；\n     - 彻底停止任何主动联系，默默在心底画上句号；\n     - 懂得放手是一个成年人最成熟的慈悲。",
+      "actions": "1. **无压力求助破冰**：\n     - “记得你之前去过某地/做过某领域项目，我正好有个事情想请教一下你的建议，方便指点一下吗？”；\n  2. **见好就收原则**：\n     - 对方若友好回复，答谢后主动结束本轮对话，不打持久战；\n  3. **果断止损法则（终极解毒剂）**：\n     - 若对方已读不回，或回复极度冰冷，依据 第 6 条 的丰足心智果断放手；\n     - 彻底停止任何主动联系，默默在心底画上句号，避免深陷不健康的沉没成本泥潭；\n     - 懂得放手是一个成年人最成熟的慈悲，重回 第 1 条 与 第 3 条 的自我建设轨道。",
       "redlines": "- 纠缠几年不放，对方已经开始新生活依然深陷单相思不可自拔；\n  - 试图通过自我伤害、自暴自弃来博取对方的同情与关注。",
       "boundaries": "",
       "source": "Jecker J, Landy D (1969). Hum Relat. https://doi.org/10.1177/001872676902200407"
@@ -2260,7 +2306,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底规避恋爱分手后被“卷款跑路”却因证据不足败诉的人财两空；\n  - 依法保护个人婚前合法财产所有权；\n  - 维护平等健康的交往金钱观，杜绝把恋爱当提款机的恶意寄生。",
       "evidence": "A",
       "academic": "- **法定裁判规则**：《中华人民共和国民法典》第六百五十七条（赠与合同）、第六百六十七条（借款合同）及最高人民法院《关于审理民间借贷案件适用法律若干问题的规定》第十六条。\n  - **司法大数据统计**：中国裁判文书网近年涉婚恋民间借贷纠纷裁判文书大数据显示：凡金额包含“520、1314、999”或无任何借条、还款承诺的纯转账记录，原告主张返还的败诉率高达 89.4%；而具备明确借款合意聊天记录（对方承认借款）与非特殊金额转账凭证的案件，胜诉支持率达 92.1%。",
-      "actions": "1. **特殊金额的定性**：520、1314、节日小红包等，在法律推定上属于表达爱意的“无偿赠与”，一旦转出即所有权转移，除非附解除条件否则一律不可撤销；\n  2. **大额资助与借款转账三要素**：\n     - **整数转账**：坚决走银行卡或微信转账整数（如 5000、20000），切忌凑特殊谐音；\n     - **备注明确**：转账附言写明“暂借款/急用周转款”；\n     - **文字留痕确认**：转账后在微信补发一句：“这是转你周转的 2 万元，你先救急，周转开了再还我就行”，并引导对方回复“收到/好/谢谢”等确认合意的信息；\n  3. **聊天记录常态化备份**：涉及借贷确认的关键对话，定期备份至微信电脑端或导出存档，防止日后被单向拉黑删除导致举证困难。",
+      "actions": "1. **特殊金额的定性**：520、1314、节日小红包等，在法律推定上属于表达爱意的“无偿赠与”，一旦转出即所有权转移，除非附解除条件否则一律不可撤销；\n  2. **民间借贷合意法定三要素（客观留痕清单）**：\n     - **要素一·借贷合意形成凭据**：在微信或书面中明确体现借款与归还意思表示（如明确提及“借款、急用周转、何时还款”），并有对方确认回复；\n     - **要素二·款项实际交付凭证**：坚决走银行卡转账整数（如 5000、20000），切忌凑特殊谐音；转账附言必须客观备注“借款/资金周转”，绝不可随意附带恋爱昵称；\n     - **要素三·还款期限与法定利息约定**：大额款项明确约定还款日期；年利率约定不得超过合同成立时一年期 LPR 的 4 倍；\n  3. **证据备份与跨领域联动**：关键转账流水与对话导出存档；若涉及结婚合资买房，严格衔接 第 35 条 的出资协议；涉及非日常生活需要的大额对外举债，联动 第 36 条 的共债共签防线；健康的财务往来与 第 26 条 的双向互惠理念深度契合。",
       "redlines": "- 恋爱期间为了充面子，大额借钱给对方甚至帮对方贷款，没有任何文字凭据（纯口头借款）；\n  - 用现金直接交付大额钱款且无任何收条。",
       "boundaries": "",
       "source": "最高人民法院关于审理民间借贷案件适用法律若干问题的规定 & 民法典第 657/667 条"
@@ -2283,7 +2329,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 依法防范“闪婚闪离卷走天价彩礼”的情感诈骗与经济陷阱；\n  - 明确双方财产权益，避免因非理性质疑引发两家恶性肢体冲突；\n  - 引导婚俗回归理性真诚，消除物质沉重负担。",
       "evidence": "A",
       "academic": "- **最新司法解释**：最高人民法院《关于审理涉彩礼纠纷案件适用法律若干问题的规定》（法释〔2024〕1号）第二条至第六条。\n  - **法定返还三原则**：符合下列法定情形的，原告请求返还彩礼，人民法院依法予以支持：\n    1. 双方未办理结婚登记手续的；\n    2. 双方办理结婚登记手续但确未共同生活的；\n    3. 婚前给付并导致给付人生活困难的（后两项以双方离婚为条件）。\n  - **实务折抵规则**：法院裁判时综合考虑共同生活时间长短（如生活超过一定年限）、是否孕育子女、彩礼实际花费（如办酒席开销）、嫁妆情况等确定返还比例。",
-      "actions": "1. **走银行流水留痕**：彩礼、聘金坚决通过本人银行卡向对方本人或对方直系亲属账户转账，备注“订婚彩礼”，切忌提着大包现金无凭无据交付；\n  2. **区分“日常消费”与“彩礼”**：婚约协商期间，价值较小的日常走亲访友礼品、吃饭娱乐开销属于自愿情谊消费，不属于彩礼范畴，无法请求返还；\n  3. **共同生活时间考量**：若未登记结婚但已同居生活，同居时间越长、有孕育子女情形的，法院判决返还的比例会相应调减。",
+      "actions": "1. **走银行流水留痕（区分情谊消费与彩礼）**：彩礼给付坚决通过本人银行卡转账至对方或直系亲属账户，严格备注“订婚彩礼”，与 第 33 条 资金转账规范一致；日常走亲访友礼品、吃饭消费属于一般赠与，无法主张返还；\n  2. **最新司法实践要点（法释〔2024〕1号及民法典婚姻家庭编解释二精神）**：法院综合考量双方共同生活时间长短、是否办理结婚登记、是否孕育子女、彩礼实际使用（如置办共同嫁妆家具）、双方过错程度等确定返还比例；\n  3. **防范家庭过度干涉**：彩礼协商若产生激烈对立，警惕原生家庭过度干涉（参见 第 28 条 的伴侣第一序位原则），坚决避免两家演变为恶性肢体冲突。",
       "redlines": "- 未领证即掏空全家积蓄举债支付数十万现金彩礼，对方悔婚后自认倒霉不去法院主张权利；\n  - 发生纠纷后采取非法拘禁、围堵娘家等违法犯罪手段强索。",
       "boundaries": "",
       "source": "最高人民法院法释〔2024〕1号司法解释"
@@ -2306,7 +2352,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底规避倾尽两代人积蓄买房、离婚时却因权属模糊遭遇重大财产分割损失；\n  - 建立透明健康的家庭财务合作规则；\n  - 为双方还贷贡献提供无可争议的法律依据。",
       "evidence": "A",
       "academic": "- **法定法条**：《中华人民共和国民法典》第一千零六十二条、第一千零六十三条及最高人民法院《关于适用〈中华人民共和国民法典〉婚姻家庭编的解释（一）》第七十六条至第七十八条。\n  - **补偿计算权威公式**：离婚时共同还贷及增值补偿款计算公式：  \n    $$补偿款 = \\frac{共同还贷部分（含本息）}{房屋总成本（购房款+总利息）} \\times 离婚时房屋现值 \\div 2$$",
-      "actions": "1. **一方父母全额出资**：若婚前由一方父母出全资为子女购房，产权登记在该出资子女名下，法律明确认定为该子女的个人婚前财产；\n  2. **婚前一方付首付 + 婚后共同还贷**：\n     - 首付资金务必通过购房者本人银行账户划拨至开发商监管账户，留存全套原始转账凭证；\n     - 婚后夫妻双方的工资均属夫妻共同财产，即便用一人流水还贷，法律亦推定为共同还贷；\n  3. **恋爱期间合资购房协议（关键避坑）**：\n     - 若未领证前双方共同出首付购房，房产证若只写一人名字，另一方必须签署《共同出资协议》，并保留实际转账流水，否则日后房产登记人翻脸可能被视为“借款”或“无偿赠与”。",
+      "actions": "1. **一方父母全额出资**：若婚前由一方父母出全资为子女购房，产权登记在该出资子女名下，法律明确认定为该子女的个人婚前财产；\n  2. **婚前合资买房/父母出资出资备忘五要素（客观核对清单）**：\n     - **要素一·出资账户主体明确**：首付款必须由出资方本人银行账户划转至监管账户，留存原始转账凭证与合同，杜绝第三方代付；\n     - **要素二·转账附言客观规范**：父母资助或合资出资转账备注清晰标明性质（如“购房出资款/借款”），联动 第 33 条；\n     - **要素三·产权登记按份共有**：未领证合资购房，若登记在双方名下，必须在不动产权证上载明各自出资的共有份额比例（而非笼统的共同共有）；\n     - **要素四·书面出资备忘签署**：若房产证只登记一人名字，双方必须签署书面《共同购房出资协议》，明晰出资性质与退出机制，严守 第 28 条 的小家庭独立主权；\n     - **要素五·婚后共同还贷台账分离**：婚后工资均属夫妻共同财产，留存还贷台账与增值计算依据；\n  3. **债务风险隔离**：合资购房贷款恪守 第 36 条 的共债共签底线，防止房产被私人高风险债务牵连拍卖。",
       "redlines": "- 婚前自己掏全额首付买房，为了表忠心草率在不动产证上加上恋爱对象名字（加名即视为赠与一半份额，离婚时按共同财产分割）；\n  - 婚前出资不留流水凭证，全走现金或第三方账户代付。",
       "boundaries": "",
       "source": "民法典婚姻家庭编解释（一）第七十八条"
@@ -2329,7 +2375,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 筑牢家庭债务防火墙，防止被伴侣的非理性债务连带破产、列入失信被执行人黑名单；\n  - 保护未成年子女与自身的基础生存财产安全。",
       "evidence": "A",
       "academic": "- **民法典共债共签制度**：《中华人民共和国民法典》第一千零六十四条（夫妻共同债务认定标准）。\n  - **举证责任分配**：夫妻一方在婚姻关系存续期间以个人名义超出家庭日常生活需要所负的债务，债权人主张属于夫妻共同债务的，举证责任在债权人（债权人必须举证证明该笔债务用于了夫妻共同生活、共同生产经营或者基于夫妻双方共同意思表示）。",
-      "actions": "1. **恪守三不签底线**：\n     - 坚决不在伴侣的企业大额借款、民间借贷合同中的“共同借款人”、“连带担保人”栏签字；\n     - 坚决不出借自己的身份证、银行卡给伴侣作为贷款账户；\n  2. **知情同意与日常支出分界**：\n     - 属于共同债务的：用于买菜、交物业费、孩子交学费等日常小额家庭支出；\n     - 不属于共同债务的：数额明显超出普通日常消费（如几十万借款）且未流入家庭共同账户的；\n  3. **账户独立性维护**：若发现伴侣沾染赌博、炒币、高杠杆投机恶习，立刻将个人工资账户与家庭公共开销账户解绑，保留工资流水未用于偿还其私人债务的证据链。",
+      "actions": "1. **恪守三不签底线**：\n     - 坚决不在伴侣的企业大额借款、民间借贷合同中的“共同借款人”、“连带担保人”栏签字；\n     - 坚决不出借自己的身份证、银行卡给伴侣作为贷款账户；\n  2. **知情同意与日常支出分界**：\n     - 属于共同债务的：用于日常小额家庭衣食住行、子女教育等开销；\n     - 不属于共同债务的：明显超出家庭日常消费（如大额民间借贷、企业经营巨债）且未签字、未进入家庭账户的款项，债权人必须负举证责任（民法典第 1064 条）；\n  3. **账户独立与依法退场**：若发现伴侣涉赌、高杠杆投机且屡教不改，守住 第 4 条 个人边界，立即进行财务隔离；严重危及人身财产安全时，依法果断退场（第 32 条、第 37 条）。",
       "redlines": "- 碍于夫妻情面，在来路不明的大额借条或空白担保合同上草率签名（一旦签名，即便借款分文没花在你身上，也必须承担连带还款责任）；\n  - 帮伴侣刷脸认证网贷 App。",
       "boundaries": "",
       "source": "中华人民共和国民法典第一千零六十四条"
@@ -2352,7 +2398,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 获得国家司法强制力保护，违法违反保护令者直接面临司法拘留甚至刑事判刑；\n  - 斩断家暴“施暴-忏悔-再次施暴”的恐怖循环；\n  - 在后续离婚诉讼中，作为主张损害赔偿和争取子女抚养权的核心压倒性证据。",
       "evidence": "A",
       "academic": "- **法定法规**：《中华人民共和国反家庭暴力法》第十五条至第三十二条、最高人民法院《关于办理人身安全保护令案件适用法律若干问题的规定》（法释〔2022〕19号）。\n  - **裁定时效**：人民法院受理申请后，应当在 72 小时内作出人身安全保护令；情况紧急的，应当在 24 小时内作出。被申请人违反保护令构成犯罪的，依法追究刑事责任；尚不构成犯罪的，处以一千元以下罚款、十五日以下拘留。",
-      "actions": "1. **家暴法定六大证据链清单**：\n     - **第一：110 报警记录**（要求公安机关出具《报警受案回执单》或《家庭暴力告诫书》）；\n     - **第二：医院伤情诊断与病历**（注明致伤原因，拍下创伤彩照）；\n     - **第三：伤情鉴定意见书**（达到轻微伤或轻伤的法定法医鉴定）；\n     - **第四：现场录音录像、监控视频**；\n     - **第五：含有威胁恐吓言论的微信聊天记录、通话录音**；\n     - **第六：居委会、妇联的求助化解记录或目击证人证言**；\n  2. **安全撤离第一原则**：遭受暴力威胁时，人身安全高于一切财物，立刻跑出房屋前往公共人多区域或直接前往派出所，切忌在封闭密室内与失控伴侣硬碰硬。",
+      "actions": "1. **家暴法定六大证据链清单（客观取证规范）**：\n     - **第一：110 报警记录**（公安机关出具的《报警受案回执单》或《家庭暴力告诫书》）；\n     - **第二：医院伤情诊断与病历**（病历本注明外力致伤原因，留存创伤彩照）；\n     - **第三：法定伤情鉴定意见书**（法医伤情鉴定，达轻微伤可行政拘留，轻伤及以上涉嫌故意伤害罪）；\n     - **第四：现场录音录像与监控视频**；\n     - **第五：包含威胁恐吓言论的聊天记录、通话录音与短信**；\n     - **第六：居委会、妇联、反家暴庇护所求助登记记录或证人证言**；\n  2. **24/72小时人身安全保护令申请与安全撤离**：凭上述证据直接向法院申请保护令（法释〔2022〕19号），紧急情况法院24小时内必须裁定；家暴零容忍，彻底超越 第 4 条 的心理边界，不听信施暴者悔过谎言，坚决安全撤离。",
       "redlines": "- 相信施暴者的“痛哭下跪与扇耳光道歉保证”，放弃报警和验伤（家暴只有零次和无数次）；\n  - 忍气吞声当家丑不可外扬，导致没有任何官方书面取证记录。",
       "boundaries": "",
       "source": "中华人民共和国反家庭暴力法 & 法释〔2022〕19号"
@@ -2375,7 +2421,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 捍卫自身的重大知情权与生命健康权；\n  - 依法撤销受欺诈婚姻，避免背负“离异”身份痕迹；\n  - 请求过错方承担精神与物质损害赔偿。",
       "evidence": "A",
       "academic": "- **民法典法定撤销条款**：《中华人民共和国民法典》第一千零五十三条：一方患有重大疾病的，应当在结婚登记前如实告知另一方；不如实告知的，另一方可以向人民法院请求撤销婚姻。\n  - **重大除斥期间规则**：请求撤销婚姻的，应当自“知道或者应当知道撤销事由之日起一年内”提出。该一年期间为不变期间，不适用诉讼时效中止、中断或者延长的规定。逾期提出，法院坚决不予受理，受害方只能走繁琐且漫长的普通离婚诉讼。",
-      "actions": "1. **婚前主动体检与婚检**：\n     - 前往正规妇幼保健院或三甲医院完成婚前医学检查（包含遗传病、传染病筛查）；\n     - 坦诚互换体检报告，真诚透明是婚姻的第一道安全屏障；\n  2. **发现瞒报后的黄金取证**：\n     - 若婚后发现伴侣在结婚登记前就已确诊重大疾病且故意隐瞒；\n     - 立即固定其婚前确诊病历、购药记录或自认录音；\n     - **必须在知道之日起 365 天内立案**向法院提起撤销婚姻之诉，切勿犹豫拖延。",
+      "actions": "1. **婚前主动体检与婚检**：\n     - 前往正规妇幼保健院或三甲医院完成婚前医学检查（包含遗传病、传染病筛查）；\n     - 坦诚互换体检报告，真诚透明是婚姻的第一道安全屏障；\n  2. **发现瞒报后的黄金取证与一年除斥期间**：\n     - 若婚后发现伴侣在结婚登记前故意隐瞒重大疾病（如严重精神障碍、重症传染病等）；\n     - 依法固定其婚前就诊病历、购药流水、医保记录或对话录音；\n     - **法律刚性底线**：必须在知道事由之日起 365 天内向法院立案起诉撤销婚姻（民法典第 1053 条），该除斥期间不可中断或顺延；婚前充分沟通可联动 第 17 条 自我暴露与 第 39 条 生育健康对齐。",
       "redlines": "- 发现对方婚前瞒报重病后，只顾吵架冷战拖延超过一年，错失撤销婚姻的不变除斥期间；\n  - 迷信“对方爱我就会对我负责”，拒绝做任何婚前医学体检。",
       "boundaries": "",
       "source": "中华人民共和国民法典第一千零五十三条"
@@ -2398,7 +2444,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底规避婚后因“一方坚决丁克、另一方必须生娃”导致的毁灭性婚姻解体；\n  - 杜绝非意愿妊娠（意外怀孕流产）对女性身体与心理健康造成的严重不可逆创伤；\n  - 确立两性在生育健康上的对等责任与相互尊重伦理。",
       "evidence": "A",
       "academic": "- **身体权与知情同意法定依据**：《中华人民共和国民法典》第一千零零四条（自然人享有健康权，其身心健康受法律保护）、第一千零零七条（禁止以任何形式买卖人体细胞、人体组织、人体器官、遗体）及《中华人民共和国妇女权益保障法》第三十二条（妇女有按照国家有关规定生育子女的权利，也有不生育的自由）。\n  - **非意愿妊娠与生殖健康实证研究**：Guttmacher Institute (2020). *Unintended Pregnancy and Abortion Worldwide*. WHO 公共卫生报告。（因避孕责任缺失导致的非意愿妊娠，不仅流产后感染与继发不孕风险升高 4.2 倍，更是诱发伴侣间相互推诿、精神暴力与迅速解体的高危核心因子（r=0.51, p<0.001））。",
-      "actions": "1. **婚前“生育三问”前置对齐**：\n     - 是否要孩子？（如果一方坚决丁克，切忌幻想“结了婚对方就会改主意”）；\n     - 育儿分工与财务预期如何？（教育投入预期、主要照料者责任如何平衡）；\n     - 若遭遇生理不育问题，双方对试管/领养的接受度与底线是什么；\n  2. **避孕责任双向对等**：\n     - 未做好迎接新生命准备前，严格采取男用安全套等科学双重防护；\n     - 严禁将紧急避孕药（大剂量激素）作为常规避孕手段长期转嫁给伴侣身体；\n  3. **突发非意愿妊娠的救济底线**：\n     - 一旦发生意外，男方必须承担全部医疗开销、营养照护与情绪陪伴责任，严禁推诿失联。",
+      "actions": "1. **婚前生育意愿对齐客观清单**：\n     - **意愿共识**：要不要孩子？（丁克与否，切忌幻想婚后妥协）；\n     - **时间表与抚育分工**：预计何时生育、主要照料与经济抚育责任如何分担；\n     - **医学与生理底线**：若遇生育困难，对医学辅助的接受底线；婚前检查深度联动 第 38 条；避孕责任双向对等，严格遵守 第 24 条 的身体知情同意原则；\n  2. **避孕责任双向对等**：\n     - 未做好迎接新生命准备前，严格采取男用安全套等科学双重防护；\n     - 严禁将紧急避孕药（大剂量激素）作为常规避孕手段长期转嫁给伴侣身体；\n  3. **突发非意愿妊娠的救济底线**：\n     - 一旦发生意外，男方必须承担全部医疗开销、营养照护与情绪陪伴责任，严禁推诿失联。",
       "redlines": "- 婚前信誓旦旦同意丁克，婚后受父母压力突然反悔逼迫生育；\n  - 发生意外怀孕后单方面拉黑删除、逃避抚养与医疗责任（引发人身损害赔偿民事侵权）。",
       "boundaries": "",
       "source": "民法典第 1004 条 & 妇女权益保障法第 32 条 & WHO (2020) 生殖健康指引"
@@ -2421,7 +2467,7 @@ html.dark #toast { background: rgba(240, 240, 245, .95); color: #1a1a1a; box-sha
       "benefits": "- 彻底防范因感情纠葛导致丢掉工作、名誉扫地甚至陷入性骚扰指控的毁灭性职业危机；\n  - 维护职业专业度与雇佣合规边界；\n  - 建立恋爱与事业互不干扰的成熟防御机制。",
       "evidence": "A",
       "academic": "- **组织行为学与职场恋情实证**：Pierce CA, & Aguinis H (2003). *Romantic relationships in organizations: A test of a model of formation and impact on workplace behaviors*. Journal of Applied Psychology. https://doi.org/10.1037/0021-9010.88.5.811 （对 400 余家企事业单位调查：存在上下级权力从属关系的职场恋爱，在业绩考评、晋升公信力上的团队冲突发生率高达 84%；恋情破裂后至少一方因敌对工作环境被迫离职的概率高达 62%）。\n  - **反性骚扰与保密法定红线**：《中华人民共和国民法典》第一千零一十条（机关、企业、学校等单位应当采取合理的预防、受理投诉、调查处置等措施，防止和制止利用职权、从属关系等实施性骚扰）及《民法典》第一千零三十二条（隐私权与个人信息保护）。",
-      "actions": "1. **权力从属关系绝对回避**：若产生感情的双方存在直接上下级审批、考评或财务关联，其中一方必须主动申请转岗、调线或申报利益冲突，消除公私不分隐患；\n  2. **职场“隐身协议”**：在工作场所一律使用规范商务称谓，严禁利用公司公共资源与工作沟通软件传递私密信息；\n  3. **分手后的“竞业与保密”契约**：无论分手如何痛苦，严格坚守个人职业操守，不得向第三方泄露前任的私密聊天记录、身体隐私或商业机密，否则构成侵犯隐私权与名誉权。",
+      "actions": "1. **权力从属关系绝对回避**：若产生感情的双方存在直接上下级审批、考评或财务关联，其中一方必须主动申请转岗、调线或申报利益冲突，消除公私不分隐患；\n  2. **职场“隐身协议”**：在工作场所一律使用规范商务称谓，严禁利用公司公共资源与工作沟通软件传递私密信息；\n  3. **分手后的体面保密契约**：无论分手如何痛苦，严守职业底线与民法典第 1032 条隐私权防线，绝不散布私密信息；体面从容退场，与 第 31 条 的尊严退守理念一脉相承。",
       "redlines": "- 利用主管、领导职权暗示或强迫下属发展亲密关系（直接触犯民法典第 1010 条性骚扰责任，严重者触犯刑法强制猥亵罪）；\n  - 分手后在公司大群发小作文、张贴大字报报复抹黑对方（侵犯名誉权并面临辞退开除）。",
       "boundaries": "",
       "source": "民法典第 1010/1032 条 & Pierce CA, Aguinis H (2003). J Appl Psychol. https://doi.org/10.1037/0021-9010.88.5.811"
@@ -2452,7 +2498,8 @@ const state = {
   will: new Set(),
   grade: new Set(),
   cat: new Set(),
-  law: false
+  law: false,
+  pw: null
 };
 
 /* ---------- 文本与链接渲染工具 ---------- */
@@ -2880,6 +2927,7 @@ function updateUrlParams() {
   if (state.grade.size) params.set('grade', Array.from(state.grade).join(','));
   if (state.cat.size) params.set('cat', Array.from(state.cat).join(','));
   if (state.law) params.set('law', '1');
+  if (state.pw) params.set('pw', state.pw);
 
   const str = params.toString();
   const newUrl = str ? `${location.pathname}?${str}${location.hash}` : `${location.pathname}${location.hash}`;
@@ -2899,6 +2947,7 @@ function loadUrlParams() {
   if (params.has('grade')) params.get('grade').split(',').filter(Boolean).forEach(g => state.grade.add(g));
   if (params.has('cat')) params.get('cat').split(',').filter(Boolean).forEach(c => state.cat.add(c));
   if (params.has('law')) state.law = params.get('law') === '1' || params.get('law') === 'true';
+  if (params.has('pw')) state.pw = params.get('pw');
 }
 
 /* ---------- 筛选与检索逻辑 ---------- */
@@ -2931,6 +2980,14 @@ function applyFilters() {
     // 法律红线快捷筛选
     if (match && state.law && e.sec !== 9 && !(e.category || '').includes('法')) {
       match = false;
+    }
+    // 场景决策链路筛选
+    if (match && state.pw) {
+      const pwCard = document.querySelector(`.pw-card[data-pw="${state.pw}"]`);
+      if (pwCard) {
+        const ids = pwCard.dataset.items.split(',').map(n => parseInt(n, 10));
+        if (!ids.includes(e.id)) match = false;
+      }
     }
     // 关键词搜索
     if (match && terms.length && !terms.every(t => card.searchKey.includes(t))) {
@@ -2985,6 +3042,11 @@ function syncControls() {
     }
   });
   document.getElementById('f-law').checked = state.law;
+  // 同步场景决策链路激活状态
+  document.querySelectorAll('.pw-card').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.pw === state.pw);
+  });
+
 }
 
 function resetAll() {
@@ -2997,6 +3059,7 @@ function resetAll() {
   state.grade.clear();
   state.cat.clear();
   state.law = false;
+  state.pw = null;
   applyFilters();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -3127,6 +3190,19 @@ function bindEvents() {
     const fromId = POP.dataset.from;
     POP.hidden = true;
     gotoItem(targetId, fromId);
+  });
+
+  // 场景决策链路点击
+  document.getElementById('pathways')?.addEventListener('click', e => {
+    const btn = e.target.closest('.pw-card');
+    if (!btn) return;
+    const pw = btn.dataset.pw;
+    if (state.pw === pw) {
+      state.pw = null;
+    } else {
+      state.pw = pw;
+    }
+    applyFilters();
   });
 
   // 一键复制条目精要
