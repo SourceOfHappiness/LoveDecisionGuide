@@ -240,7 +240,7 @@ html.dark .switch .moon { display: block; }
 .intro { margin: 0 0 16px; color: var(--t2); font-size: 14px; max-width: 76ch; line-height: 1.7; }
 
 /* 卡片样式 (严格 1:1 HowToLiveBetter) */
-.card { background: var(--bg-soft); border: 1px solid transparent; border-radius: 12px; padding: 22px 24px 18px; margin-bottom: 16px; transition: border-color .25s, background .25s; content-visibility: auto; contain-intrinsic-size: 300px; }
+.card { background: var(--bg-soft); border: 1px solid transparent; border-radius: 12px; padding: 22px 24px 18px; margin-bottom: 16px; transition: border-color .25s, background .25s; }
 .card:hover { border-color: var(--divider); }
 .card-h { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
 .card-h h3 { margin: 0; font-size: 18px; line-height: 28px; font-weight: 600; letter-spacing: -.01em; flex: 1; min-width: 0; overflow-wrap: anywhere; }
@@ -2636,33 +2636,74 @@ function showXref(targetEl) {
   POP.hidden = false;
 
   const r = targetEl.getBoundingClientRect(), vw = document.documentElement.clientWidth;
-  POP.style.top = (window.scrollY + r.bottom + 6) + 'px';
-  POP.style.left = Math.max(window.scrollX + 14, Math.min(window.scrollX + r.left, window.scrollX + vw - POP.offsetWidth - 14)) + 'px';
+  const popH = POP.offsetHeight || 160;
+  const popW = POP.offsetWidth || 340;
+
+  // 垂直位置智能防遮挡：若屏幕下方空间不足且上方充裕，弹窗展现在链接上方
+  const spaceBelow = window.innerHeight - r.bottom;
+  const showAbove = spaceBelow < popH + 16 && r.top > popH + 72;
+  
+  const topPos = showAbove
+    ? window.scrollY + r.top - popH - 6
+    : window.scrollY + r.bottom + 6;
+
+  // 水平位置智能防溢出
+  const leftPos = Math.max(
+    window.scrollX + 14,
+    Math.min(window.scrollX + r.left, window.scrollX + vw - popW - 14)
+  );
+
+  POP.style.top = `${topPos}px`;
+  POP.style.left = `${leftPos}px`;
 }
 
 function gotoItem(id, fromId) {
   const el = document.getElementById(`e-${id}`);
   if (!el) return;
 
-  // 若当前条目被筛选隐藏，先清空筛选
-  if (!el.offsetParent) {
-    state.q = '';
-    state.sec.clear();
-    state.grade.clear();
-    state.cat.clear();
-    state.law = false;
-    syncControls();
-    applyFilters();
+  // 立即关闭交叉引用浮窗
+  if (POP) POP.hidden = true;
+
+  // 如果目标元素被隐藏，调用完整的 resetAll() 清空全部筛选维度
+  const wasHidden = el.hidden || !el.offsetParent;
+  if (wasHidden) {
+    resetAll();
   }
 
   history.pushState(null, '', `#e-${id}`);
-  const navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'), 10) || 64;
-  const top = el.getBoundingClientRect().top + window.scrollY - navH - 16;
-  window.scrollTo({ top, behavior: 'smooth' });
 
-  el.classList.remove('flash');
-  void el.offsetWidth;
-  el.classList.add('flash');
+  const scrollToTarget = () => {
+    const navEl = document.querySelector('header.nav');
+    const navH = navEl ? navEl.offsetHeight : 64;
+    const rect = el.getBoundingClientRect();
+    const targetTop = window.pageYOffset + rect.top - navH - 16;
+
+    window.scrollTo({
+      top: Math.max(0, targetTop),
+      behavior: 'smooth'
+    });
+
+    el.classList.remove('flash');
+    void el.offsetWidth;
+    el.classList.add('flash');
+
+    // 450ms 后精准校准微调，确保绝对像素级定位
+    setTimeout(() => {
+      const curRect = el.getBoundingClientRect();
+      const diff = curRect.top - (navH + 16);
+      if (Math.abs(diff) > 4) {
+        window.scrollBy({ top: diff, behavior: 'auto' });
+      }
+    }, 450);
+  };
+
+  if (wasHidden) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(scrollToTarget);
+    });
+  } else {
+    scrollToTarget();
+  }
 }
 
 /* ---------- 滚动监听与侧栏高亮同步 (Scroll Spy) ---------- */
@@ -3104,6 +3145,7 @@ function bindEvents() {
     }
 
     if (secLink) {
+      setDrawer(false);
       const v = secLink.dataset.v;
       if (!v) {
         state.sec.clear();
@@ -3150,6 +3192,16 @@ function bindEvents() {
   // 重置按钮
   document.getElementById('reset').addEventListener('click', resetAll);
   document.getElementById('reset2').addEventListener('click', resetAll);
+
+  // 浏览器前进/后退历史联动定位
+  window.addEventListener('popstate', () => {
+    if (location.hash && location.hash.startsWith('#e-')) {
+      const targetId = location.hash.replace('#e-', '');
+      gotoItem(targetId);
+    } else if (!location.hash) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
 
   // 键盘快捷键
   document.addEventListener('keydown', e => {
@@ -3203,10 +3255,31 @@ function bindEvents() {
       state.pw = pw;
     }
     applyFilters();
+    if (state.pw) {
+      const listEl = document.getElementById('list');
+      if (listEl) {
+        const navH = document.querySelector('header.nav')?.offsetHeight || 64;
+        const targetTop = window.pageYOffset + listEl.getBoundingClientRect().top - navH - 12;
+        window.scrollTo({ top: Math.max(0, targetTop), behavior: 'smooth' });
+      }
+    }
   });
 
-  // 一键复制条目精要
+  // 列表内锚点与复制事件处理
   document.getElementById('list').addEventListener('click', ev => {
+    // 点击 # 锚点：平滑定位并复制分享直达链接
+    const anchor = ev.target.closest('.anchor');
+    if (anchor) {
+      ev.preventDefault();
+      const card = anchor.closest('.card');
+      if (!card) return;
+      const id = card.id.replace('e-', '');
+      gotoItem(id);
+      const shareUrl = `${location.origin}${location.pathname}#e-${id}`;
+      copyText(shareUrl, `已复制条目 #${id} 直达分享链接`);
+      return;
+    }
+
     const btn = ev.target.closest('.copy-btn');
     if (!btn) return;
     const id = parseInt(btn.dataset.copyId, 10);
